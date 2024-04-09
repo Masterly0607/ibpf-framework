@@ -16,6 +16,18 @@ const routes = [
     ],
   },
 
+  {
+    path: "/app",
+    component: () => import("layouts/MainLayout.vue"),
+    children: [
+      {
+        path: "skill-assessment",
+        name: "skill-assessment",
+        component: () => import("pages/skills/SkillAssessmentPage.vue"),
+      },
+    ],
+  },
+
   // Always leave this as last one,
   // but you can also remove it
   {

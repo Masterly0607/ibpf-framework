@@ -89,6 +89,10 @@ module.exports = configure(function (/* ctx */) {
           },
         ],
       ],
+
+      alias: {
+        "@": path.resolve(__dirname, "./src"),
+      },
     },
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#devServer
