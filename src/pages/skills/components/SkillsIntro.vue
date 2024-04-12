@@ -1,15 +1,15 @@
 <template>
-  <section id="skill-intro" class="ibf-container-900">
-    <div class="text-center ibf-h5 q-my-lg text-weight-bold">
+  <section id="skill-intro" class="ibf-container-1100">
+    <div class="text-center ibf-h5 q-mt-md text-weight-bold">
       Hi there, let’s get you started!
     </div>
 
-    <div class="text-center ibf-h10 text-grey-6">
+    <div class="text-center ibf-h10 text-grey-6 q-my-lg">
       This task focuses predominantly on non-technical skills and this survey
       should take you no more than 1 hour to complete.
     </div>
 
-    <div class="row">
+    <div class="row q-col-gutter-lg">
       <div
         class="col-12 col-md-4 my-container"
         v-for="(step, index) in steps"
@@ -56,7 +56,6 @@ const steps = ref([
 .my-container {
   display: flex;
   flex-direction: column;
-  padding: 10px;
 
   .my-card {
     flex: 1;
