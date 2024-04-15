@@ -8,13 +8,11 @@
           :expand-icon="
             child.children.length > 0 ? 'mdi-arrow-up-thin' : 'none'
           "
-          @click="
-            child.children.length > 0 ? null : clickFramework(child.questions)
-          "
+          @click="storeQuestions(child.children, child.questions)"
         >
           <template v-slot:header>
-            <q-item-section avatar>
-              <q-icon name="mdi-chart-box-outline" size="2em" color="grey-6" />
+            <q-item-section avatar top>
+              <q-icon name="mdi-chart-box-outline" size="sm" color="grey-6" />
             </q-item-section>
             <q-item-section>
               <q-item-label class="ibf-h11 text-weight-medium text-grey-10">
@@ -28,15 +26,7 @@
           </template>
 
           <template v-if="child.children">
-            <frameworkBlock
-              :children="child.children"
-              :depth="level + 1"
-              @click="
-                child.children.length > 0
-                  ? null
-                  : clickFramework(child.questions)
-              "
-            />
+            <frameworkBlock :children="child.children" :depth="level + 1" />
           </template>
         </q-expansion-item>
       </q-card>
@@ -46,13 +36,23 @@
 
 <script setup>
 import { ref, computed } from "vue";
+import { useQuestionStore } from "src/stores/question-store";
 const props = defineProps(["children", "depth"]);
-const emit = defineEmits(["sendQuestions"]);
+const questionStore = useQuestionStore();
 const children = ref(props.children);
 const level = ref(props.depth);
 
-const clickFramework = (questions) => {
-  // console.log(questions);
-  emit("sendQuestions", questions);
+const isParent = (children) => children.length > 0;
+
+const storeQuestions = (children, questions) => {
+  if (isParent(children)) {
+    questionStore.resetQuestions();
+  } else {
+    if (questions.length === 0) {
+      questionStore.resetQuestions();
+    } else {
+      questionStore.storeQuestions(questions);
+    }
+  }
 };
 </script>

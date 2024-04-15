@@ -52,7 +52,6 @@
 
               <template v-if="framework.children">
                 <frameworkBlock
-                  @send-questions="handleSendQuestions"
                   :children="framework.children"
                   :depth="0"
                 ></frameworkBlock>
@@ -64,8 +63,38 @@
 
       <div class="col-6">
         <q-card square flat bordered>
+          <q-item>
+            <q-item-section side>
+              <q-icon name="info" />
+            </q-item-section>
+            <q-item-section>
+              <q-item-label class="ibf-h10 text-weight-medium text-grey-8">
+                Questions
+              </q-item-label>
+            </q-item-section>
+          </q-item>
+
           <q-card-section>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit
+            <q-item
+              v-for="(question, questionIndex) in questions"
+              :key="questionIndex"
+            >
+              <q-item-section side top>
+                {{ questionIndex + 1 }}
+              </q-item-section>
+              <q-item-section>
+                <q-item-label class="ibf-h10 text-weight-normal">
+                  {{ question.title }}
+                </q-item-label>
+                <div>
+                  <RatingBar
+                    :max-rating="5"
+                    :initial-rating="1"
+                    rating-color="#ccc"
+                  />
+                </div>
+              </q-item-section>
+            </q-item>
           </q-card-section>
         </q-card>
       </div>
@@ -75,9 +104,13 @@
 
 <script setup>
 import { ref } from "vue";
+import RatingBar from "pages/skills/components/RatingBar.vue";
 import frameworkBlock from "pages/skills/components/FrameworkBlock.vue";
+import { storeToRefs } from "pinia";
+import { useQuestionStore } from "src/stores/question-store";
+const questionStore = useQuestionStore();
 const finishPercentage = ref(10);
-
+const { questions } = storeToRefs(questionStore);
 const frameworks = ref([
   {
     id: "business",
@@ -208,8 +241,4 @@ const frameworks = ref([
     children: [],
   },
 ]);
-
-const handleSendQuestions = (data) => {
-  console.log(data);
-};
 </script>
