@@ -20,7 +20,7 @@
           <q-item>
             <q-item-section>
               <q-item-label>
-                <p class="ibf-h10">
+                <p class="ibf-h10 text-grey-8">
                   <span> {{ questionIndex + 1 }}. </span>
                   {{ question.title }}
                 </p>
@@ -32,9 +32,11 @@
               >
                 <div v-if="props.tab === 'assessment'">
                   <RatingBar
+                    v-model="question.userRating"
                     :max-rating="question.defaultRange"
-                    :initial-rating="0"
                     :rating-color="props.color"
+                    :question="question"
+                    @rating-done="handleRatingDone"
                   />
                 </div>
               </transition>
@@ -48,7 +50,8 @@
 
 <script setup>
 import RatingBar from "pages/skills/components/RatingBar.vue";
-import { computed } from "vue";
+import { useFrameworkStore } from "src/stores/framework-store";
+const frameworkStore = useFrameworkStore();
 const props = defineProps({
   questions: {
     type: Array,
@@ -65,5 +68,7 @@ const props = defineProps({
   },
 });
 
-const isLoading = computed(() => props.questions.length < 1);
+// const handleRatingDone = (data) => {
+//   frameworkStore.updateOneFramework(data);
+// };
 </script>

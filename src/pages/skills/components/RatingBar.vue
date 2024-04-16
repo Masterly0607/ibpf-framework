@@ -4,8 +4,8 @@
     <div class="rating-line background-line"></div>
     <!-- Dynamic line that grows based on the rating -->
     <div
-      class="rating-line"
-      :style="{ width: lineProgress, backgroundColor: currentRatingColor }"
+      :class="['rating-line', colorClass]"
+      :style="{ width: lineProgress }"
     ></div>
     <div class="rating-points">
       <div
@@ -15,10 +15,13 @@
         @click="setRating(n)"
       >
         <div
-          :class="['circle', { active: n <= currentRating }]"
+          :class="[
+            'circle',
+            { active: n <= currentRating },
+            activeColorClass(n),
+          ]"
           :style="{
-            backgroundColor:
-              n <= currentRating ? currentRatingColor : undefined,
+            backgroundColor: n <= currentRating ? '#ccc' : undefined,
           }"
         >
           {{ n }}
@@ -29,29 +32,44 @@
 </template>
 
 <script setup>
+import { onMounted } from "vue";
 import { ref, computed } from "vue";
+import { getCssVar } from "quasar";
 
 const props = defineProps({
   maxRating: {
     type: Number,
     default: 5,
   },
-  initialRating: {
-    type: Number,
-    default: 0,
-  },
   ratingColor: {
     type: String,
-    default: "blue", // Default color, can be set to any CSS color
+    default: "primary", // Default color, can be set to any CSS color
+  },
+
+  question: {
+    type: Object,
+    default: new Object({}),
   },
 });
 
-const currentRating = ref(props.initialRating);
+const currentRating = defineModel({ default: 0 });
 const currentRatingColor = ref(props.ratingColor);
 
 const setRating = (rating) => {
   currentRating.value = rating;
+
+  // if (rating > 0) {
+  //   emits("ratingDone", props.question.id);
+  // }
 };
+
+const activeColorClass = (n) => {
+  return n <= currentRating.value ? `bg-${props.ratingColor}` : "";
+};
+
+const colorClass = computed(() => {
+  return `bg-${props.ratingColor}`;
+});
 
 // Adjusting the lineProgress calculation to start growing the line from rating 2
 const lineProgress = computed(() => {

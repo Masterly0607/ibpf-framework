@@ -8,17 +8,17 @@ export const useFrameworkStore = defineStore("frameworkStore", {
         parent_id: null,
         title: "Business",
         type: "Assessment",
-        countQDone: 1,
-        color: "#059077",
+        countQDone: 0,
+        color: "teal-6",
         questions: [],
-        totalQuestions: 4,
+        totalQuestions: 5,
         children: [
           {
             id: "B1.1",
             parent_id: "B1",
             title: "B1.1",
             type: "Assessment",
-            countQDone: 1,
+            countQDone: 0,
             questions: [
               {
                 id: "q1",
@@ -134,7 +134,7 @@ export const useFrameworkStore = defineStore("frameworkStore", {
         title: "Individual",
         type: "Assessment",
         countQDone: 50,
-        color: "#FF7A87",
+        color: "pink-12",
         questions: [],
         children: [
           {
@@ -177,7 +177,7 @@ export const useFrameworkStore = defineStore("frameworkStore", {
         title: "People",
         type: "Assessment",
         countQDone: 22,
-        color: "orange",
+        color: "amber-9",
         questions: [],
         children: [],
       },
@@ -188,7 +188,7 @@ export const useFrameworkStore = defineStore("frameworkStore", {
         title: "Future",
         type: "Assessment",
         countQDone: 30,
-        color: "blue",
+        color: "light-blue-7",
         questions: [],
         children: [],
       },
@@ -199,7 +199,7 @@ export const useFrameworkStore = defineStore("frameworkStore", {
         title: "Leadership",
         type: "Assessment",
         countQDone: 25,
-        color: "green",
+        color: "green-5",
         questions: [],
         children: [],
       },
@@ -210,7 +210,7 @@ export const useFrameworkStore = defineStore("frameworkStore", {
         title: "Critical Soft Skill",
         type: "Assessment",
         countQDone: 20,
-        color: "brown",
+        color: "brown-7",
         questions: [],
         children: [],
       },
@@ -224,6 +224,10 @@ export const useFrameworkStore = defineStore("frameworkStore", {
     getQuestions: (state) => state.questions,
   },
   actions: {
+    updateOneFramework(payload) {
+      this.framework.countQDone += payload;
+    },
+
     storeOneFramework(payload) {
       if (payload) {
         let result = this.frameworks.find(

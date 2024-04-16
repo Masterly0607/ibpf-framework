@@ -30,13 +30,31 @@
         </div>
         <div class="col-lg-8">
           <div class="ibf-h2 text-weight-medium q-my-sm">
+            <q-circular-progress
+              show-value
+              font-size="12px"
+              :value="computedCountDone"
+              size="50px"
+              :thickness="0.15"
+              :color="framework.color"
+              track-color="grey-3"
+            >
+              {{ computedCountDone }}%
+            </q-circular-progress>
             {{ framework.title }}
           </div>
 
           <q-separator />
 
           <div style="max-width: 900px" class="q-mb-md">
-            <q-tabs v-model="tab" dense align="justify" no-caps inline-label>
+            <q-tabs
+              v-model="tab"
+              dense
+              align="justify"
+              no-caps
+              inline-label
+              :indicator-color="framework.color || 'primary'"
+            >
               <q-tab name="capability" icon="mail" label="Capability" />
               <q-tab name="assessment" icon="alarm" label="Assessment" />
               <q-tab name="result" icon="movie" label="Result" />
@@ -51,7 +69,9 @@
               <q-tab-panel class="subframework" name="capability">
                 <framework-title-slot>
                   <template v-slot:title>
-                    {{ framework.title }}
+                    <div :class="`text-${framework.color}`">
+                      {{ framework.title }}
+                    </div>
                   </template>
 
                   <template v-slot:details>
@@ -71,7 +91,7 @@
                 <div class="q-py-md text-right">
                   <q-btn
                     square
-                    color="secondary"
+                    :color="framework.color || 'secondary'"
                     icon="mdi-application"
                     label="Resource"
                   />
@@ -81,7 +101,9 @@
               <q-tab-panel class="subframework" name="assessment">
                 <framework-title-slot>
                   <template v-slot:title>
-                    {{ framework.title }}
+                    <div :class="`text-${framework.color}`">
+                      {{ framework.title }}
+                    </div>
                   </template>
 
                   <template v-slot:details>
@@ -101,7 +123,7 @@
                 <div class="q-py-md text-right">
                   <q-btn
                     square
-                    color="secondary"
+                    :color="framework.color || 'secondary'"
                     icon="mdi-application"
                     label="Resource"
                   />
@@ -137,6 +159,7 @@
             :questions="questions"
             :tab="tab"
             :color="framework.color"
+            :framework="framework"
           ></question-list-block>
         </div>
       </div>
@@ -152,6 +175,7 @@ import FrameworkListBlock from "pages/frameworks/components/FrameworkListBlock.v
 import { ref, onMounted } from "vue";
 import { useFrameworkStore } from "src/stores/framework-store.js";
 import { storeToRefs } from "pinia";
+import { computed } from "vue";
 
 const frameworkStore = useFrameworkStore();
 const { framework, questions } = storeToRefs(frameworkStore);
@@ -162,6 +186,17 @@ const viewFramework = (framework) => {
   frameworkStore.resetQuestions();
   frameworkStore.storeOneFramework(framework);
 };
+
+const computedCountDone = computed(() => {
+  let result = parseFloat(
+    (
+      (framework.value.countQDone / framework.value.totalQuestions) *
+      100
+    ).toFixed(0)
+  );
+
+  return result;
+});
 
 const handleSubframework = (data) => {
   frameworkStore.resetQuestions();
@@ -175,9 +210,3 @@ onMounted(() => {
   // framework.value = frameworkStore.getOneFramework;
 });
 </script>
-
-<style lang="scss" scoped>
-.subframework {
-  cursor: pointer;
-}
-</style>
