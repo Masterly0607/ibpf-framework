@@ -15,7 +15,7 @@
               <q-btn label="Leadership" @click="viewFramework('leadership')" />
               <q-btn
                 label="Critical soft skill"
-                @click="viewFramework('critical')"
+                @click="viewFramework('Critical Soft Skill')"
               />
             </q-btn-group>
 
@@ -113,20 +113,26 @@
       </div>
 
       <div class="row q-col-gutter-xl" v-if="tab !== 'result'">
-        <div
-          :class="[
-            questions.length > 0
-              ? 'col-12 col-md-4'
-              : 'col-12 col-md-8 offset-lg-4',
-          ]"
+        <transition
+          appear
+          enter-active-class="animated fadeIn slower"
+          leave-active-class="animated fadeOut slower delay-1s"
         >
-          <Framework-list-block
-            :framework="framework"
-            @subframework="handleSubframework"
-          ></Framework-list-block>
-        </div>
+          <div
+            :class="[
+              questions.length > 0
+                ? 'col-12 col-md-4'
+                : 'col-12 col-md-8 offset-lg-4',
+            ]"
+          >
+            <Framework-list-block
+              :framework="framework"
+              @subframework="handleSubframework"
+            ></Framework-list-block>
+          </div>
+        </transition>
 
-        <div class="col-12 col-md-8" v-if="questions.length > 0">
+        <div class="col-12 col-md-8" v-show="questions.length > 0">
           <question-list-block
             :questions="questions"
             :tab="tab"
@@ -158,6 +164,7 @@ const viewFramework = (framework) => {
 };
 
 const handleSubframework = (data) => {
+  frameworkStore.resetQuestions();
   subframework.value = data;
   frameworkStore.storeQuestions(subframework.value.questions);
 };

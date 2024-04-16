@@ -226,12 +226,16 @@ export const useFrameworkStore = defineStore("frameworkStore", {
   actions: {
     storeOneFramework(payload) {
       if (payload) {
-        this.framework = this.frameworks.find(
+        let result = this.frameworks.find(
           (fr) => fr.title.toLowerCase() === payload.toLowerCase()
         );
-      }
 
-      console.log(this.framework);
+        if (result) {
+          this.framework = result;
+        } else {
+          this.framework = {};
+        }
+      }
     },
 
     resetQuestions() {
