@@ -21,7 +21,7 @@ const routes = [
     component: () => import("layouts/MainLayout.vue"),
     children: [
       {
-        path: "framework/:framework?",
+        path: "framework/skill-assess",
         name: "framework",
         component: () => import("pages/frameworks/FrameworkPage.vue"),
       },

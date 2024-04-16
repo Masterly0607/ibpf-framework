@@ -9,8 +9,9 @@ export const useFrameworkStore = defineStore("frameworkStore", {
         title: "Business",
         type: "Assessment",
         countQDone: 1,
-        color: "pink",
+        color: "#059077",
         questions: [],
+        totalQuestions: 4,
         children: [
           {
             id: "B1.1",
@@ -21,13 +22,15 @@ export const useFrameworkStore = defineStore("frameworkStore", {
             questions: [
               {
                 id: "q1",
-                title: "what is your name?",
+                title:
+                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium fuga quos blanditiis ea sint dolore.",
                 defaultRange: 5,
                 userRating: 0,
               },
               {
                 id: "q2",
-                title: "what is your name?",
+                title:
+                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium fuga quos blanditiis ea sint dolore.",
                 defaultRange: 3,
                 userRating: 0,
               },
@@ -97,7 +100,29 @@ export const useFrameworkStore = defineStore("frameworkStore", {
             title: "B1.2",
             type: "Assessment",
             countQDone: 1,
-            questions: [],
+            questions: [
+              {
+                id: "q3",
+                title:
+                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium fuga quos blanditiis ea sint dolore. Accusantium fuga quos blanditiis ea sint dolore.",
+                defaultRange: 5,
+                userRating: 0,
+              },
+              {
+                id: "q4",
+                title:
+                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium fuga quos blanditiis ea sint dolore. Accusantium fuga quos blanditiis ea sint dolore.",
+                defaultRange: 3,
+                userRating: 0,
+              },
+              {
+                id: "q5",
+                title:
+                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium fuga quos blanditiis ea sint dolore. Accusantium fuga quos blanditiis ea sint dolore.",
+                defaultRange: 3,
+                userRating: 0,
+              },
+            ],
             children: [],
           },
         ],
@@ -109,9 +134,41 @@ export const useFrameworkStore = defineStore("frameworkStore", {
         title: "Individual",
         type: "Assessment",
         countQDone: 50,
-        color: "teal",
+        color: "#FF7A87",
         questions: [],
-        children: [],
+        children: [
+          {
+            id: "I1.2",
+            parent_id: "I1",
+            title: "I1.2",
+            type: "Assessment",
+            countQDone: 1,
+            questions: [
+              {
+                id: "q3",
+                title:
+                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium fuga quos blanditiis ea sint dolore. Accusantium fuga quos blanditiis ea sint dolore.",
+                defaultRange: 5,
+                userRating: 0,
+              },
+              {
+                id: "q4",
+                title:
+                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium fuga quos blanditiis ea sint dolore. Accusantium fuga quos blanditiis ea sint dolore.",
+                defaultRange: 3,
+                userRating: 0,
+              },
+              {
+                id: "q5",
+                title:
+                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium fuga quos blanditiis ea sint dolore. Accusantium fuga quos blanditiis ea sint dolore.",
+                defaultRange: 3,
+                userRating: 0,
+              },
+            ],
+            children: [],
+          },
+        ],
       },
 
       {
@@ -142,7 +199,7 @@ export const useFrameworkStore = defineStore("frameworkStore", {
         title: "Leadership",
         type: "Assessment",
         countQDone: 25,
-        color: "green-5",
+        color: "green",
         questions: [],
         children: [],
       },
@@ -159,10 +216,12 @@ export const useFrameworkStore = defineStore("frameworkStore", {
       },
     ],
     framework: {},
+    questions: [],
   }),
   getters: {
     getFrameworks: (state) => state.frameworks,
     getOneFramework: (state) => state.framework,
+    getQuestions: (state) => state.questions,
   },
   actions: {
     storeOneFramework(payload) {
@@ -170,6 +229,17 @@ export const useFrameworkStore = defineStore("frameworkStore", {
         this.framework = this.frameworks.find(
           (fr) => fr.title.toLowerCase() === payload.toLowerCase()
         );
+      }
+
+      console.log(this.framework);
+    },
+
+    resetQuestions() {
+      this.questions = [];
+    },
+    storeQuestions(payload) {
+      if (payload) {
+        this.questions = payload;
       }
     },
   },

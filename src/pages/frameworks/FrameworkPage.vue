@@ -5,16 +5,20 @@
         <div class="col-lg-4">
           <div class="flex flex-center">
             <q-btn-group>
-              <q-btn label="Business" @click="viewFramework('business')" />
               <q-btn label="Individual" @click="viewFramework('individual')" />
+              <q-btn label="Business" @click="viewFramework('business')" />
               <q-btn label="People" @click="viewFramework('people')" />
             </q-btn-group>
-            <!-- <q-btn
-              color="primary"
-              icon="check"
-              label="Individual"
-              @click="viewFramework('individual')"
-            /> -->
+
+            <q-btn-group>
+              <q-btn label="Future" @click="viewFramework('future')" />
+              <q-btn label="Leadership" @click="viewFramework('leadership')" />
+              <q-btn
+                label="Critical soft skill"
+                @click="viewFramework('critical')"
+              />
+            </q-btn-group>
+
             <!-- <q-img
               src="https://cdn.quasar.dev/img/mountains.jpg"
               width="350px"
@@ -25,11 +29,13 @@
           </div>
         </div>
         <div class="col-lg-8">
-          <div class="ibf-h2 text-weight-medium q-my-md">
+          <div class="ibf-h2 text-weight-medium q-my-sm">
             {{ framework.title }}
           </div>
 
-          <div style="max-width: 900px">
+          <q-separator />
+
+          <div style="max-width: 900px" class="q-mb-md">
             <q-tabs v-model="tab" dense align="justify" no-caps inline-label>
               <q-tab name="capability" icon="mail" label="Capability" />
               <q-tab name="assessment" icon="alarm" label="Assessment" />
@@ -39,15 +45,16 @@
             <q-tab-panels
               v-model="tab"
               animated
-              transition-prev="scale"
-              transition-next="scale"
+              transition-prev="slideInUp"
+              transition-next="slideInUp"
             >
               <q-tab-panel class="subframework" name="capability">
-                <q-item-section class="q-my-md">
-                  <q-item-label class="ibf-h5 text-weight-medium">
+                <framework-title-slot>
+                  <template v-slot:title>
                     {{ framework.title }}
-                  </q-item-label>
-                  <q-item-label class="ibf-h11 text-grey-6">
+                  </template>
+
+                  <template v-slot:details>
                     Do consequat labore adipisicing aute minim excepteur. Ut
                     culpa ullamco dolore id aliqua sit labore non enim
                     adipisicing. Amet excepteur anim enim aliquip aliquip
@@ -58,8 +65,8 @@
                     quis sit velit culpa amet eu id laboris sit sint officia
                     reprehenderit. Cillum minim Lorem qui consequat sit aliquip
                     id.
-                  </q-item-label>
-                </q-item-section>
+                  </template>
+                </framework-title-slot>
 
                 <div class="q-py-md text-right">
                   <q-btn
@@ -69,47 +76,15 @@
                     label="Resource"
                   />
                 </div>
-
-                <!-- <div class="q-py-md q-gutter-md">
-                  <q-card
-                    @click="viewSubframework(subframework)"
-                    square
-                    flat
-                    bordered
-                    v-for="(subframework, index) in framework.children"
-                    :key="index"
-                  >
-                    <q-item>
-                      <q-item-section top avatar>
-                        <q-circular-progress
-                          show-value
-                          font-size="12px"
-                          :value="subframework.countQDone"
-                          size="50px"
-                          :thickness="0.15"
-                          :color="framework.color"
-                          track-color="grey-3"
-                        >
-                          {{ subframework.countQDone }}%
-                        </q-circular-progress>
-                      </q-item-section>
-                      <q-item-section>
-                        <q-item-label>{{ subframework.title }}</q-item-label>
-                        <q-item-label caption lines="2"
-                          >Secondary line text.</q-item-label
-                        >
-                      </q-item-section>
-                    </q-item>
-                  </q-card>
-                </div> -->
               </q-tab-panel>
 
               <q-tab-panel class="subframework" name="assessment">
-                <q-item-section class="q-my-md">
-                  <q-item-label class="ibf-h5 text-weight-medium">
+                <framework-title-slot>
+                  <template v-slot:title>
                     {{ framework.title }}
-                  </q-item-label>
-                  <q-item-label class="ibf-h11 text-grey-6">
+                  </template>
+
+                  <template v-slot:details>
                     Do consequat labore adipisicing aute minim excepteur. Ut
                     culpa ullamco dolore id aliqua sit labore non enim
                     adipisicing. Amet excepteur anim enim aliquip aliquip
@@ -120,8 +95,8 @@
                     quis sit velit culpa amet eu id laboris sit sint officia
                     reprehenderit. Cillum minim Lorem qui consequat sit aliquip
                     id.
-                  </q-item-label>
-                </q-item-section>
+                  </template>
+                </framework-title-slot>
 
                 <div class="q-py-md text-right">
                   <q-btn
@@ -137,74 +112,26 @@
         </div>
       </div>
 
-      <div class="row q-col-gutter-xl">
-        <div class="col-12 col-md-4">
-          <div class="q-gutter-md">
-            <q-card
-              class="subframework"
-              @click="viewSubframework(subframework)"
-              square
-              flat
-              bordered
-              v-for="(subframework, index) in framework.children"
-              :key="index"
-            >
-              <q-item>
-                <q-item-section top avatar>
-                  <q-circular-progress
-                    show-value
-                    font-size="12px"
-                    :value="subframework.countQDone"
-                    size="50px"
-                    :thickness="0.15"
-                    :color="framework.color"
-                    track-color="grey-3"
-                  >
-                    {{ subframework.countQDone }}%
-                  </q-circular-progress>
-                </q-item-section>
-                <q-item-section>
-                  <q-item-label>{{ subframework.title }}</q-item-label>
-                  <q-item-label caption lines="2"
-                    >Secondary line text.</q-item-label
-                  >
-                </q-item-section>
-              </q-item>
-            </q-card>
-          </div>
+      <div class="row q-col-gutter-xl" v-if="tab !== 'result'">
+        <div
+          :class="[
+            questions.length > 0
+              ? 'col-12 col-md-4'
+              : 'col-12 col-md-8 offset-lg-4',
+          ]"
+        >
+          <Framework-list-block
+            :framework="framework"
+            @subframework="handleSubframework"
+          ></Framework-list-block>
         </div>
 
-        <div class="col-12 col-md-8">
-          <div class="q-gutter-md">
-            <q-card
-              flat
-              square
-              bordered
-              v-for="(question, questionIndex) in questions"
-              :key="questionIndex"
-            >
-              <q-card-section>
-                <q-item>
-                  <q-item-section>
-                    <q-item-label>
-                      <p class="ibf-h10">
-                        <span> {{ questionIndex + 1 }}. </span>
-                        {{ question.title }}
-                      </p>
-                    </q-item-label>
-
-                    <div v-if="tab === 'assessment'">
-                      <RatingBar
-                        :max-rating="5"
-                        :initial-rating="1"
-                        rating-color="red"
-                      />
-                    </div>
-                  </q-item-section>
-                </q-item>
-              </q-card-section>
-            </q-card>
-          </div>
+        <div class="col-12 col-md-8" v-if="questions.length > 0">
+          <question-list-block
+            :questions="questions"
+            :tab="tab"
+            :color="framework.color"
+          ></question-list-block>
         </div>
       </div>
     </section>
@@ -212,32 +139,27 @@
 </template>
 
 <script setup>
-import FrameworkBlock from "pages/skills/components/FrameworkBlock.vue";
-import RatingBar from "pages/skills/components/RatingBar.vue";
+import FrameworkTitleSlot from "pages/frameworks/slots/FrameworkTitleSlot.vue";
+import QuestionListBlock from "pages/frameworks/components/QuestionListBlock.vue";
+import FrameworkListBlock from "pages/frameworks/components/FrameworkListBlock.vue";
+
 import { ref, onMounted } from "vue";
 import { useFrameworkStore } from "src/stores/framework-store.js";
-import { Loading } from "quasar";
-import { useRoute, useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
-import { useQuestionStore } from "src/stores/question-store";
-const questionStore = useQuestionStore();
-const { questions } = storeToRefs(questionStore);
+
 const frameworkStore = useFrameworkStore();
-const { framework } = storeToRefs(frameworkStore);
+const { framework, questions } = storeToRefs(frameworkStore);
 const subframework = ref([]);
-const route = useRoute();
-const router = useRouter();
 const tab = ref("capability");
 
-const viewSubframework = (data) => {
-  console.log(data);
-  subframework.value = data;
-  questionStore.storeQuestions(subframework.value.questions);
+const viewFramework = (framework) => {
+  frameworkStore.resetQuestions();
+  frameworkStore.storeOneFramework(framework);
 };
 
-const viewFramework = (framework) => {
-  frameworkStore.storeOneFramework(framework);
-  // router.push({ name: "framework", params: { framework: framework } });
+const handleSubframework = (data) => {
+  subframework.value = data;
+  frameworkStore.storeQuestions(subframework.value.questions);
 };
 
 onMounted(() => {

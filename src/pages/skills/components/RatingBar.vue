@@ -7,7 +7,6 @@
       class="rating-line"
       :style="{ width: lineProgress, backgroundColor: currentRatingColor }"
     ></div>
-
     <div class="rating-points">
       <div
         v-for="n in maxRating"
