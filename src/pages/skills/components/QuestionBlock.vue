@@ -11,8 +11,8 @@
           @click="storeQuestions(child.children, child.questions)"
         >
           <template v-slot:header>
-            <q-item-section avatar top>
-              <q-icon name="mdi-chart-box-outline" size="sm" color="grey-6" />
+            <q-item-section avatar>
+              <q-icon name="mdi-chart-box-outline" size="2em" color="grey-6" />
             </q-item-section>
             <q-item-section>
               <q-item-label class="ibf-h11 text-weight-medium text-grey-10">
