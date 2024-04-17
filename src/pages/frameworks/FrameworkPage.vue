@@ -3,21 +3,14 @@
     <section id="assessment-block" class="ibf-container-1200">
       <div class="row q-col-gutter-xl">
         <div class="col-lg-4">
-          <div class="flex flex-center">
-            <q-btn-group>
-              <q-btn label="Individual" @click="viewFramework('individual')" />
-              <q-btn label="Business" @click="viewFramework('business')" />
-              <q-btn label="People" @click="viewFramework('people')" />
-            </q-btn-group>
+          <div class="row items-center justify-center q-gutter-sm">
+            <q-btn label="Individual" @click="viewFramework('individual')" />
+            <q-btn label="Business" @click="viewFramework('business')" />
+            <q-btn label="People" @click="viewFramework('people')" />
 
-            <q-btn-group>
-              <q-btn label="Future" @click="viewFramework('future')" />
-              <q-btn label="Leadership" @click="viewFramework('leadership')" />
-              <q-btn
-                label="Critical soft skill"
-                @click="viewFramework('Critical Soft Skill')"
-              />
-            </q-btn-group>
+            <q-btn label="Future" @click="viewFramework('future')" />
+            <q-btn label="Leadership" @click="viewFramework('leadership')" />
+            <q-btn label="Critical soft skill" @click="viewFramework('Critical Soft Skill')" />
 
             <!-- <q-img
               src="https://cdn.quasar.dev/img/mountains.jpg"
@@ -29,43 +22,33 @@
           </div>
         </div>
         <div class="col-lg-8">
-          <div class="ibf-h2 text-weight-medium q-my-sm">
-            <q-circular-progress
-              show-value
-              font-size="12px"
-              :value="computedCountDone"
-              size="50px"
-              :thickness="0.15"
-              :color="framework.color"
-              track-color="grey-3"
-            >
-              {{ computedCountDone }}%
-            </q-circular-progress>
-            {{ framework.title }}
-          </div>
+          <q-item class="q-mb-md">
+            <q-item-section top avatar>
+              <q-circular-progress show-value font-size="20px" :value="computedCountDone" size="150px" :thickness="0.3"
+                :color="framework.color" track-color="grey-3">
+                {{ computedCountDone }}%
+              </q-circular-progress>
+            </q-item-section>
+            <q-item-section>
+              <q-item-label>
+                <div class="ibf-h2 text-weight-medium q-my-sm">
+                  {{ framework.title }}
+                </div>
+              </q-item-label>
+            </q-item-section>
+          </q-item>
 
           <q-separator />
 
           <div style="max-width: 900px" class="q-mb-md">
-            <q-tabs
-              v-model="tab"
-              dense
-              align="justify"
-              no-caps
-              inline-label
-              :indicator-color="framework.color || 'primary'"
-            >
+            <q-tabs v-model="tab" dense align="justify" no-caps inline-label
+              :indicator-color="framework.color || 'primary'">
               <q-tab name="capability" icon="mail" label="Capability" />
               <q-tab name="assessment" icon="alarm" label="Assessment" />
               <q-tab name="result" icon="movie" label="Result" />
             </q-tabs>
 
-            <q-tab-panels
-              v-model="tab"
-              animated
-              transition-prev="slideInUp"
-              transition-next="slideInUp"
-            >
+            <q-tab-panels v-model="tab" animated transition-prev="slideInUp" transition-next="slideInUp">
               <q-tab-panel class="subframework" name="capability">
                 <framework-title-slot>
                   <template v-slot:title>
@@ -89,12 +72,7 @@
                 </framework-title-slot>
 
                 <div class="q-py-md text-right">
-                  <q-btn
-                    square
-                    :color="framework.color || 'secondary'"
-                    icon="mdi-application"
-                    label="Resource"
-                  />
+                  <q-btn square :color="framework.color || 'secondary'" icon="mdi-application" label="Resource" />
                 </div>
               </q-tab-panel>
 
@@ -121,13 +99,12 @@
                 </framework-title-slot>
 
                 <div class="q-py-md text-right">
-                  <q-btn
-                    square
-                    :color="framework.color || 'secondary'"
-                    icon="mdi-application"
-                    label="Resource"
-                  />
+                  <q-btn square :color="framework.color || 'secondary'" icon="mdi-application" label="Resource" />
                 </div>
+              </q-tab-panel>
+
+              <q-tab-panel class="subframework" name="result">
+                <framework-result-block></framework-result-block>
               </q-tab-panel>
             </q-tab-panels>
           </div>
@@ -135,32 +112,20 @@
       </div>
 
       <div class="row q-col-gutter-xl" v-if="tab !== 'result'">
-        <transition
-          appear
-          enter-active-class="animated fadeIn slower"
-          leave-active-class="animated fadeOut slower delay-1s"
-        >
-          <div
-            :class="[
-              questions.length > 0
-                ? 'col-12 col-md-4'
-                : 'col-12 col-md-8 offset-lg-4',
-            ]"
-          >
-            <Framework-list-block
-              :framework="framework"
-              @subframework="handleSubframework"
-            ></Framework-list-block>
+        <transition appear enter-active-class="animated fadeIn slower"
+          leave-active-class="animated fadeOut slower delay-1s">
+          <div :class="[
+            questions.length > 0
+              ? 'col-12 col-md-4'
+              : 'col-12 col-md-8 offset-lg-4',
+          ]">
+            <Framework-list-block :framework="framework" @subframework="handleSubframework"></Framework-list-block>
           </div>
         </transition>
 
         <div class="col-12 col-md-8" v-show="questions.length > 0">
-          <question-list-block
-            :questions="questions"
-            :tab="tab"
-            :color="framework.color"
-            :framework="framework"
-          ></question-list-block>
+          <question-list-block :questions="questions" :tab="tab" :color="framework.color"
+            :framework="framework"></question-list-block>
         </div>
       </div>
     </section>
@@ -168,6 +133,7 @@
 </template>
 
 <script setup>
+import FrameworkResultBlock from "./components/FrameworkResultBlock.vue";
 import FrameworkTitleSlot from "pages/frameworks/slots/FrameworkTitleSlot.vue";
 import QuestionListBlock from "pages/frameworks/components/QuestionListBlock.vue";
 import FrameworkListBlock from "pages/frameworks/components/FrameworkListBlock.vue";
@@ -176,6 +142,10 @@ import { ref, onMounted } from "vue";
 import { useFrameworkStore } from "src/stores/framework-store.js";
 import { storeToRefs } from "pinia";
 import { computed } from "vue";
+import { useRouter } from "vue-router";
+import { count } from "src/helpers/converters";
+
+const router = useRouter();
 
 const frameworkStore = useFrameworkStore();
 const { framework, questions } = storeToRefs(frameworkStore);
@@ -183,6 +153,10 @@ const subframework = ref([]);
 const tab = ref("capability");
 
 const viewFramework = (framework) => {
+  router.push({
+    name: "framework",
+    params: { framework: framework, subframework: "" },
+  });
   frameworkStore.resetQuestions();
   frameworkStore.storeOneFramework(framework);
 };
@@ -190,13 +164,57 @@ const viewFramework = (framework) => {
 const computedCountDone = computed(() => {
   let result = parseFloat(
     (
-      (framework.value.countQDone / framework.value.totalQuestions) *
+      (count.countQuestionsDone(framework.value) / count.countQuestions(framework.value)) *
       100
     ).toFixed(0)
   );
 
-  return result;
+  return result || 0;
 });
+
+// const countQuestionsDone = (obj) => {
+//   let count = 0;
+
+//   // Function to recursively traverse the object
+//   function traverse(current) {
+//     // Check if the current element itself is a question
+//     if (current.userRating > 0) {
+//       count++;
+//     }
+
+//     // Iterate over each property in the object or each item in the array
+//     for (const key in current) {
+//       if (typeof current[key] === "object" && current[key] !== null) {
+//         traverse(current[key]); // Recursive call to go deeper
+//       }
+//     }
+//   }
+
+//   traverse(obj); // Start the recursion with the initial object
+//   return count;
+// };
+
+// const countQuestions = (obj) => {
+//   let count = 0;
+
+//   // Function to recursively traverse the object
+//   function traverse(current) {
+//     // Check if the current element itself is a question
+//     if (current.questionTitle) {
+//       count++;
+//     }
+
+//     // Iterate over each property in the object or each item in the array
+//     for (const key in current) {
+//       if (typeof current[key] === "object" && current[key] !== null) {
+//         traverse(current[key]); // Recursive call to go deeper
+//       }
+//     }
+//   }
+
+//   traverse(obj); // Start the recursion with the initial object
+//   return count;
+// };
 
 const handleSubframework = (data) => {
   frameworkStore.resetQuestions();

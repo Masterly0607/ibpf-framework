@@ -16,82 +16,37 @@ export const useFrameworkStore = defineStore("frameworkStore", {
           {
             id: "B1.1",
             parent_id: "B1",
-            title: "B1.1",
+            title: "Business Acumen",
             type: "Assessment",
             countQDone: 0,
             questions: [
               {
                 id: "q1",
-                title:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium fuga quos blanditiis ea sint dolore.",
-                defaultRange: 5,
+                questionTitle: "Cultivates Market Awareness",
+                subtitle:
+                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. In pariatur architecto animi eius expedita non sunt omnis culpa a labore fugiat voluptatem, commodi quos hic doloribus quisquam ullam repudiandae quidem.",
+                defaultRange: 3,
                 userRating: 0,
               },
               {
                 id: "q2",
-                title:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium fuga quos blanditiis ea sint dolore.",
+                questionTitle: "Understands Business Application",
+                subtitle:
+                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. In pariatur architecto animi eius expedita non sunt omnis culpa a labore fugiat voluptatem, commodi quos hic doloribus quisquam ullam repudiandae quidem.",
+                defaultRange: 3,
+                userRating: 0,
+              },
+
+              {
+                id: "q3",
+                questionTitle: "Understands Business and Value Chain",
+                subtitle:
+                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. In pariatur architecto animi eius expedita non sunt omnis culpa a labore fugiat voluptatem, commodi quos hic doloribus quisquam ullam repudiandae quidem.",
                 defaultRange: 3,
                 userRating: 0,
               },
             ],
-            children: [
-              {
-                id: "B1.1.1",
-                parent_id: "B1.1",
-                title: "B1.1.1",
-                type: "Assessment",
-                countQDone: 1,
-                questions: [
-                  {
-                    id: "q1",
-                    title: "what is your name?",
-                    defaultRange: 5,
-                    userRating: 0,
-                  },
-                  {
-                    id: "q2",
-                    title: "what is your name?",
-                    defaultRange: 3,
-                    userRating: 0,
-                  },
-                ],
-                children: [
-                  {
-                    id: "B1.1.1.1",
-                    parent_id: "B1.1.1",
-                    title: "B1.1.1.1",
-                    type: "Assessment",
-                    countQDone: 1,
-                    children: [],
-                    countQDone: 2,
-                    questions: [
-                      {
-                        id: "q1",
-                        title: "what is your name?",
-                        defaultRange: 5,
-                        userRating: 0,
-                      },
-                      {
-                        id: "q2",
-                        title: "what is your name?",
-                        defaultRange: 3,
-                        userRating: 0,
-                      },
-                    ],
-                  },
-                ],
-              },
-              {
-                id: "B1.1.2",
-                parent_id: "B1.1",
-                title: "B1.1.2",
-                type: "Assessment",
-                countQDone: 1,
-                children: [],
-                questions: [],
-              },
-            ],
+            children: [],
           },
 
           {
@@ -103,22 +58,28 @@ export const useFrameworkStore = defineStore("frameworkStore", {
             questions: [
               {
                 id: "q3",
-                title:
+                questionTitle:
                   "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium fuga quos blanditiis ea sint dolore. Accusantium fuga quos blanditiis ea sint dolore.",
+                subtitle:
+                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. In pariatur architecto animi eius expedita non sunt omnis culpa a labore fugiat voluptatem, commodi quos hic doloribus quisquam ullam repudiandae quidem.",
                 defaultRange: 5,
                 userRating: 0,
               },
               {
                 id: "q4",
-                title:
+                questionTitle:
                   "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium fuga quos blanditiis ea sint dolore. Accusantium fuga quos blanditiis ea sint dolore.",
+                subtitle:
+                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. In pariatur architecto animi eius expedita non sunt omnis culpa a labore fugiat voluptatem, commodi quos hic doloribus quisquam ullam repudiandae quidem.",
                 defaultRange: 3,
                 userRating: 0,
               },
               {
                 id: "q5",
-                title:
+                questionTitle:
                   "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium fuga quos blanditiis ea sint dolore. Accusantium fuga quos blanditiis ea sint dolore.",
+                subtitle:
+                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. In pariatur architecto animi eius expedita non sunt omnis culpa a labore fugiat voluptatem, commodi quos hic doloribus quisquam ullam repudiandae quidem.",
                 defaultRange: 3,
                 userRating: 0,
               },
@@ -135,6 +96,7 @@ export const useFrameworkStore = defineStore("frameworkStore", {
         type: "Assessment",
         countQDone: 50,
         color: "pink-12",
+        totalQuestions: 3,
         questions: [],
         children: [
           {
@@ -146,22 +108,28 @@ export const useFrameworkStore = defineStore("frameworkStore", {
             questions: [
               {
                 id: "q3",
-                title:
+                questionTitle:
                   "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium fuga quos blanditiis ea sint dolore. Accusantium fuga quos blanditiis ea sint dolore.",
+                subtitle:
+                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. In pariatur architecto animi eius expedita non sunt omnis culpa a labore fugiat voluptatem, commodi quos hic doloribus quisquam ullam repudiandae quidem.",
                 defaultRange: 5,
                 userRating: 0,
               },
               {
                 id: "q4",
-                title:
+                questionTitle:
                   "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium fuga quos blanditiis ea sint dolore. Accusantium fuga quos blanditiis ea sint dolore.",
+                subtitle:
+                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. In pariatur architecto animi eius expedita non sunt omnis culpa a labore fugiat voluptatem, commodi quos hic doloribus quisquam ullam repudiandae quidem.",
                 defaultRange: 3,
                 userRating: 0,
               },
               {
                 id: "q5",
-                title:
+                questionTitle:
                   "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium fuga quos blanditiis ea sint dolore. Accusantium fuga quos blanditiis ea sint dolore.",
+                subtitle:
+                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. In pariatur architecto animi eius expedita non sunt omnis culpa a labore fugiat voluptatem, commodi quos hic doloribus quisquam ullam repudiandae quidem.",
                 defaultRange: 3,
                 userRating: 0,
               },
@@ -178,6 +146,7 @@ export const useFrameworkStore = defineStore("frameworkStore", {
         type: "Assessment",
         countQDone: 22,
         color: "amber-9",
+        totalQuestions: 0,
         questions: [],
         children: [],
       },
@@ -189,6 +158,7 @@ export const useFrameworkStore = defineStore("frameworkStore", {
         type: "Assessment",
         countQDone: 30,
         color: "light-blue-7",
+        totalQuestions: 0,
         questions: [],
         children: [],
       },
@@ -200,6 +170,7 @@ export const useFrameworkStore = defineStore("frameworkStore", {
         type: "Assessment",
         countQDone: 25,
         color: "green-5",
+        totalQuestions: 0,
         questions: [],
         children: [],
       },
@@ -211,6 +182,7 @@ export const useFrameworkStore = defineStore("frameworkStore", {
         type: "Assessment",
         countQDone: 20,
         color: "brown-7",
+        totalQuestions: 0,
         questions: [],
         children: [],
       },

@@ -18,10 +18,10 @@ const routes = [
 
   {
     path: "/app",
-    component: () => import("layouts/MainLayout.vue"),
+    component: () => import("layouts/SkillAssessLayout.vue"),
     children: [
       {
-        path: "framework/skill-assess",
+        path: "skill-assess/:framework?/:subframework?",
         name: "framework",
         component: () => import("pages/frameworks/FrameworkPage.vue"),
       },

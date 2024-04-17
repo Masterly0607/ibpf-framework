@@ -22,10 +22,10 @@
           <q-item-section top avatar>
             <q-circular-progress
               show-value
-              font-size="12px"
+              font-size="10px"
               :value="countQDone(subframework)"
-              size="50px"
-              :thickness="0.15"
+              size="70px"
+              :thickness="0.3"
               :color="props.framework.color"
               track-color="grey-3"
             >
@@ -55,15 +55,17 @@
 
 <script setup>
 import { useFrameworkStore } from "src/stores/framework-store";
-import { ref, reactive, watch } from "vue";
+import { ref, watch } from "vue";
+import { useRouter } from "vue-router";
 const emit = defineEmits(["subframework"]);
-const frameworkStore = useFrameworkStore();
 const props = defineProps({
   framework: {
     type: Object,
     default: null,
   },
 });
+
+const router = useRouter();
 
 const currentIndex = ref(-1);
 
@@ -77,6 +79,10 @@ watch(
 
 const viewSubframework = (index, data) => {
   currentIndex.value = index;
+  router.push({
+    name: "framework",
+    params: { framework: props.framework.title, subframework: data.title },
+  });
   emit("subframework", data);
 };
 

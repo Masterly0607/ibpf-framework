@@ -20,11 +20,16 @@
           <q-item>
             <q-item-section>
               <q-item-label>
-                <p class="ibf-h10 text-grey-8">
+                <p class="ibf-h10 text-grey-8" style="line-height: normal">
                   <span> {{ questionIndex + 1 }}. </span>
-                  {{ question.title }}
+                  {{ question.questionTitle }}
                 </p>
+
+                <div class="ibf-h12 text-grey-6">
+                  {{ question.subtitle }}
+                </div>
               </q-item-label>
+
               <transition
                 appear
                 enter-active-class="animated fadeIn slower"
@@ -36,7 +41,6 @@
                     :max-rating="question.defaultRange"
                     :rating-color="props.color"
                     :question="question"
-                    @rating-done="handleRatingDone"
                   />
                 </div>
               </transition>
@@ -50,8 +54,6 @@
 
 <script setup>
 import RatingBar from "pages/skills/components/RatingBar.vue";
-import { useFrameworkStore } from "src/stores/framework-store";
-const frameworkStore = useFrameworkStore();
 const props = defineProps({
   questions: {
     type: Array,
@@ -67,8 +69,4 @@ const props = defineProps({
     default: "red",
   },
 });
-
-// const handleRatingDone = (data) => {
-//   frameworkStore.updateOneFramework(data);
-// };
 </script>
