@@ -22,7 +22,7 @@
           </div>
         </div>
         <div class="col-lg-8">
-          <q-item class="q-mb-md">
+          <q-item class="q-mb-md" v-if="tab !== 'result'">
             <q-item-section top avatar>
               <q-circular-progress show-value font-size="20px" :value="computedCountDone" size="150px" :thickness="0.3"
                 :color="framework.color" track-color="grey-3">
@@ -35,6 +35,22 @@
                   {{ framework.title }}
                 </div>
               </q-item-label>
+            </q-item-section>
+          </q-item>
+
+          <q-item class="q-mb-md" v-else>
+            <q-item-section top avatar>
+              <q-circular-progress show-value font-size="20px" :value="10" size="150px" :thickness="0.3"
+                :color="framework.color" track-color="grey-3">
+                {{ 10 }}%
+              </q-circular-progress>
+            </q-item-section>
+            <q-item-section>
+
+              <div class="ibf-h2 text-weight-medium q-my-sm">
+                My Overall Talent Development Capability Model Score
+              </div>
+
             </q-item-section>
           </q-item>
 
