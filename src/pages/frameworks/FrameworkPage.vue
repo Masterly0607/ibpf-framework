@@ -23,7 +23,7 @@
         </div>
         <div class="col-lg-8">
           <q-item class="q-mb-md" v-if="tab !== 'result'">
-            <q-item-section top avatar>
+            <q-item-section avatar>
               <q-circular-progress show-value font-size="20px" :value="computedCountDone" size="150px" :thickness="0.3"
                 :color="framework.color" track-color="grey-3">
                 {{ computedCountDone }}%
@@ -31,23 +31,27 @@
             </q-item-section>
             <q-item-section>
               <q-item-label>
-                <div class="ibf-h2 text-weight-medium q-my-sm">
+                <div class="ibf-h4 text-weight-medium q-my-sm">
                   {{ framework.title }}
+
+                  {{framework.countDone}}
+
+                  {{framework.averageScore}}
                 </div>
               </q-item-label>
             </q-item-section>
           </q-item>
 
           <q-item class="q-mb-md" v-else>
-            <q-item-section top avatar>
+            <q-item-section avatar>
               <q-circular-progress show-value font-size="20px" :value="10" size="150px" :thickness="0.3"
-                :color="framework.color" track-color="grey-3">
+                color="secondary" track-color="grey-3">
                 {{ 10 }}%
               </q-circular-progress>
             </q-item-section>
             <q-item-section>
 
-              <div class="ibf-h2 text-weight-medium q-my-sm">
+              <div class="ibf-h8 text-weight-medium q-my-sm">
                 My Overall Talent Development Capability Model Score
               </div>
 
@@ -58,10 +62,10 @@
 
           <div style="max-width: 900px" class="q-mb-md">
             <q-tabs v-model="tab" dense align="justify" no-caps inline-label
-              :indicator-color="framework.color || 'primary'">
-              <q-tab name="capability" icon="mail" label="Capability" />
-              <q-tab name="assessment" icon="alarm" label="Assessment" />
-              <q-tab name="result" icon="movie" label="Result" />
+              :indicator-color="tab !=='result'? framework.color : ''">
+              <q-tab name="capability"  label="Capability" />
+              <q-tab name="assessment"  label="Assessment" />
+              <q-tab name="result"  label="Result" />
             </q-tabs>
 
             <q-tab-panels v-model="tab" animated transition-prev="slideInUp" transition-next="slideInUp">
@@ -159,7 +163,7 @@ import { useFrameworkStore } from "src/stores/framework-store.js";
 import { storeToRefs } from "pinia";
 import { computed } from "vue";
 import { useRouter } from "vue-router";
-import { count } from "src/helpers/converters";
+import { questionHelper } from "src/helpers/questions";
 
 const router = useRouter();
 
@@ -180,7 +184,7 @@ const viewFramework = (framework) => {
 const computedCountDone = computed(() => {
   let result = parseFloat(
     (
-      (count.countQuestionsDone(framework.value) / count.countQuestions(framework.value)) *
+      (questionHelper.countQuestionsDone(framework.value) / questionHelper.countQuestions(framework.value)) *
       100
     ).toFixed(0)
   );
@@ -241,6 +245,8 @@ const handleSubframework = (data) => {
 onMounted(() => {
   // const targetFramework = route.params.framework ?? null;
   frameworkStore.storeOneFramework("business");
+  frameworkStore.loadProgress();
   // framework.value = frameworkStore.getOneFramework;
 });
 </script>
+src/helpers/questions
