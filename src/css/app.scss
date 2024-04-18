@@ -1,1 +1,46 @@
 // app global css in SCSS form
+.page-container {
+  max-width: 2150px;
+  padding: 20px 20px;
+  margin: 0 auto;
+}
+.text-header {
+  font-size: 16px;
+  color: black;
+  text-align: center;
+}
+.card-bg {
+  background-color: #f1f1f1;
+}
+
+.text-h1 {
+  font-size: 96px;
+}
+
+.text-h2 {
+  font-size: 60px;
+}
+
+.text-h3 {
+  font-size: 48px;
+}
+
+.text-h4 {
+  font-size: 34px;
+}
+
+.text-h5 {
+  font-size: 24px;
+}
+
+.text-h6 {
+  font-size: 20px;
+}
+
+.text-h7 {
+  font-size: 18px;
+}
+
+.text-h8 {
+  font-size: 16px;
+}
