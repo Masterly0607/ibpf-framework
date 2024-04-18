@@ -2,6 +2,7 @@
   <div class="q-gutter-md">
     <div class="ibf-h11 text-weight-medium text-grey-7 q-mb-md">
       {{ questions.length }} knowledge and skill statements
+      <!-- {{ questions }} -->
     </div>
 
     <transition-group appear enter-active-class="animated slideInUp slower"
@@ -44,7 +45,7 @@ import { useFrameworkStore } from "src/stores/framework-store";
 const frameworkStore = useFrameworkStore()
 const props = defineProps({
   questions: {
-    type: Array,
+    type: Object,
     default: null,
   },
   tab: {
@@ -59,6 +60,7 @@ const props = defineProps({
 });
 
 const handleRatingChange = (questionId, newRating) => {
+  console.log(questionId, newRating)
   frameworkStore.updateRating(questionId, newRating)
 }
 

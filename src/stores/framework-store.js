@@ -64,7 +64,7 @@ export const useFrameworkStore = defineStore("frameworkStore", {
               countQuestions: 3,
               questions: [
                 {
-                  id: "q3",
+                  id: "q4",
                   questionTitle:
                     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium fuga quos blanditiis ea sint dolore. Accusantium fuga quos blanditiis ea sint dolore.",
                   subtitle:
@@ -73,7 +73,7 @@ export const useFrameworkStore = defineStore("frameworkStore", {
                   userRating: 0,
                 },
                 {
-                  id: "q4",
+                  id: "q5",
                   questionTitle:
                     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium fuga quos blanditiis ea sint dolore. Accusantium fuga quos blanditiis ea sint dolore.",
                   subtitle:
@@ -82,7 +82,7 @@ export const useFrameworkStore = defineStore("frameworkStore", {
                   userRating: 0,
                 },
                 {
-                  id: "q5",
+                  id: "q6",
                   questionTitle:
                     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium fuga quos blanditiis ea sint dolore. Accusantium fuga quos blanditiis ea sint dolore.",
                   subtitle:
@@ -112,6 +112,7 @@ export const useFrameworkStore = defineStore("frameworkStore", {
               parent_id: "I1",
               title: "I1.2",
               type: "Assessment",
+              countQuestions: 3,
               countDone: 1,
               questions: [
                 {
@@ -228,7 +229,7 @@ export const useFrameworkStore = defineStore("frameworkStore", {
                   subtitle:
                     "Lorem ipsum dolor sit amet consectetur adipisicing elit. In pariatur architecto animi eius expedita non sunt omnis culpa a labore fugiat voluptatem, commodi quos hic doloribus quisquam ullam repudiandae quidem.",
                   defaultRange: 3,
-                  userRating: 0,
+                  userRating: 1,
                 },
                 {
                   id: "q2",
@@ -236,7 +237,7 @@ export const useFrameworkStore = defineStore("frameworkStore", {
                   subtitle:
                     "Lorem ipsum dolor sit amet consectetur adipisicing elit. In pariatur architecto animi eius expedita non sunt omnis culpa a labore fugiat voluptatem, commodi quos hic doloribus quisquam ullam repudiandae quidem.",
                   defaultRange: 3,
-                  userRating: 0,
+                  userRating: 2,
                 },
 
                 {
@@ -252,14 +253,14 @@ export const useFrameworkStore = defineStore("frameworkStore", {
             },
 
             {
-              d: "B1.2",
+              id: "B1.2",
               parent_id: "B1",
               title: "B1.2",
               type: "Assessment",
               countDone: 1,
               questions: [
                 {
-                  id: "q3",
+                  id: "q4",
                   questionTitle:
                     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium fuga quos blanditiis ea sint dolore. Accusantium fuga quos blanditiis ea sint dolore.",
                   subtitle:
@@ -268,7 +269,7 @@ export const useFrameworkStore = defineStore("frameworkStore", {
                   userRating: 0,
                 },
                 {
-                  id: "q4",
+                  id: "q5",
                   questionTitle:
                     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium fuga quos blanditiis ea sint dolore. Accusantium fuga quos blanditiis ea sint dolore.",
                   subtitle:
@@ -277,7 +278,7 @@ export const useFrameworkStore = defineStore("frameworkStore", {
                   userRating: 0,
                 },
                 {
-                  id: "q5",
+                  id: "q6",
                   questionTitle:
                     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium fuga quos blanditiis ea sint dolore. Accusantium fuga quos blanditiis ea sint dolore.",
                   subtitle:
@@ -302,7 +303,7 @@ export const useFrameworkStore = defineStore("frameworkStore", {
     storeOneFramework(payload) {
       if (payload) {
         let result = this.userData.data.find(
-          (fr) => fr.title.toLowerCase() === payload.toLowerCase()
+          (fr) => fr.id.toLowerCase() === payload.toLowerCase()
         );
 
         if (result) {
@@ -333,7 +334,7 @@ export const useFrameworkStore = defineStore("frameworkStore", {
     },
 
     mergeData() {
-      if (this.userData.version < this.frameworkTemplate.version) {
+      if (this.userData.version <= this.frameworkTemplate.version) {
         const mergedData = mergeHelper.mergeSections(
           this.frameworkTemplate.data,
           this.userData.data
@@ -342,6 +343,13 @@ export const useFrameworkStore = defineStore("frameworkStore", {
           version: this.frameworkTemplate.version,
           data: mergedData,
         };
+
+        // console.log(
+        //   "userData",
+        //   this.userData,
+        //   "Templates",
+        //   this.frameworkTemplate
+        // );
       }
     },
 

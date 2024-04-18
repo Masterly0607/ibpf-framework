@@ -1,4 +1,20 @@
 const mergeHelper = {
+  unwrapProxy(proxy) {
+    if (proxy && typeof proxy === "object") {
+      if (proxy instanceof Date) {
+        return proxy;
+      }
+      return Object.keys(proxy).reduce(
+        (obj, key) => {
+          obj[key] = unwrapProxy(proxy[key]);
+          return obj;
+        },
+        Array.isArray(proxy) ? [] : {}
+      );
+    }
+    return proxy;
+  },
+
   mergeSections(templateSections, userSections = []) {
     return templateSections.map((templateSection) => {
       const userSection =
@@ -10,15 +26,22 @@ const mergeHelper = {
           )
         : [];
 
+      // Merge questions array
+      const questions = templateSection.questions
+        ? templateSection.questions.map((tQuestion) => {
+            const userQuestion =
+              userSection.questions?.find((uq) => uq.id === tQuestion.id) || {};
+            return {
+              ...tQuestion,
+              userRating: userQuestion.userRating || 0, // Merge userRating from user data
+            };
+          })
+        : [];
+
       return {
         ...templateSection,
         children: children,
-        questions: templateSection.questions
-          ? {
-              ...templateSection.questions,
-              userRating: userSection.questions?.userRating || null,
-            }
-          : undefined,
+        questions: questions,
       };
     });
   },

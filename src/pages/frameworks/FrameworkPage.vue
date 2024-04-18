@@ -34,9 +34,7 @@
                 <div class="ibf-h4 text-weight-medium q-my-sm">
                   {{ framework.title }}
 
-                  {{framework.countDone}}
-
-                  {{framework.averageScore}}
+                  {{ framework.countDone }}
                 </div>
               </q-item-label>
             </q-item-section>
@@ -62,10 +60,10 @@
 
           <div style="max-width: 900px" class="q-mb-md">
             <q-tabs v-model="tab" dense align="justify" no-caps inline-label
-              :indicator-color="tab !=='result'? framework.color : ''">
-              <q-tab name="capability"  label="Capability" />
-              <q-tab name="assessment"  label="Assessment" />
-              <q-tab name="result"  label="Result" />
+              :indicator-color="tab !== 'result' ? framework.color : ''">
+              <q-tab name="capability" label="Capability" />
+              <q-tab name="assessment" label="Assessment" />
+              <q-tab name="result" label="Result" />
             </q-tabs>
 
             <q-tab-panels v-model="tab" animated transition-prev="slideInUp" transition-next="slideInUp">
@@ -143,7 +141,7 @@
           </div>
         </transition>
 
-        <div class="col-12 col-md-8" v-show="questions.length > 0">
+        <div class="col-12 col-md-8" v-if="questions.length > 0">
           <question-list-block :questions="questions" :tab="tab" :color="framework.color"
             :framework="framework"></question-list-block>
         </div>
@@ -158,7 +156,7 @@ import FrameworkTitleSlot from "pages/frameworks/slots/FrameworkTitleSlot.vue";
 import QuestionListBlock from "pages/frameworks/components/QuestionListBlock.vue";
 import FrameworkListBlock from "pages/frameworks/components/FrameworkListBlock.vue";
 
-import { ref, onMounted } from "vue";
+import { ref, onMounted, onBeforeMount } from "vue";
 import { useFrameworkStore } from "src/stores/framework-store.js";
 import { storeToRefs } from "pinia";
 import { computed } from "vue";
@@ -173,12 +171,14 @@ const subframework = ref([]);
 const tab = ref("capability");
 
 const viewFramework = (framework) => {
+  frameworkStore.resetQuestions();
+  frameworkStore.storeOneFramework(framework);
+
   router.push({
     name: "framework",
     params: { framework: framework, subframework: "" },
   });
-  frameworkStore.resetQuestions();
-  frameworkStore.storeOneFramework(framework);
+
 };
 
 const computedCountDone = computed(() => {
@@ -242,11 +242,13 @@ const handleSubframework = (data) => {
   frameworkStore.storeQuestions(subframework.value.questions);
 };
 
-onMounted(() => {
-  // const targetFramework = route.params.framework ?? null;
-  frameworkStore.storeOneFramework("business");
+onBeforeMount(() => {
   frameworkStore.loadProgress();
-  // framework.value = frameworkStore.getOneFramework;
+})
+
+onMounted(() => {
+
+  frameworkStore.storeOneFramework("business");
 });
 </script>
 src/helpers/questions

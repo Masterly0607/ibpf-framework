@@ -2,14 +2,8 @@
   <div v-if="children">
     <q-list>
       <q-card flat v-for="(child, index) in children" :key="index">
-        <q-expansion-item
-          :header-inset-level="0.5"
-          :content-inset-level="0.5"
-          :expand-icon="
-            child.children.length > 0 ? 'mdi-arrow-up-thin' : 'none'
-          "
-          @click="storeQuestions(child.children, child.questions)"
-        >
+        <q-expansion-item :header-inset-level="0.5" :content-inset-level="0.5" :expand-icon="child.children.length > 0 ? 'mdi-arrow-up-thin' : 'none'
+          " @click="storeQuestions(child.children, child.questions)">
           <template v-slot:header>
             <q-item-section avatar>
               <q-icon name="mdi-chart-box-outline" size="2em" color="grey-6" />
@@ -35,7 +29,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import { useQuestionStore } from "src/stores/question-store";
 const props = defineProps(["children", "depth"]);
 const questionStore = useQuestionStore();
