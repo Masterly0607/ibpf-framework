@@ -1,17 +1,34 @@
 <template>
   <div class="q-gutter-md">
     <div class="ibf-h11 text-weight-medium text-grey-7 q-mb-md">
-      {{ props.framework.children ? props.framework.children.length : null }}
+      {{ props.framework.children ? props.framework.children.length : 0 }}
       capabilities
     </div>
-    <transition-group appear enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
-      <q-card :class="['subframework', currentIndex === index ? 'active' : '']"
-        @click="viewSubframework(index, subframework)" square flat bordered
-        v-for="(subframework, index) in props.framework.children" :key="index">
+    <transition-group
+      appear
+      enter-active-class="animated fadeIn"
+      leave-active-class="animated fadeOut"
+    >
+      <q-card
+        :class="['subframework', currentIndex === index ? 'active' : '']"
+        @click="viewSubframework(index, subframework)"
+        square
+        flat
+        bordered
+        v-for="(subframework, index) in props.framework.children"
+        :key="index"
+      >
         <q-item>
           <q-item-section top avatar>
-            <q-circular-progress show-value font-size="10px" :value="countQDone(subframework)" size="70px"
-              :thickness="0.25" :color="props.framework.color" track-color="grey-3">
+            <q-circular-progress
+              show-value
+              font-size="1rem"
+              :value="countQDone(subframework)"
+              size="70px"
+              :thickness="0.2"
+              :color="props.framework.color"
+              track-color="grey-3"
+            >
               {{ countQDone(subframework) }}%
             </q-circular-progress>
           </q-item-section>
@@ -25,7 +42,10 @@
           </q-item-section>
 
           <q-item-section side v-if="currentIndex === index">
-            <q-icon :color="framework.color || 'secondary'" name="mdi-arrow-right-bold" />
+            <q-icon
+              :color="framework.color || 'secondary'"
+              name="mdi-arrow-right-bold"
+            />
           </q-item-section>
         </q-item>
       </q-card>

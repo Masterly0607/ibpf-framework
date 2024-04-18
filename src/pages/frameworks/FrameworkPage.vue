@@ -10,7 +10,10 @@
 
             <q-btn label="Future" @click="viewFramework('future')" />
             <q-btn label="Leadership" @click="viewFramework('leadership')" />
-            <q-btn label="Critical soft skill" @click="viewFramework('Critical Soft Skill')" />
+            <q-btn
+              label="Critical soft skill"
+              @click="viewFramework('Critical Soft Skill')"
+            />
 
             <!-- <q-img
               src="https://cdn.quasar.dev/img/mountains.jpg"
@@ -24,8 +27,15 @@
         <div class="col-lg-8">
           <q-item class="q-mb-md" v-if="tab !== 'result'">
             <q-item-section avatar>
-              <q-circular-progress show-value font-size="20px" :value="computedCountDone" size="150px" :thickness="0.3"
-                :color="framework.color" track-color="grey-3">
+              <q-circular-progress
+                show-value
+                font-size="2rem"
+                :value="computedCountDone"
+                size="150px"
+                :thickness="0.25"
+                :color="framework.color"
+                track-color="grey-3"
+              >
                 {{ computedCountDone }}%
               </q-circular-progress>
             </q-item-section>
@@ -33,8 +43,6 @@
               <q-item-label>
                 <div class="ibf-h4 text-weight-medium q-my-sm">
                   {{ framework.title }}
-
-                  {{ framework.countDone }}
                 </div>
               </q-item-label>
             </q-item-section>
@@ -42,31 +50,47 @@
 
           <q-item class="q-mb-md" v-else>
             <q-item-section avatar>
-              <q-circular-progress show-value font-size="20px" :value="10" size="150px" :thickness="0.3"
-                color="secondary" track-color="grey-3">
+              <q-circular-progress
+                show-value
+                font-size="2rem"
+                :value="10"
+                size="150px"
+                :thickness="0.25"
+                color="secondary"
+                track-color="grey-3"
+              >
                 {{ 10 }}%
               </q-circular-progress>
             </q-item-section>
             <q-item-section>
-
               <div class="ibf-h8 text-weight-medium q-my-sm">
                 My Overall Talent Development Capability Model Score
               </div>
-
             </q-item-section>
           </q-item>
 
           <q-separator />
 
           <div style="max-width: 900px" class="q-mb-md">
-            <q-tabs v-model="tab" dense align="justify" no-caps inline-label
-              :indicator-color="tab !== 'result' ? framework.color : ''">
+            <q-tabs
+              v-model="tab"
+              dense
+              align="justify"
+              no-caps
+              inline-label
+              :indicator-color="tab !== 'result' ? framework.color : ''"
+            >
               <q-tab name="capability" label="Capability" />
               <q-tab name="assessment" label="Assessment" />
               <q-tab name="result" label="Result" />
             </q-tabs>
 
-            <q-tab-panels v-model="tab" animated transition-prev="slideInUp" transition-next="slideInUp">
+            <q-tab-panels
+              v-model="tab"
+              animated
+              transition-prev="slideInUp"
+              transition-next="slideInUp"
+            >
               <q-tab-panel class="subframework" name="capability">
                 <framework-title-slot>
                   <template v-slot:title>
@@ -90,7 +114,12 @@
                 </framework-title-slot>
 
                 <div class="q-py-md text-right">
-                  <q-btn square :color="framework.color || 'secondary'" icon="mdi-application" label="Resource" />
+                  <q-btn
+                    square
+                    :color="framework.color || 'secondary'"
+                    icon="mdi-application"
+                    label="Resource"
+                  />
                 </div>
               </q-tab-panel>
 
@@ -117,7 +146,12 @@
                 </framework-title-slot>
 
                 <div class="q-py-md text-right">
-                  <q-btn square :color="framework.color || 'secondary'" icon="mdi-application" label="Resource" />
+                  <q-btn
+                    square
+                    :color="framework.color || 'secondary'"
+                    icon="mdi-application"
+                    label="Resource"
+                  />
                 </div>
               </q-tab-panel>
 
@@ -130,20 +164,32 @@
       </div>
 
       <div class="row q-col-gutter-xl" v-if="tab !== 'result'">
-        <transition appear enter-active-class="animated fadeIn slower"
-          leave-active-class="animated fadeOut slower delay-1s">
-          <div :class="[
-            questions.length > 0
-              ? 'col-12 col-md-4'
-              : 'col-12 col-md-8 offset-lg-4',
-          ]">
-            <Framework-list-block :framework="framework" @subframework="handleSubframework"></Framework-list-block>
+        <transition
+          appear
+          enter-active-class="animated fadeIn slower"
+          leave-active-class="animated fadeOut slower delay-1s"
+        >
+          <div
+            :class="[
+              questions.length > 0
+                ? 'col-12 col-md-4'
+                : 'col-12 col-md-8 offset-lg-4',
+            ]"
+          >
+            <Framework-list-block
+              :framework="framework"
+              @subframework="handleSubframework"
+            ></Framework-list-block>
           </div>
         </transition>
 
         <div class="col-12 col-md-8" v-if="questions.length > 0">
-          <question-list-block :questions="questions" :tab="tab" :color="framework.color"
-            :framework="framework"></question-list-block>
+          <question-list-block
+            :questions="questions"
+            :tab="tab"
+            :color="framework.color"
+            :framework="framework"
+          ></question-list-block>
         </div>
       </div>
     </section>
@@ -178,13 +224,13 @@ const viewFramework = (framework) => {
     name: "framework",
     params: { framework: framework, subframework: "" },
   });
-
 };
 
 const computedCountDone = computed(() => {
   let result = parseFloat(
     (
-      (questionHelper.countQuestionsDone(framework.value) / questionHelper.countQuestions(framework.value)) *
+      (framework.value.countDone /
+        questionHelper.countQuestions(framework.value)) *
       100
     ).toFixed(0)
   );
@@ -244,10 +290,9 @@ const handleSubframework = (data) => {
 
 onBeforeMount(() => {
   frameworkStore.loadProgress();
-})
+});
 
 onMounted(() => {
-
   frameworkStore.storeOneFramework("business");
 });
 </script>

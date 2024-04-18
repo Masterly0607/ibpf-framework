@@ -16,7 +16,7 @@ export const useFrameworkStore = defineStore("frameworkStore", {
           color: "teal-6",
           questions: [],
           countQuestions: 5,
-          averageScore: null,
+          averageScore: 0,
           children: [
             {
               id: "B1.1",
@@ -211,7 +211,8 @@ export const useFrameworkStore = defineStore("frameworkStore", {
           parent_id: null,
           title: "Business",
           type: "Assessment",
-          countDone: 0,
+          countDone: 2,
+          averageScore: 1.5,
           color: "teal-6",
           questions: [],
           countQuestions: 5,

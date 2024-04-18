@@ -19,6 +19,7 @@ const mergeHelper = {
     return templateSections.map((templateSection) => {
       const userSection =
         userSections.find((us) => us.id === templateSection.id) || {};
+
       const children = templateSection.children
         ? this.mergeSections(
             templateSection.children,
@@ -42,6 +43,8 @@ const mergeHelper = {
         ...templateSection,
         children: children,
         questions: questions,
+        countDone: userSection.countDone || 0, // Take from userSection or default to 0
+        averageScore: userSection.averageScore || null, // Take from userSection or default to null
       };
     });
   },
