@@ -44,7 +44,8 @@ const mergeHelper = {
         children: children,
         questions: questions,
         countDone: userSection.countDone || 0, // Take from userSection or default to 0
-        averageScore: userSection.averageScore || null, // Take from userSection or default to null
+        averageScore: userSection.averageScore || 0, // Take from userSection or default to null
+        totalScore: userSection.totalScore || 0,
       };
     });
   },

@@ -108,6 +108,9 @@ const questionHelper = {
 
     // After processing this section and all nested sections, calculate metrics
     section.countDone = ratings.length; // Total number of rated questions
+    section.totalScore = ratings.length
+      ? ratings.reduce((a, b) => a + b, 0)
+      : 0;
     section.averageScore = ratings.length
       ? (ratings.reduce((a, b) => a + b, 0) / ratings.length).toFixed(2)
       : null; // Average score based on ratings

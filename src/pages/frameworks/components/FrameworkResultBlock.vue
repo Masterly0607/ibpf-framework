@@ -62,16 +62,12 @@
 <script setup>
 import { useFrameworkStore } from "src/stores/framework-store";
 import { storeToRefs } from "pinia";
-import { questionHelper } from "src/helpers/questions";
 const frameworkStore = useFrameworkStore();
 const { userData } = storeToRefs(frameworkStore);
 
 const computedCountDone = (framework) => {
   let result = parseFloat(
-    (
-      (framework.countDone / questionHelper.countQuestions(framework)) *
-      100
-    ).toFixed(0)
+    ((framework.totalScore / framework.standardTotalScore) * 100).toFixed(0)
   );
 
   return result || 0;

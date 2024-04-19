@@ -207,7 +207,6 @@ import { useFrameworkStore } from "src/stores/framework-store.js";
 import { storeToRefs } from "pinia";
 import { computed } from "vue";
 import { useRouter } from "vue-router";
-import { questionHelper } from "src/helpers/questions";
 
 const router = useRouter();
 
@@ -229,8 +228,7 @@ const viewFramework = (framework) => {
 const computedCountDone = computed(() => {
   let result = parseFloat(
     (
-      (framework.value.countDone /
-        questionHelper.countQuestions(framework.value)) *
+      (framework.value.totalScore / framework.value.standardTotalScore) *
       100
     ).toFixed(0)
   );
