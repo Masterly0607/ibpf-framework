@@ -19,7 +19,7 @@
                   square
                   text-color="secondary"
                   color="grey-3"
-                  size="md"
+                  size="0.8rem"
                 >
                   Average ~ {{ framework.averageScore || "n.a" }}
                 </q-chip>

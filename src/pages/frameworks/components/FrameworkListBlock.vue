@@ -57,6 +57,8 @@
         <QCustomProgressBar
           :model-value="countCompleteProgress(subframework)"
           :gradient="true"
+          start-color="#0059eb"
+          end-color="#cbdefb"
         />
 
         <!-- <q-linear-progress
