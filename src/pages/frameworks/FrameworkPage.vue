@@ -53,13 +53,13 @@
               <q-circular-progress
                 show-value
                 font-size="2rem"
-                :value="10"
+                :value="userOverall"
                 size="150px"
                 :thickness="0.25"
                 color="secondary"
                 track-color="grey-3"
               >
-                {{ 10 }}%
+                {{ userOverall }}%
               </q-circular-progress>
             </q-item-section>
             <q-item-section>
@@ -193,28 +193,40 @@
         </div>
       </div>
     </section>
+
+    <preview-json :list="userData" title="User Data"></preview-json>
   </q-page>
 </template>
 
 <script setup>
+import PreviewJson from "components/PreviewJSON.vue";
 import FrameworkResultBlock from "./components/FrameworkResultBlock.vue";
 import FrameworkTitleSlot from "pages/frameworks/slots/FrameworkTitleSlot.vue";
 import QuestionListBlock from "pages/frameworks/components/QuestionListBlock.vue";
 import FrameworkListBlock from "pages/frameworks/components/FrameworkListBlock.vue";
 
-import { ref, onMounted, onBeforeMount } from "vue";
+import { ref, onMounted, onBeforeMount, computed } from "vue";
 import { useFrameworkStore } from "src/stores/framework-store.js";
 import { storeToRefs } from "pinia";
-import { computed } from "vue";
 import { useRouter } from "vue-router";
-import { questionHelper } from "src/helpers/questions";
 
 const router = useRouter();
 
 const frameworkStore = useFrameworkStore();
-const { framework, questions } = storeToRefs(frameworkStore);
+const { framework, questions, userData } = storeToRefs(frameworkStore);
 const subframework = ref([]);
 const tab = ref("capability");
+
+const userOverall = computed(() => {
+  let result = parseFloat(
+    (
+      (userData.value.totalScore / userData.value.totalStandardScore) *
+      100
+    ).toFixed(0)
+  );
+
+  return result || 0;
+});
 
 const viewFramework = (framework) => {
   frameworkStore.resetQuestions();
@@ -229,8 +241,7 @@ const viewFramework = (framework) => {
 const computedCountDone = computed(() => {
   let result = parseFloat(
     (
-      (framework.value.countDone /
-        questionHelper.countQuestions(framework.value)) *
+      (framework.value.totalScore / framework.value.standardTotalScore) *
       100
     ).toFixed(0)
   );

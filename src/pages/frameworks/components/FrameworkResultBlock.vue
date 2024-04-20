@@ -19,7 +19,7 @@
                   square
                   text-color="secondary"
                   color="grey-3"
-                  size="md"
+                  size="0.8rem"
                 >
                   Average ~ {{ framework.averageScore || "n.a" }}
                 </q-chip>
@@ -37,6 +37,17 @@
                 {{ computedCountDone(framework) }}%
               </q-circular-progress>
             </div>
+          </q-card-section>
+
+          <q-card-section class="text-grey-6">
+            <span class="ibf-h10 text-weight-medium text-grey-8">{{
+              framework.countDone
+            }}</span>
+            of
+            <span class="ibf-h10 text-weight-medium text-grey-8"
+              >{{ framework.countQuestions }}
+            </span>
+            skill statements
           </q-card-section>
 
           <q-card-actions vertical class="justify-around q-px-md">
@@ -62,16 +73,12 @@
 <script setup>
 import { useFrameworkStore } from "src/stores/framework-store";
 import { storeToRefs } from "pinia";
-import { questionHelper } from "src/helpers/questions";
 const frameworkStore = useFrameworkStore();
 const { userData } = storeToRefs(frameworkStore);
 
 const computedCountDone = (framework) => {
   let result = parseFloat(
-    (
-      (framework.countDone / questionHelper.countQuestions(framework)) *
-      100
-    ).toFixed(0)
+    ((framework.totalScore / framework.standardTotalScore) * 100).toFixed(0)
   );
 
   return result || 0;
