@@ -5,9 +5,18 @@
       <!-- {{ questions }} -->
     </div>
 
-    <transition-group appear enter-active-class="animated slideInUp slower"
-      leave-active-class="animated zoomOut slower delay-1s">
-      <q-card flat square bordered v-for="(question, questionIndex) in questions" :key="questionIndex">
+    <transition-group
+      appear
+      enter-active-class="animated slideInUp slower"
+      leave-active-class="animated zoomOut slower delay-1s"
+    >
+      <q-card
+        flat
+        square
+        bordered
+        v-for="(question, questionIndex) in questions"
+        :key="questionIndex"
+      >
         <q-card-section>
           <q-item>
             <q-item-section>
@@ -22,13 +31,22 @@
                 </div>
               </q-item-label>
 
-              <transition appear enter-active-class="animated fadeIn slower"
-                leave-active-class="animated fadeOut slower">
+              <transition
+                appear
+                enter-active-class="animated fadeIn slower"
+                leave-active-class="animated fadeOut slower"
+              >
                 <div v-if="props.tab === 'assessment'">
-                  <RatingBar v-model="question.userRating" :max-rating="question.defaultRange"
+                  <RatingBar
+                    v-model="question.userRating"
+                    :max-rating="question.defaultRange"
                     :modelValue="question.userRating"
-                    @update:modelValue="handleRatingChange(question.id, question.userRating)"
-                    :rating-color="props.color" :question="question" />
+                    @update:modelValue="
+                      handleRatingChange(question.id, question.userRating)
+                    "
+                    :rating-color="props.color"
+                    :question="question"
+                  />
                 </div>
               </transition>
             </q-item-section>
@@ -42,7 +60,7 @@
 <script setup>
 import RatingBar from "pages/skills/components/RatingBar.vue";
 import { useFrameworkStore } from "src/stores/framework-store";
-const frameworkStore = useFrameworkStore()
+const frameworkStore = useFrameworkStore();
 const props = defineProps({
   questions: {
     type: Object,
@@ -60,8 +78,7 @@ const props = defineProps({
 });
 
 const handleRatingChange = (questionId, newRating) => {
-  console.log(questionId, newRating)
-  frameworkStore.updateRating(questionId, newRating)
-}
-
+  // console.log(questionId, newRating)
+  frameworkStore.updateRating(questionId, newRating);
+};
 </script>

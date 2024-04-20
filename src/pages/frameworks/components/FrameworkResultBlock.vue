@@ -39,6 +39,17 @@
             </div>
           </q-card-section>
 
+          <q-card-section class="text-grey-6">
+            <span class="ibf-h10 text-weight-medium text-grey-8">{{
+              framework.countDone
+            }}</span>
+            of
+            <span class="ibf-h10 text-weight-medium text-grey-8"
+              >{{ framework.countQuestions }}
+            </span>
+            skill statements
+          </q-card-section>
+
           <q-card-actions vertical class="justify-around q-px-md">
             <q-btn
               outline
