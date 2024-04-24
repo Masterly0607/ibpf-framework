@@ -11,7 +11,7 @@ const routes = [
       {
         path: "user-profile",
         name: "user-profile",
-        component: () => import("pages/user/UserProfile.vue"),
+        component: () => import("pages/user/UserProfilePage.vue"),
       },
     ],
   },
@@ -29,6 +29,29 @@ const routes = [
         path: "skill-assessment",
         name: "skill-assessment",
         component: () => import("pages/skills/SkillAssessmentPage.vue"),
+      },
+    ],
+  },
+
+  {
+    path: "/profile",
+    component: () => import("layouts/EditProfileLayout.vue"),
+    children: [
+      {
+        path: "edit-profile",
+        name: "edit-profile",
+        component: () => import("pages/user/EditProfilePage.vue"),
+      },
+    ],
+  },
+  {
+    path: "/edit",
+    component: () => import("layouts/EditChangeProfileLayout.vue"),
+    children: [
+      {
+        path: "edit-user-profile",
+        name: "edit-user-profile",
+        component: () => import("pages/user/components/EditUserProfile.vue"),
       },
     ],
   },

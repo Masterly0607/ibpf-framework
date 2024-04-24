@@ -1,5 +1,5 @@
 <template>
-  <q-page padding class="page-container">
+  <q-page padding class="ibf-container-1400">
     <div elevated style="width: 100%">
       <!-- tab -->
       <q-tabs v-model="tab" class="text-red" align="left">
@@ -9,19 +9,18 @@
       <q-separator />
 
       <div>
-        <q-tab-panels v-model="tab">
+        <q-tab-panels animated v-model="tab">
           <!-- tab one -->
           <q-tab-panel name="TabOne">
-
-            <div class="row">
+            <div class="row q-col-gutter-md">
               <!-- profile -->
-              <div class="col-12 col-sm-6 col-md-3 q-pa-md">
+              <div class="col-12 col-sm-6 col-md-3">
                 <q-card square flat bordered>
                   <q-card class="bg-red q-px-sm">
                     <q-item>
                       <q-item-section avatar>
                         <q-avatar>
-                          <img src="https://cdn.quasar.dev/img/avatar2.jpg">
+                          <img src="https://cdn.quasar.dev/img/avatar2.jpg" />
                         </q-avatar>
                       </q-item-section>
                     </q-item>
@@ -33,21 +32,20 @@
 
                   <q-separator />
                   <div class="q-pa-sm card-bg" bordered align="right">
-                    <q-btn flat label="My Account" @click="onClick" />
+                    <q-btn flat label="My Account" @click="viewAccount" />
                   </div>
                 </q-card>
               </div>
+
               <!-- Capability Model -->
-              <div class="col-12 col-sm-6 col-md-9 q-pa-md">
-
+              <div class="col-12 col-sm-6 col-md-9">
                 <capability-model></capability-model>
-
               </div>
             </div>
 
-            <div class="row">
+            <div class="row q-col-gutter-md q-py-md">
               <!-- View Course -->
-              <div class="col-12 col-sm-6 col-md-3 q-pa-md">
+              <div class="col-12 col-sm-6 col-md-3">
                 <q-card square flat bordered>
                   <q-card class="my-card">
                     <q-card-section>
@@ -66,30 +64,30 @@
                     <div class="q-pa-sm card-bg" bordered align="right">
                       <q-btn flat label="Start learning" @click="onClick" />
                     </div>
-                    <!-- <q-card-section class="card-bg" align="right">
-                    <div class="text-subtitle1">Start learning</div>
-                  </q-card-section> -->
                   </q-card>
                 </q-card>
               </div>
 
-              <div class="col-12 col-sm-6 col-md-9 q-pa-md">
-                <div class="col">
+              <div class="col-12 col-sm-6 col-md-9">
+                <div>
                   <!-- My Learning -->
                   <div>
                     <my-learning></my-learning>
                   </div>
                   <!-- Events -->
-                  <div class="q-py-lg">
+                  <div class="q-py-md">
                     <events-card></events-card>
                   </div>
 
                   <!-- Recommended -->
-                  <div class="text-h5 q-py-md">
-                    Recommended for you
-                  </div>
+                  <div class="text-h5 q-py-md">Recommended for you</div>
                   <div>
-                    <q-card square flat bordered class="shadow-2 rounded-borders">
+                    <q-card
+                      square
+                      flat
+                      bordered
+                      class="shadow-2 rounded-borders"
+                    >
                       <q-card-section>
                         <div class="text-h6 q-py-sm">
                           Introduction of Individual
@@ -97,13 +95,10 @@
                       </q-card-section>
                       <q-card bordered>
                         <q-card-section>
-                          <div class="text-h6 q-py-sm">
-                            Individual Course
-                          </div>
+                          <div class="text-h6 q-py-sm">Individual Course</div>
                         </q-card-section>
                       </q-card>
                     </q-card>
-
                   </div>
                 </div>
               </div>
@@ -112,9 +107,7 @@
 
           <!-- tab two -->
           <q-tab-panel name="TabTwo">
-            <div class="row q-pa-md">
-              Welcome to tab two
-            </div>
+            <div class="row">Welcome to tab two</div>
           </q-tab-panel>
         </q-tab-panels>
       </div>
@@ -123,13 +116,18 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import CapabilityModel from './components/CapabilityModel.vue'
-import MyLearning from './components/MyLearning.vue'
-import EventsCard from './components/EventsCard.vue'
+import { ref } from "vue";
+import CapabilityModel from "./components/CapabilityModel.vue";
+import MyLearning from "./components/MyLearning.vue";
+import EventsCard from "./components/EventsCard.vue";
+import { useRouter } from "vue-router";
 
-const tab = ref('TabOne')
+const router = useRouter();
+const tab = ref("TabOne");
 
+const viewAccount = () => {
+  router.push({ name: "edit-profile" });
+};
 </script>
 
 <style lang="scss">
