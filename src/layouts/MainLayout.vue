@@ -1,7 +1,8 @@
 <template>
   <q-layout view="hHh lpR fFf">
+    <header-home></header-home>
 
-    <q-header elevated reveal bordered class="bg-white text-black">
+    <!-- <q-header elevated reveal bordered class="bg-white text-black">
       <q-toolbar class="q-ma-sm">
 
         <img src="https://elearning.ibfnxt.com/img/IBF%20Logo%20No%20Red%20bg.7c241798.svg" height="50px" width="500px">
@@ -33,16 +34,16 @@
           </q-toolbar-title>
         </q-toolbar>
       </q-toolbar>
-    </q-header>
+    </q-header> -->
 
     <q-page-container>
       <router-view />
     </q-page-container>
-
   </q-layout>
 </template>
 
 <script setup>
+import HeaderHome from "src/components/HeaderHome.vue";
 </script>
 
 <style scoped>
