@@ -38,8 +38,8 @@ const routes = [
     component: () => import("layouts/EditProfileLayout.vue"),
     children: [
       {
-        path: "edit-profile",
-        name: "edit-profile",
+        path: "",
+        name: "profile-page",
         component: () => import("pages/user/EditProfilePage.vue"),
       },
     ],

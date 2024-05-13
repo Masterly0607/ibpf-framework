@@ -4,7 +4,7 @@
       <q-toolbar>
         <q-toolbar-title>
           <div>
-            <q-btn flat label="Back" @click="backToProfile" />
+            <q-btn flat label="Back" :to="{ name: 'profile-page' }" />
           </div>
         </q-toolbar-title>
       </q-toolbar>
