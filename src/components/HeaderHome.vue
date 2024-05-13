@@ -35,7 +35,6 @@
         </div>
       </div>
       <!-- Dropdown Menu for Mobile -->
-
       <div v-else>
         <q-btn flat round icon="menu" class="q-ml-auto" ref="dropdownMenu">
           <q-menu square fit anchor="top right" self="top right">
@@ -138,11 +137,6 @@ const headerMenuItems = ref([
     router: "about",
   },
 ]);
-const menuOpen = ref(false);
-
-function toggle() {
-  menuOpen.value = !menuOpen.value;
-}
 
 function goTo(routeName) {
   // This is a placeholder for route navigation
@@ -150,11 +144,3 @@ function goTo(routeName) {
   // this.$router.push({ name: routeName });
 }
 </script>
-
-<style scoped>
-@media only screen and (min-width: 600px) {
-  .q-btn.menu {
-    display: none;
-  }
-}
-</style>
