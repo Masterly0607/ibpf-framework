@@ -53,6 +53,11 @@ const routes = [
         name: "edit-user-profile",
         component: () => import("pages/user/components/EditUserProfile.vue"),
       },
+      {
+        path: "edit-user-work",
+        name: "edit-user-work",
+        component: () => import("pages/user/components/EditUserWork.vue"),
+      },
     ],
   },
 

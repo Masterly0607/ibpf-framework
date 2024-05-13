@@ -23,7 +23,7 @@
           </q-card>
           <q-separator />
           <div class="q-pa-sm card-bg" bordered align="right">
-            <q-btn flat label="View Details" @click="onClick" />
+            <q-btn flat no-caps label="View Details" @click="onClick" />
           </div>
         </q-card>
       </q-card-section>
@@ -49,7 +49,7 @@
           </q-card>
           <q-separator />
           <div class="q-pa-sm card-bg" bordered align="right">
-            <q-btn flat label="View Details" @click="onClick" />
+            <q-btn flat no-caps label="View Details" @click="onClick" />
           </div>
         </q-card>
       </q-card-section>
