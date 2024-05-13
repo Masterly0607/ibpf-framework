@@ -3,8 +3,8 @@
     <div elevated style="width: 100%">
       <!-- tab -->
       <q-tabs v-model="tab" class="text-red" align="left">
-        <q-tab label="Dashboard" name="TabOne" animated />
-        <q-tab label="My Activity" name="TabTwo" />
+        <q-tab label="Dashboard" name="TabOne" animated no-caps />
+        <q-tab label="My Activity" name="TabTwo" no-caps />
       </q-tabs>
       <q-separator />
 
@@ -32,7 +32,12 @@
 
                   <q-separator />
                   <div class="q-pa-sm card-bg" bordered align="right">
-                    <q-btn flat label="My Account" @click="viewAccount" />
+                    <q-btn
+                      flat
+                      no-caps
+                      label="My Account"
+                      @click="viewAccount"
+                    />
                   </div>
                 </q-card>
               </div>
@@ -62,7 +67,12 @@
 
                     <q-separator />
                     <div class="q-pa-sm card-bg" bordered align="right">
-                      <q-btn flat label="Start learning" @click="onClick" />
+                      <q-btn
+                        flat
+                        no-caps
+                        label="Start Learning"
+                        @click="onClick"
+                      />
                     </div>
                   </q-card>
                 </q-card>

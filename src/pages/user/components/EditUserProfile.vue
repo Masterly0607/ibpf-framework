@@ -7,27 +7,48 @@
           <div class="row q-col-gutter-md">
             <div square bordered class="col-12 col-sm-8 col-md-4">
               <q-card class="my-card" align="center">
-                <!-- <q-card class="q-pa-md" square>
-                  <img
-                    src="https://cdn.quasar.dev/img/mountains.jpg"
-                    max-width="50px"
-                    max-height="100px"
+                <!--  -->
+
+                <div class="q-gutter-sm">
+                  <q-img :src="url" style="height: 140px; max-width: 150px">
+                    <template v-slot:loading>
+                      <div class="text-yellow">
+                        <q-spinner-ios />
+                        <div class="q-mt-md">Loading...</div>
+                      </div>
+                    </template>
+                  </q-img>
+                  <q-btn
+                    push
+                    color="teal"
+                    label="Change image"
+                    @click="refresh"
+                    class="q-mb-md"
                   />
-                </q-card> -->
-                <q-avatar
+                </div>
+
+                <!-- <q-avatar
                   size="200px"
                   font-size="180px"
                   text-color="primary"
                   icon="account_circle"
-                />
-                <div class="ibf-h7 text-bold">Da Lyna</div>
-                <div class="ibf-h10 text-bold q-py-sm">
+                  :src="url"
+                /> -->
+
+                <!-- <q-avatar size="150px" font-size="100px">
+                  <q-img :src="url" style="max-width: 300px" />
+                </q-avatar>
+
+              <div class="ibf-h7 text-bold">Da Lyna</div>
+                <div class="ibf-h10 text-bold q-py-sm" id="q-app">
                   <q-btn
+                    push
                     color="primary"
-                    label="Change picture"
-                    @click="changePicture"
+                    label="Change image"
+                    @click="refresh"
                   />
-                </div>
+                </div> -->
+
                 <br />
               </q-card>
             </div>
@@ -35,17 +56,20 @@
             <div square bordered class="col-12 col-sm-8 col-md-8">
               <q-card>
                 <q-card-section>
-                  <div class="text-h6 q-pa-md" align="center">Edit Profile</div>
-                  <div class="text-h4 q-pa-md">
+                  <div class="ibf-h7 text-bold q-pa-sm" align="center">
+                    Edit Profile
+                  </div>
+                  <div class="text-h4 q-pa-sm">
                     <q-form
                       @submit="onSubmit"
                       @reset="onReset"
                       class="q-gutter-md"
                     >
-                      <div class="ibf-h8">
+                      <div class="ibf-h10 text-bold">
                         Full Name
                         <q-input
                           filled
+                          class="ibf-h10"
                           v-model="name"
                           label="Enter your name"
                           hint="Name and surname"
@@ -58,10 +82,11 @@
                         />
                       </div>
 
-                      <div class="ibf-h8">
+                      <div class="ibf-h10 text-bold">
                         User Position
                         <q-input
                           filled
+                          class="ibf-h10"
                           v-model="position"
                           label="Enter your position"
                           hint="Your position"
@@ -73,14 +98,14 @@
                           ]"
                         />
                       </div>
-                      <div class="ibf-h8">
+                      <div class="ibf-h10 text-bold">
                         Email
                         <q-input
-                          disable
                           filled
                           v-model="email"
-                          label="uiofficer.ibfkh.org"
-                          hint="Your email"
+                          label="Your email"
+                          class="ibf-h10"
+                          hint="Your email has been stored in the system"
                           lazy-rules
                           :rules="[
                             (val) =>
@@ -88,22 +113,17 @@
                               'Please type something',
                           ]"
                         />
+                        <!-- <EditProfilePage v-model:email="email" /> -->
                       </div>
 
                       <!-- button submit or reset -->
-                      <div align="center">
+                      <div align="right">
+                        <q-btn label="Cancel" type="reset" color="grey" flat />
                         <q-btn
                           flat
-                          label="Submit"
+                          label="Save"
                           type="submit"
                           color="primary"
-                        />
-                        <q-btn
-                          label="Reset"
-                          type="reset"
-                          color="grey"
-                          flat
-                          class="q-ml-sm"
                         />
                       </div>
                     </q-form>
@@ -120,15 +140,41 @@
 
 <script setup>
 import { ref } from "vue";
+import EditProfilePage from "../EditProfilePage.vue";
 
-const email = ref(null);
-const name = ref(null);
-const position = ref(null);
+// const app = createApp({});
+
+// app.use(QuasarPlugin, { config: {} });
+// app.mount("#q-app");
+
+// const url = ref("https://cdn.quasar.dev/img/mountains.jpg");
+
+// const refresh = () => {
+//   console.log("Refreshed");
+// };
+
+const url = ref("https://picsum.photos/500/300");
+
+const refresh = () => {
+  url.value = "https://picsum.photos/500/300?t=" + Math.random();
+};
+
+const name = ref(["Da Lyna"]);
+// const email = ref(["uiofficer.ibfkh.org"]);
+const email = ref("uiofficer.ibfkh.org");
+const position = ref(["Software Engineer"]);
 
 const onSubmit = () => {
   console.log("Submited");
 };
 const onReset = () => {
-  console.log("Reseted");
+  console.log("Canceled");
 };
+
+// const onRejected = (rejectedEntries) => {
+//   $url.notify({
+//     type: "negative",
+//     message: `${rejectedEntries.length} file(s) did not pass validation constraints`,
+//   });
+// };
 </script>
