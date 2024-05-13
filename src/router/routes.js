@@ -9,9 +9,19 @@ const routes = [
         component: () => import("pages/IndexPage.vue"),
       },
       {
-        path: "user-profile",
-        name: "user-profile",
-        component: () => import("pages/user/UserProfilePage.vue"),
+        path: "dashboard",
+        name: "dashboard",
+        component: () => import("pages/user/DashboardPage.vue"),
+      },
+      {
+        path: "profile-page",
+        name: "profile-page",
+        component: () => import("pages/user/ProfilePage.vue"),
+      },
+      {
+        path: "notifications",
+        name: "notifications",
+        component: () => import("pages/user/NotificationsPage.vue"),
       },
     ],
   },
@@ -34,31 +44,27 @@ const routes = [
   },
 
   {
-    path: "/profile",
-    component: () => import("layouts/EditProfileLayout.vue"),
+    path: "/edit-profile",
+    component: () => import("layouts/EditLayout.vue"),
     children: [
       {
         path: "",
-        name: "profile-page",
-        component: () => import("pages/user/EditProfilePage.vue"),
-      },
-    ],
-  },
-  {
-    path: "/edit",
-    component: () => import("layouts/EditChangeProfileLayout.vue"),
-    children: [
-      {
-        path: "edit-user-profile",
         name: "edit-user-profile",
-        component: () => import("pages/user/components/EditUserProfile.vue"),
+        component: () => import("pages/user/EditUserProfilePage.vue"),
       },
       {
         path: "edit-user-work",
         name: "edit-user-work",
-        component: () => import("pages/user/components/EditUserWork.vue"),
+        component: () => import("pages/user/EditUserWorkPage.vue"),
       },
     ],
+  },
+
+  // Authenitications route
+  {
+    path: "/auth",
+    component: () => import("pages/authentication/LoginPage.vue"),
+    children: [],
   },
 
   // Always leave this as last one,

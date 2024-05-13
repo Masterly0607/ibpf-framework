@@ -24,6 +24,16 @@
 
         <q-separator vertical size="3px" />
 
+        <q-btn
+          flat
+          dense
+          round
+          color="primary"
+          icon="account_circle"
+          aria-label="profile"
+          :to="{ name: 'dashboard' }"
+        />
+
         <div class="row q-gutter-x-md">
           <q-btn
             outline
@@ -36,6 +46,16 @@
       </div>
       <!-- Dropdown Menu for Mobile -->
       <div v-else>
+        <q-btn
+          flat
+          dense
+          round
+          class="q-mr-auto"
+          color="primary"
+          icon="account_circle"
+          aria-label="profile"
+          :to="{ name: 'dashboard' }"
+        />
         <q-btn flat round icon="menu" class="q-ml-auto" ref="dropdownMenu">
           <q-menu square fit anchor="top right" self="top right">
             <q-list>
@@ -128,6 +148,13 @@ const headerMenuItems = ref([
     icon: "mdi-gauge",
     isActive: true,
     router: "assessement",
+  },
+
+  {
+    title: "Enrol",
+    icon: "mdi-card-account-details-outline",
+    isActive: true,
+    router: "enrol",
   },
 
   {
