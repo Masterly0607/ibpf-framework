@@ -49,6 +49,11 @@
             <div class="text-subtitle2">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut
               bibendum placerat faucibus.
+            </div>
+          </q-card-section>
+        </div>
+      </q-card>
+    </div>
 
     <div class="q-py-md" style="max-width: 100%">
       <q-list bordered>
@@ -79,7 +84,6 @@
           <q-item-section align="right">
             <div>
               <q-btn flat color="primary" label="View" @click="onClick" />
-
             </div>
           </q-item-section>
         </q-item>
