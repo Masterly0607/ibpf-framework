@@ -12,8 +12,8 @@
           align="left"
           narrow-indicator
         >
-          <q-tab name="myAccount" label="My Account" />
-          <q-tab name="notification" label="Notification" />
+          <q-tab name="myAccount" label="My Account" no-caps />
+          <q-tab name="notification" label="Notification" no-caps />
         </q-tabs>
 
         <q-separator />
@@ -38,7 +38,7 @@
                         <div class="ibf-h7 text-bold">Da Lyna</div>
                         <div class="text-subtitle2">Student in Finance</div>
                         <div class="text-subtitle2">
-                          Email: anyalina@gmail.com
+                          Email: ui.officer@ibfkh.org
                         </div>
                       </div>
                     </div>
@@ -47,6 +47,7 @@
                 <div class="card-bg q-pa-sm" align="right">
                   <q-btn
                     flat
+                    no-caps
                     label="Edit Profile"
                     color="primary"
                     @click="editUserProfile"
@@ -65,72 +66,123 @@
                       <div class="edit-bg">
                         <q-btn
                           flat
+                          no-caps
                           icon="edit"
                           label="Edit"
                           color="primary"
-                          @click="onClick"
+                          @click="editUserWork"
                         />
                       </div>
                     </div>
 
                     <q-separator />
 
-                    <div class="q-py-md">
-                      <q-form width="100%" @submit="onSubmit" @reset="onReset">
-                        <div class="row q-gutter-md">
-                          <q-input
-                            filled
-                            v-model="name"
-                            label="Industry *"
-                            hint="Your industry"
-                            lazy-rules
-                            :rules="[
-                              (val) =>
-                                (val && val.length > 0) ||
-                                'Please type something',
-                            ]"
-                          />
-                          <q-input
-                            filled
-                            v-model="name"
-                            label="Role *"
-                            hint="Your role"
-                            lazy-rules
-                            :rules="[
-                              (val) =>
-                                (val && val.length > 0) ||
-                                'Please type something',
-                            ]"
-                          />
+                    <div class="q-gutter-y-md">
+                      <div class="row q-col-gutter-md">
+                        <div class="col-6">
+                          <div class="text-bold">Industry</div>
+                          <q-field
+                            color="grey-3"
+                            label-color="teal"
+                            outlined
+                            stack-label
+                          >
+                            <template v-slot:append>
+                              <q-icon name="domain" color="primary" />
+                            </template>
+                            <template v-slot:control>
+                              <div
+                                class="self-center full-width no-outline"
+                                tabindex="0"
+                              >
+                                <!-- {{ text }} -->
+                                Your Industry
+                              </div>
+                            </template>
+                          </q-field>
                         </div>
 
-                        <div class="row q-gutter-md">
-                          <q-input
-                            filled
-                            v-model="name"
-                            label="Job Title *"
-                            hint="Your job"
-                            lazy-rules
-                            :rules="[
-                              (val) =>
-                                (val && val.length > 0) ||
-                                'Please type something',
-                            ]"
-                          />
-                          <q-input
-                            filled
-                            v-model="name"
-                            label="Company Name *"
-                            hint="Your company name"
-                            lazy-rules
-                            :rules="[
-                              (val) =>
-                                (val && val.length > 0) ||
-                                'Please type something',
-                            ]"
-                          />
+                        <div class="col-6">
+                          <div class="text-bold">Role</div>
+                          <q-field
+                            color="grey-3"
+                            label-color="primary"
+                            outlined
+                            stack-label
+                          >
+                            <template v-slot:append>
+                              <q-icon name="group" color="primary" />
+                            </template>
+                            <template v-slot:control>
+                              <div
+                                class="self-center full-width no-outline"
+                                tabindex="0"
+                              >
+                                <!-- {{ text }} -->
+                                Your Role
+                              </div>
+                            </template>
+                          </q-field>
                         </div>
-                      </q-form>
+                      </div>
+
+                      <div class="row q-col-gutter-x-md">
+                        <div class="col-6">
+                          <div class="text-bold">Job Title</div>
+                          <q-field
+                            color="grey-3"
+                            label-color="teal"
+                            outlined
+                            stack-label
+                          >
+                            <template v-slot:append>
+                              <q-icon name="domain_add" color="primary" />
+                            </template>
+                            <template v-slot:control>
+                              <div
+                                class="self-center full-width no-outline"
+                                tabindex="0"
+                              >
+                                <!-- {{ text }} -->
+                                Job Title
+                              </div>
+                            </template>
+                          </q-field>
+                          <!-- <div class="ibf-h10 text-bold">
+                            Job Title
+                            <q-input
+                              name="job"
+                              v-model="job"
+                              label="Your job title"
+                              outlined
+                              clearable
+                            />
+                          </div> -->
+                        </div>
+
+                        <div class="col-6">
+                          <div class="text-bold">Company Name</div>
+                          <q-field
+                            color="grey-3"
+                            label-color="teal"
+                            outlined
+                            stack-label
+                          >
+                            <template v-slot:append>
+                              <q-icon name="compost" color="primary" />
+                            </template>
+                            <template v-slot:control>
+                              <div
+                                class="self-center full-width no-outline"
+                                tabindex="0"
+                              >
+                                <!-- {{ text }} -->
+                                Company Name
+                              </div>
+                            </template>
+                          </q-field>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </q-card-section>
@@ -157,12 +209,19 @@
 import { ref } from "vue";
 import UserNotification from "./components/UserNotification.vue";
 import { useRouter } from "vue-router";
+// import { useUserProfileStore } from "src/stores/profile-store";
+// import { storeToRefs } from "pinia";
 
 const router = useRouter();
 const tab = ref("myAccount");
 
+const email = defineModel("email");
+
 const editUserProfile = () => {
   router.push({ name: "edit-user-profile" });
+};
+const editUserWork = () => {
+  router.push({ name: "edit-user-work" });
 };
 </script>
 
