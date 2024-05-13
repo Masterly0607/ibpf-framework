@@ -1,14 +1,16 @@
 <template>
   <q-layout view="hHh lpR fFf">
-    <q-header reveal bordered>
+    <q-header reveal bordered :class="['text-white', computedBgColor]">
       <q-toolbar>
         <q-toolbar-title>
           <div>
-            <q-btn flat label="Back" :to="{ name: 'profile-page' }" />
+            <q-btn flat label="Back" @click="backHome" />
           </div>
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
+
+    <!-- <header-home></header-home> -->
 
     <q-page-container>
       <router-view />
@@ -17,6 +19,7 @@
 </template>
 
 <script setup>
+// import HeaderHome from "components/HeaderHome.vue";
 import { storeToRefs } from "pinia";
 import { useFrameworkStore } from "src/stores/framework-store";
 import { computed } from "vue";
@@ -30,7 +33,7 @@ const computedBgColor = computed(
   () => `bg-${framework.value.color || "primary"}`
 );
 
-const backToProfile = () => {
-  router.push({ name: "edit-profile" });
+const backHome = () => {
+  router.push({ name: "dashboard" });
 };
 </script>

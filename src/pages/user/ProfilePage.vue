@@ -1,3 +1,4 @@
+<!-- header home -->
 <template>
   <div class="ibf-container-1400">
     <!-- <div class="q-gutter-y-md" style="max-width: 600px"> -->
@@ -194,7 +195,7 @@
           <!-- notification tab -->
           <q-tab-panel name="notification">
             <div class="q-py-md">
-              <user-notification></user-notification>
+              <NotificationPage></NotificationPage>
             </div>
           </q-tab-panel>
         </q-tab-panels>
@@ -207,7 +208,7 @@
 
 <script setup>
 import { ref } from "vue";
-import UserNotification from "./components/UserNotification.vue";
+import NotificationPage from "./NotificationPage.vue";
 import { useRouter } from "vue-router";
 // import { useUserProfileStore } from "src/stores/profile-store";
 // import { storeToRefs } from "pinia";

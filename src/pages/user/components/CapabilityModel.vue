@@ -1,14 +1,14 @@
 <template>
   <section id="capability-model">
-    <q-card flat bordered>
+    <q-card square bordered>
       <div class="q-pa-md ibf-h8 text-bold">Capability Model</div>
       <q-card-section>
         <div class="row q-col-gutter-md">
-          <div class="col-12 col-sm-8 col-md-6">
-            <q-card square>
+          <div class="col-12 col-md-6">
+            <q-card square flat bordered>
               <q-card-section>
-                <div class="text-h6">Self Assessment</div>
-                <div class="text-subtitle1">
+                <div class="ibf-h8 q-py-sm">Self Assessment</div>
+                <div class="text-subtitle2 text-grey-8">
                   Start by measuring your skills and <br />
                   knowledge.
                 </div>
@@ -16,7 +16,7 @@
               <q-separator />
               <div class="q-pa-sm" bordered align="right">
                 <q-btn
-                  color="red"
+                  color="primary"
                   flat
                   no-caps
                   label="Begin the Assessment"
@@ -26,11 +26,11 @@
             </q-card>
           </div>
 
-          <div class="col-12 col-sm-8 col-md-6">
-            <q-card square>
+          <div class="col-12 col-md-6">
+            <q-card square flat bordered>
               <q-card-section>
-                <div class="text-h6">TNA</div>
-                <div class="text-subtitle1">
+                <div class="ibf-h8 q-py-sm">TNA</div>
+                <div class="text-subtitle2 text-grey-8">
                   Choose what and how you learn to <br />
                   help you develop in your career.
                 </div>
@@ -38,7 +38,7 @@
               <q-separator />
               <div class="q-pa-sm" bordered align="right">
                 <q-btn
-                  color="red"
+                  color="primary"
                   flat
                   no-caps
                   label="Begin the TNA"
@@ -57,5 +57,3 @@
 </template>
 
 <script setup></script>
-
-<style scoped></style>

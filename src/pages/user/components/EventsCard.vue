@@ -1,9 +1,9 @@
 <template>
   <section id="events-card">
-    <q-card square flat bordered>
+    <q-card square bordered>
       <div class="ibf-h8 text-bold q-ma-md">Events</div>
       <q-card-section>
-        <q-card square bordered>
+        <q-card flat square bordered>
           <q-card>
             <div class="row">
               <div square class="q-ma-md">
@@ -29,7 +29,7 @@
       </q-card-section>
 
       <q-card-section>
-        <q-card square bordered>
+        <q-card flat square bordered>
           <q-card>
             <div class="row">
               <div square class="q-ma-md">
