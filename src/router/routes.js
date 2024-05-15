@@ -63,8 +63,14 @@ const routes = [
   // Authenitications route
   {
     path: "/auth",
-    component: () => import("pages/authentication/LoginPage.vue"),
-    children: [],
+    component: () => import("layouts/AuthLayout.vue"),
+    children: [
+      {
+        path: "",
+        name: "login-page",
+        component: () => import("pages/authentication/LoginPage.vue"),
+      },
+    ],
   },
 
   // Always leave this as last one,
