@@ -1,6 +1,6 @@
 <template>
   <section id="capability-model">
-    <q-card square bordered>
+    <q-card square>
       <div class="q-pa-md ibf-h8 text-bold">Capability Model</div>
       <q-card-section>
         <div class="row q-col-gutter-md">

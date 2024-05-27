@@ -9,6 +9,7 @@ import axios from "axios";
 // for each client)
 const api = axios.create({ baseURL: "https://api.example.com" });
 const authAPI = axios.create({ baseURL: "https://locker.ibfnxt.com" });
+const productAPI = axios.create({ baseURL: "https://product.ibfnxt.com" });
 
 export default boot(({ app }) => {
   // for use inside Vue files (Options API) through this.$axios and this.$api
@@ -19,8 +20,9 @@ export default boot(({ app }) => {
 
   app.config.globalProperties.$api = api;
   app.config.globalProperties.$authAPI = authAPI;
+  app.config.globalProperties.$productAPI = productAPI;
   // ^ ^ ^ this will allow you to use this.$api (for Vue Options API form)
   //       so you can easily perform requests against your app's API
 });
 
-export { api, authAPI };
+export { api, authAPI, productAPI };

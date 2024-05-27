@@ -1,6 +1,6 @@
 <!-- header home -->
 <template>
-  <div class="ibf-container-1400">
+  <div class="ibf-container-1200">
     <!-- <div class="q-gutter-y-md" style="max-width: 600px"> -->
     <div class="q-pa-md" style="max-width: 100%">
       <q-card flat>

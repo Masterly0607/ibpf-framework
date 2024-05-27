@@ -1,6 +1,6 @@
 <template>
   <section id="my-learning">
-    <q-card square bordered>
+    <q-card square>
       <div class="ibf-h8 text-bold q-pa-md">My Learning Portfolio</div>
 
       <q-card-section>

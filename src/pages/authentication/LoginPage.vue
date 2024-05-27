@@ -2,7 +2,7 @@
   <q-page
     padding
     :class="[
-      'window-height flex flex-start justify-center',
+      'window-height flex-start justify-center',
       Screen.gt.sm ? '' : 'background',
     ]"
   >
@@ -24,10 +24,13 @@
 
               <div class="ibf-h11 text-grey-6">
                 Doesn't have an account yet?
-
-                <span class="text-secondary text-weight-medium text-underline">
-                  Sign Up
-                </span>
+                <router-link :to="{ name: 'sign-up-page' }">
+                  <span
+                    class="text-secondary text-weight-medium text-underline"
+                  >
+                    Sign Up
+                  </span>
+                </router-link>
               </div>
             </q-card-section>
 
@@ -117,7 +120,7 @@
                 <q-item-section>
                   <q-item-label caption lines="2">password</q-item-label>
                   <q-item-label class="text-secondary text-weight-medium"
-                    >demo</q-item-label
+                    >demo123</q-item-label
                   >
                 </q-item-section>
               </q-item>
@@ -158,6 +161,7 @@ const login = async () => {
     router.push({ name: "home" });
   }
 };
+
 </script>
 
 <style lang="scss" scoped>

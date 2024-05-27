@@ -1,6 +1,6 @@
 <template>
   <q-page padding class="ibf-container-1400">
-    <div elevated style="width: 100%">
+    <div elevated style="max-width: 100%">
       <!-- tab dashboard -->
       <q-tabs v-model="tab" class="text-primary" align="left">
         <q-tab label="Dashboard" name="TabOne" no-caps />
@@ -12,7 +12,7 @@
         <q-tab-panels animated v-model="tab">
           <!-- tab one -->
           <q-tab-panel name="TabOne">
-            <div class="row q-col-gutter-md">
+            <div class="row q-col-gutter-lg">
               <!-- profile -->
               <div class="col-12 col-sm-6 col-md-3">
                 <q-card square>
@@ -50,7 +50,7 @@
               </div>
             </div>
 
-            <div class="row q-col-gutter-md q-py-md">
+            <div class="row q-col-gutter-lg q-py-lg">
               <!-- View Course -->
               <div class="col-12 col-sm-6 col-md-3">
                 <CourseList></CourseList>
@@ -63,13 +63,16 @@
                     <my-learning></my-learning>
                   </div>
                   <!-- Events -->
-                  <div class="q-py-md">
+                  <div class="q-py-sm">
                     <events-card></events-card>
                   </div>
 
                   <!-- Recommended -->
                   <div class="text-h5 q-py-md">Recommended for you</div>
                   <div>
+                    <RecommendedCourse></RecommendedCourse>
+                  </div>
+                  <!-- <div>
                     <q-card
                       square
                       flat
@@ -87,7 +90,7 @@
                         </q-card-section>
                       </q-card>
                     </q-card>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </div>
@@ -108,6 +111,7 @@ import { ref } from "vue";
 import CapabilityModel from "./components/CapabilityModel.vue";
 import MyLearning from "./components/MyLearning.vue";
 import EventsCard from "./components/EventsCard.vue";
+import RecommendedCourse from "./components/RecommendedCourse.vue";
 import { useRouter } from "vue-router";
 import CourseList from "./components/CourseList.vue";
 

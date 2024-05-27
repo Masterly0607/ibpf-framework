@@ -20,8 +20,13 @@ const routes = [
       },
       {
         path: "notifications",
-        name: "notifications",
+        name: "notifications-page",
         component: () => import("pages/user/NotificationsPage.vue"),
+      },
+      {
+        path: "view-course",
+        name: "view-course-page",
+        component: () => import("pages/course/ViewAllCoursesPage.vue"),
       },
     ],
   },
@@ -69,6 +74,11 @@ const routes = [
         path: "",
         name: "login-page",
         component: () => import("pages/authentication/LoginPage.vue"),
+      },
+      {
+        path: "sign-up",
+        name: "sign-up-page",
+        component: () => import("pages/authentication/SignUpPage.vue"),
       },
     ],
   },
