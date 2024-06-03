@@ -20,7 +20,6 @@
                   flat
                   no-caps
                   label="Begin the Assessment"
-                  @click="onClick"
                 />
               </div>
             </q-card>
@@ -37,20 +36,14 @@
               </q-card-section>
               <q-separator />
               <div class="q-pa-sm" bordered align="right">
-                <q-btn
-                  color="primary"
-                  flat
-                  no-caps
-                  label="Begin the TNA"
-                  @click="onClick"
-                />
+                <q-btn color="primary" flat no-caps label="Begin the TNA" />
               </div>
             </q-card>
           </div>
         </div>
       </q-card-section>
       <div class="q-pa-sm card-bg" bordered align="right">
-        <q-btn flat no-caps label="View Skill Assessment" @click="onClick" />
+        <q-btn flat no-caps label="View Skill Assessment" />
       </div>
     </q-card>
   </section>

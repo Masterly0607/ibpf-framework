@@ -4,15 +4,14 @@
       <div class="q-gutter-md">
         <q-form @submit="onSubmit">
           <!-- Search product -->
-          <div :class="$q.dark.isActive ? '' : ''">
-            <span class="ibf-h7 text-weight-medium">Search Course</span>
-            <div class="row q-gutter-sm">
+          <div>
+            <div class="row items-center q-gutter-sm">
               <q-input
-                dense
-                outlined
+                class="col"
+                filled
+                square
                 v-model="keyword"
-                placeholder="Search"
-                style="width: 92%"
+                placeholder="Search for IBF products"
               >
                 <template v-slot:append>
                   <q-btn flat round @click="searchProduct">
@@ -35,26 +34,20 @@
                 color="black-6"
                 icon="view_list"
                 aria-label="Submit"
-                @click="onClick"
               />
+
+              <filter-product></filter-product>
             </div>
           </div>
 
           <!-- Fillter product -->
-          <div class="rounded-borders" :class="$q.dark.isActive ? '' : ''">
+          <!--<div class="rounded-borders" :class="$q.dark.isActive ? '' : ''">
             <div class="q-py-lg"><q-separator /></div>
             <div class="row">
               <span class="col-6 text-bold ibf-h9">Fillter</span>
 
               <div class="col-6" align="right">
-                <q-btn
-                  no-caps
-                  dense
-                  flat
-                  color="grey"
-                  label="Clear Fillter"
-                  @click="onClick"
-                />
+                <q-btn no-caps dense flat color="grey" label="Clear Fillter" />
               </div>
             </div>
 
@@ -109,7 +102,7 @@
                 </q-item>
               </q-card>
             </div>
-          </div>
+          </div>-->
         </q-form>
 
         <div class="ibf-h8 text-bold">New & Feature courses</div>
@@ -190,8 +183,11 @@
 </template>
 
 <script setup>
+import FilterProduct from "./components/FilterProduct.vue";
 import { ref, onMounted } from "vue";
 import axios from "axios";
+import { useCartStore } from "src/stores/cart-store";
+import { storeToRefs } from "pinia";
 
 const preferred = ref("IC");
 const model = ref(null);
@@ -301,17 +297,21 @@ const searchProduct = async () => {
   }
 };
 
-const carts = ref([7, 21]);
+// add to carts
+
+const cartStore = useCartStore();
+
+const { cartItemsIds } = storeToRefs(cartStore);
 
 const addToCarts = (id) => {
-  carts.value.push(id);
+  cartStore.addToCart(id);
 };
 
 const removeFromCarts = (id) => {
-  carts.value = carts.value.filter((item) => item !== id);
+  cartStore.removeFromCart(id);
 };
 const checkInCart = (id) => {
-  return carts.value.includes(id);
+  return cartItemsIds.value.includes(id);
 };
 
 // const fetchItems = async () => {

@@ -27,7 +27,6 @@
                 color="primary"
                 icon="grid_view"
                 aria-label="Submit"
-                @click="onClick"
               />
               <q-btn
                 dense
@@ -35,7 +34,6 @@
                 color="primary"
                 icon="view_list"
                 aria-label="Submit"
-                @click="onClick"
               />
             </div>
           </div>
@@ -45,14 +43,7 @@
             <div class="row q-py-sm">
               <span class="col-6 text-bold ibf-h9">Fillter</span>
               <div class="col-6" align="right">
-                <q-btn
-                  no-caps
-                  dense
-                  flat
-                  color="grey"
-                  label="Clear Fillter"
-                  @click="onClick"
-                />
+                <q-btn no-caps dense flat color="grey" label="Clear Fillter" />
               </div>
             </div>
 

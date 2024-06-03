@@ -34,7 +34,7 @@
             aria-label="profile"
             :to="{ name: 'dashboard-page' }"
           />
-
+          <!-- shopping cart btn -->
           <q-btn
             flat
             round
@@ -44,7 +44,15 @@
             aria-label="profile"
             :to="{ name: 'add-to-cart-page' }"
           >
-            <q-badge rounded color="negative" floating transparent> 4 </q-badge>
+            <q-badge
+              v-if="countCartItems > 0"
+              rounded
+              color="negative"
+              floating
+              transparent
+            >
+              {{ countCartItems }}
+            </q-badge>
           </q-btn>
 
           <q-btn
@@ -53,10 +61,10 @@
             round
             color="black-10"
             icon="favorite_border"
-            @click="addToWishlist"
             counter
             hint="4"
           />
+
           <q-btn
             outline
             color="primary"
@@ -115,14 +123,12 @@
                     color="primary"
                     icon="shopping_cart"
                     aria-label="profile"
-                    @click="addToCard"
                   />
                   <q-btn
                     flat
                     color="primary"
                     icon="favorite_border"
                     aria-label="profile"
-                    @click="addToWishlist"
                   />
                 </div>
               </q-item>
@@ -157,12 +163,18 @@
 </template>
 
 <script setup>
+import { storeToRefs } from "pinia";
 import { Screen } from "quasar";
-import { ref } from "vue";
+import { useCartStore } from "src/stores/cart-store";
+import { computed, ref } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
+const cartStore = useCartStore();
 
+const { cartItemsIds } = storeToRefs(cartStore);
+
+const countCartItems = computed(() => cartItemsIds.value.length);
 const props = defineProps({
   bgColor: {
     type: String,
@@ -220,12 +232,7 @@ const headerMenuItems = ref([
 ]);
 
 function goTo(routeName) {
-  // This is a placeholder for route navigation
-  // console.log("Navigating to:", routeName);
-  // this.$router.push({ name: routeName });
-
   if (routeName) {
-    console.log("hello");
     router.push({ name: routeName });
   }
 }
