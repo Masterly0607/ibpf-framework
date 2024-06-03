@@ -12,7 +12,7 @@
       <!-- Desktop Menu -->
       <div v-if="Screen.gt.sm" class="row q-gutter-md">
         <div class="row q-gutter-x-md">
-          <div v-for="menuItem in headerMenuItems" :key="menuItem.title">
+          <div v-for="(menuItem, index) in headerMenuItems" :key="index">
             <q-btn
               flat
               square
@@ -28,27 +28,34 @@
           <q-btn
             flat
             dense
-            color="primary"
+            round
+            color="black-10"
             icon="account_circle"
             aria-label="profile"
-            :to="{ name: 'dashboard' }"
+            :to="{ name: 'dashboard-page' }"
           />
+
           <q-btn
             flat
+            round
             dense
-            color="primary"
+            color="black-10"
             icon="shopping_cart"
             aria-label="profile"
-            @click="addToCard"
-          />
+            :to="{ name: 'add-to-cart-page' }"
+          >
+            <q-badge rounded color="negative" floating transparent> 4 </q-badge>
+          </q-btn>
+
           <q-btn
             flat
             dense
-            color="primary"
+            round
+            color="black-10"
             icon="favorite_border"
-            aria-label="profile"
             @click="addToWishlist"
             counter
+            hint="4"
           />
           <q-btn
             outline
@@ -77,7 +84,7 @@
           color="primary"
           icon="account_circle"
           aria-label="profile"
-          :to="{ name: 'dashboard' }"
+          :to="{ name: 'dashboard-page' }"
         />
         <q-btn flat round icon="menu" class="q-ml-auto" ref="dropdownMenu">
           <q-menu square fit anchor="top right" self="top right">
@@ -152,8 +159,10 @@
 <script setup>
 import { Screen } from "quasar";
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
-const count = ref(0);
+const router = useRouter();
+
 const props = defineProps({
   bgColor: {
     type: String,
@@ -171,48 +180,53 @@ const headerMenuItems = ref([
     title: "Home",
     icon: "mdi-home-outline",
     isActive: true,
-    router: "home",
+    router: "home-page",
   },
 
   {
     title: "Courses",
     icon: "mdi-school-outline",
     isActive: true,
-    router: "courses",
+    router: "product-list-page",
   },
 
   {
     title: "Events",
     icon: "mdi-calendar",
     isActive: true,
-    router: "events",
+    router: "event-page",
   },
 
   {
     title: "Assessment",
     icon: "mdi-gauge",
     isActive: true,
-    router: "assessement",
+    router: "",
   },
 
   {
     title: "Enrol",
     icon: "mdi-card-account-details-outline",
     isActive: true,
-    router: "enrol",
+    router: "enrol-page",
   },
 
   {
     title: "About",
     icon: "mdi-information-outline",
     isActive: true,
-    router: "about",
+    router: "about-page",
   },
 ]);
 
 function goTo(routeName) {
   // This is a placeholder for route navigation
-  console.log("Navigating to:", routeName);
+  // console.log("Navigating to:", routeName);
   // this.$router.push({ name: routeName });
+
+  if (routeName) {
+    console.log("hello");
+    router.push({ name: routeName });
+  }
 }
 </script>

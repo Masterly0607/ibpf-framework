@@ -3,18 +3,41 @@ const routes = [
     path: "/",
     component: () => import("layouts/MainLayout.vue"),
     children: [
+      //---------- menu list ------------
       {
         path: "",
-        name: "home",
+        name: "home-page",
         component: () => import("pages/IndexPage.vue"),
       },
       {
+        path: "product-list",
+        name: "product-list-page",
+        component: () => import("pages/course/ProductListPage.vue"),
+      },
+      {
+        path: "event",
+        name: "event-page",
+        component: () => import("pages/menu/EventPage.vue"),
+      },
+      {
+        path: "enrol",
+        name: "enrol-page",
+        component: () => import("pages/menu/EnrolPage.vue"),
+      },
+      {
+        path: "about",
+        name: "about-page",
+        component: () => import("pages/menu/AboutPage.vue"),
+      },
+
+      //---------- user dashboard ------------
+      {
         path: "dashboard",
-        name: "dashboard",
+        name: "dashboard-page",
         component: () => import("pages/user/DashboardPage.vue"),
       },
       {
-        path: "profile-page",
+        path: "profile",
         name: "profile-page",
         component: () => import("pages/user/ProfilePage.vue"),
       },
@@ -23,10 +46,18 @@ const routes = [
         name: "notifications-page",
         component: () => import("pages/user/NotificationsPage.vue"),
       },
+
       {
-        path: "view-course",
-        name: "view-course-page",
-        component: () => import("pages/course/ViewAllCoursesPage.vue"),
+        path: "view-product",
+        name: "view-product-page",
+        component: () => import("pages/course/ViewProductPage.vue"),
+      },
+
+      // ----------- add to cart ------------
+      {
+        path: "add-to-cart",
+        name: "add-to-cart-page",
+        component: () => import("pages/course/AddToCartPage.vue"),
       },
     ],
   },

@@ -34,6 +34,6 @@ const computedBgColor = computed(
 );
 
 const backHome = () => {
-  router.push({ name: "dashboard" });
+  router.push({ name: "dashboard-page" });
 };
 </script>

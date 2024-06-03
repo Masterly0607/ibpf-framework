@@ -58,6 +58,6 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 const startLearning = () => {
-  router.push({ name: "view-course-page" });
+  router.push({ name: "product-list-page" });
 };
 </script>

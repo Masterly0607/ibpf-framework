@@ -13,7 +13,7 @@
           square
           icon="mdi-arrow-left-thin"
           label="Back"
-          :to="{ name: 'home' }"
+          :to="{ name: 'home-page' }"
         />
       </div>
       <div class="row q-col-gutter-x-md">
@@ -102,7 +102,7 @@
                   style="width: 100%"
                   label="Sign Up"
                   color="primary"
-                  :to="{ name: 'home' }"
+                  :to="{ name: 'home-page' }"
                 />
               </div>
 

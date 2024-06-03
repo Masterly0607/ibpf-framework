@@ -1,12 +1,12 @@
 <template>
   <section id="events-card">
     <q-card square>
-      <div class="ibf-h8 text-bold q-ma-md">Events</div>
+      <div class="ibf-h8 text-bold q-pa-md">Events</div>
       <q-card-section>
         <q-card flat square bordered>
           <q-card>
             <div class="row">
-              <div square class="q-ma-md">
+              <div square class="q-pa-md">
                 <img
                   src="https://cdn.quasar.dev/img/mountains.jpg"
                   width="150px"

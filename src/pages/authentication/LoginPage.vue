@@ -13,7 +13,7 @@
           square
           icon="mdi-arrow-left-thin"
           label="Back"
-          :to="{ name: 'home' }"
+          :to="{ name: 'home-page' }"
         />
       </div>
       <div class="row q-col-gutter-x-md">
@@ -161,7 +161,6 @@ const login = async () => {
     router.push({ name: "home" });
   }
 };
-
 </script>
 
 <style lang="scss" scoped>
