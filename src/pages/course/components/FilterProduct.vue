@@ -101,23 +101,12 @@
 </template>
 
 <script setup>
+import { useCategoryStore } from "src/stores/category-store";
 import { ref } from "vue";
+const categoryStore = useCategoryStore();
 const drawerRight = ref(false);
 const selectedProductType = ref("");
-const productTypeOptions = [
-  {
-    label: "International Certification",
-    value: "IC",
-  },
-  {
-    label: "Local Certification",
-    value: "LC",
-  },
-  {
-    label: "Training Courses",
-    value: "TC",
-  },
-];
+const productTypeOptions = categoryStore.getCoreAreas;
 
 const selectedCoreAreas = ref([]);
 

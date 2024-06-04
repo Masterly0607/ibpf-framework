@@ -124,18 +124,32 @@
                 {{ data.title }}
               </div>
               <div
-                class="q-py-xs text-grey-7 text-weight-light multi-line-ellipsis"
+                class="q-py-xs text-grey-7 text-weight-light ellipsis-2-lines"
               >
                 {{ data.description }}
               </div>
             </q-card-section>
 
             <q-card-actions class="q-pb-none" align="between">
-              <div class="ibf-h11 q-py-md text-grey-6">
-                Price:
-                <span class="ibf-h11 text-negative text-bold"
-                  >{{ data.price }} $
-                </span>
+              <div v-if="data.isFree">
+                <q-badge color="grey" text-color="white" label="Free" />
+              </div>
+              <div v-else>
+                <div
+                  v-if="data.isDiscount"
+                  class="ibf-h11 text-negative text-weight-bold"
+                >
+                  {{ `${data.currency} ${data.afterDiscount}` }}
+
+                  <span
+                    class="ibf-h12 text-grey-7 text-strike text-weight-light"
+                  >
+                    {{ `${data.currency} ${data.price}` }}
+                  </span>
+                </div>
+                <div v-else class="ibf-h11 text-negative text-bold">
+                  {{ `${data.currency} ${data.price}` }}
+                </div>
               </div>
 
               <div>
@@ -188,83 +202,12 @@ import { ref, onMounted } from "vue";
 import axios from "axios";
 import { useCartStore } from "src/stores/cart-store";
 import { storeToRefs } from "pinia";
+import { useCategoryStore } from "src/stores/category-store";
 
-const preferred = ref("IC");
-const model = ref(null);
+const categoryStore = useCategoryStore();
 const submitResult = ref([]);
 const keyword = ref("");
-// const product_type_id = ref("");
-// const core_area_id = ref("");
-
-// const buttonFavoColors = ref(Array(10).fill("grey"));
-// const isFavoriteColored = ref(Array(10).fill("grey"));
-
-// const buttonShopping = ref(Array(10).fill("grey"));
-// const isShoppingColored = ref(Array(10).fill("grey"));
-
-// const dataProduct = ref(null);
 const searchProductData = ref(null);
-
-// const clickFavorite = (index) => {
-//   isFavoriteColored.value[index] = !isFavoriteColored.value[index]
-//     ? "primary"
-//     : "grey";
-//   buttonFavoColors.value[index] = isFavoriteColored.value[index]
-//     ? "primary"
-//     : "grey";
-// };
-
-// const clickShoppingCart = (index) => {
-//   isShoppingColored.value[index] = !isShoppingColored.value[index]
-//     ? "primary"
-//     : "grey";
-//   buttonShopping.value[index] = isShoppingColored.value[index]
-//     ? "primary"
-//     : "grey";
-// };
-
-const options = [
-  {
-    label: "International Certification",
-    value: "IC",
-  },
-  {
-    label: "Local Certification",
-    value: "LC",
-  },
-  {
-    label: "Training Courses",
-    value: "TC",
-  },
-];
-
-const options1 = [
-  "Analytical and Critical Thinking Skills",
-  "Audit",
-  "Branch Management",
-  "Budgeting and Forecasting",
-  "Communication Excellence",
-  "Corporate Finance",
-  "Corporate Governance",
-  "Credit",
-  "Critical Thinking and Problem-Solving Skills",
-  "Digital Banking",
-  // "Effective Customer Service and Relationship Management",
-  "Effective Customer Service",
-  "Effective and Practical Fraud Management",
-  "Ethics",
-  "HR",
-  "IBF Game",
-  "IT",
-  "Legal Remedies for Loan Recovery Management",
-  "Managing Customer Experiences",
-  "Project Management",
-  "Risk",
-  "Sustainable Finance",
-  "Trade Finance",
-];
-
-//
 
 const onSubmit = (evt) => {
   const formData = new FormData(evt.target);
@@ -278,6 +221,10 @@ const onSubmit = (evt) => {
   }
 
   submitResult.value = data;
+};
+
+const fetchCategory = async () => {
+  await categoryStore.fetchCoreAreas();
 };
 
 const searchProduct = async () => {
@@ -314,73 +261,10 @@ const checkInCart = (id) => {
   return cartItemsIds.value.includes(id);
 };
 
-// const fetchItems = async () => {
-//   try {
-//     const response = await axios.get(
-//       "https://product.ibfnxt.com/api/v1/user/product/list"
-//     );
-//     dataProduct.value = response.data.data.data;
-//     console.log(response.data.data.data);
-//   } catch (error) {
-//     console.error("Error fetching items:", error);
-//   }
-// };
-
 onMounted(() => {
   searchProduct();
+  fetchCategory();
 });
-
-// const datas = [
-//   {
-//     id: 1,
-//     title: "Cybersecurity for Internal Auditors",
-//     subtitle: "Introduced by IBF",
-//     src: "https://s3.ap-southeast-1.amazonaws.com/svc-lms-bucket.ibfkh.org/61f17951-d509-4b60-967b-a84442f949b6/courses/c5119071-db62-4126-aeba-8f7c908e9c07/materials/1698916105167-CybersecurityforInternalAuditors.jpg",
-//   },
-//   {
-//     id: 2,
-//     title:
-//       "ICA International Advanced Certificate in Governance, Risk and Compliance",
-//     subtitle: "Introduced by IBF ",
-//     src: "https://s3.ap-southeast-1.amazonaws.com/svc-lms-bucket.ibfkh.org/61f17951-d509-4b60-967b-a84442f949b6/courses/e8f9666c-ee0c-4eb5-b1b1-157ee2fba797/materials/1698995770523-ICAInternationalAdvancedCertificateinGovernance,RiskandCompliance.jpg",
-//   },
-//   {
-//     id: 3,
-//     title: "Certification in Climate Change and Sustainable Finance",
-//     subtitle: "Starts 12th June 2024",
-//     src: "https://s3.ap-southeast-1.amazonaws.com/svc-lms-bucket.ibfkh.org/61f17951-d509-4b60-967b-a84442f949b6/courses/f9022786-5d52-4648-ae33-315102881fe1/materials/1710843012093-Climate.png",
-//   },
-//   {
-//     id: 4,
-//     title: "Banking Risk Management",
-//     subtitle: "by John Doe",
-//     src: "https://s3.ap-southeast-1.amazonaws.com/svc-lms-bucket.ibfkh.org/61f17951-d509-4b60-967b-a84442f949b6/courses/413c1ae0-51ab-4799-a64b-66ed33f57055/materials/1698994518567-BankingRiskManagement.jpg",
-//   },
-//   {
-//     id: 5,
-//     title: "Project Finance Masterclass",
-//     subtitle: "by John Doe",
-//     src: "https://s3.ap-southeast-1.amazonaws.com/svc-lms-bucket.ibfkh.org/61f17951-d509-4b60-967b-a84442f949b6/courses/75098761-c97d-4c60-9109-1c555076b79d/materials/1698998232808-ProjectFinanceMasterclass.jpg",
-//   },
-//   {
-//     id: 6,
-//     title: "Managing Customer Experiences with Millennials Customers",
-//     subtitle: "by John Doe",
-//     src: "https://s3.ap-southeast-1.amazonaws.com/svc-lms-bucket.ibfkh.org/61f17951-d509-4b60-967b-a84442f949b6/courses/01c03749-ecd7-49ae-b13f-5bca9528062f/materials/1693927419763-Mr.LEE.jpeg",
-//   },
-//   {
-//     id: 7,
-//     title: "Communication Excellence",
-//     subtitle: "Introduced by Admin IBF",
-//     src: "https://s3.ap-southeast-1.amazonaws.com/svc-lms-bucket.ibfkh.org/61f17951-d509-4b60-967b-a84442f949b6/courses/0e91f6f1-abb9-4634-be59-32f4de360e7e/materials/1698915612788-CommunicationExcellence.jpg ",
-//   },
-//   {
-//     id: 8,
-//     title: "Managing Regulatory Compliance Risk",
-//     subtitle: "Introduced by Admin IBF",
-//     src: "https://s3.ap-southeast-1.amazonaws.com/svc-lms-bucket.ibfkh.org/61f17951-d509-4b60-967b-a84442f949b6/courses/dbffaa5c-fdc9-4038-9fdf-00c52df831ec/materials/1698913935040-ManagingRegulatoryComplianceRisk.jpg",
-//   },
-// ];
 </script>
 
 <style scoped>

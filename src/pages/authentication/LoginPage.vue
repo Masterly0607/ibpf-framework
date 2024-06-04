@@ -158,7 +158,7 @@ const login = async () => {
 
   if (res) {
     userStore.storeUser(res);
-    router.push({ name: "home" });
+    router.push({ name: "home-page" });
   }
 };
 </script>
