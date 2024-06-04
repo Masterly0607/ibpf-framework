@@ -223,9 +223,9 @@ const onSubmit = (evt) => {
   submitResult.value = data;
 };
 
-const fetchCategory = async () => {
-  await categoryStore.fetchCoreAreas();
-};
+//const fetchCategory = async () => {
+//  await categoryStore.fetchCoreAreas();
+//};
 
 const searchProduct = async () => {
   try {
@@ -263,7 +263,7 @@ const checkInCart = (id) => {
 
 onMounted(() => {
   searchProduct();
-  fetchCategory();
+  //  fetchCategory();
 });
 </script>
 

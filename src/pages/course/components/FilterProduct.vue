@@ -77,13 +77,23 @@
 
               <q-separator spaced />
 
-              <q-option-group
+              <div class="column q-gutter-sm">
+                <q-checkbox
+                  v-for="(coreArea, coreAreaIndex) in coreAreaOptions"
+                  :key="coreAreaIndex"
+                  v-model="selectedCoreAreas"
+                  :val="coreArea.id"
+                  :label="coreArea.title"
+                />
+              </div>
+
+              <!--<q-option-group
                 name="core_area"
                 type="checkbox"
                 v-model="selectedCoreAreas"
                 :options="coreAreaOptions"
                 color="primary"
-              />
+              />-->
             </q-card-section>
           </q-card>
 
@@ -102,15 +112,11 @@
 
 <script setup>
 import { useCategoryStore } from "src/stores/category-store";
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 const categoryStore = useCategoryStore();
 const drawerRight = ref(false);
 const selectedProductType = ref("");
-const productTypeOptions = categoryStore.getCoreAreas;
-
-const selectedCoreAreas = ref([]);
-
-const coreAreaOptions = [
+const productTypeOptions = [
   {
     label: "International Certification",
     value: "IC",
@@ -125,8 +131,22 @@ const coreAreaOptions = [
   },
 ];
 
+const selectedCoreAreas = ref([]);
+
+const coreAreaOptions = ref([]);
+
 const clearFilter = () => {
   selectedCoreAreas.value = [];
   selectedProductType.value = "";
 };
+
+const fetchCategory = async () => {
+  await categoryStore.fetchCoreAreas();
+
+  coreAreaOptions.value = categoryStore.getCoreAreas;
+};
+
+onMounted(() => {
+  fetchCategory();
+});
 </script>
