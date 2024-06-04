@@ -47,12 +47,21 @@
                 </q-item-section>
               </q-item>
               <q-separator spaced />
-              <q-option-group
+              <div class="column q-gutter-sm">
+                <q-radio
+                  v-for="(productType, productTypeIndex) in productTypeOptions"
+                  :key="productTypeIndex"
+                  v-model="selectedProductType"
+                  :val="productType.id"
+                  :label="productType.title"
+                />
+              </div>
+              <!--<q-option-group
                 name="course_type"
                 v-model="selectedProductType"
                 :options="productTypeOptions"
                 color="primary"
-              />
+              />-->
             </q-card-section>
           </q-card>
           <q-card flat square>
@@ -116,23 +125,8 @@ import { onMounted, ref } from "vue";
 const categoryStore = useCategoryStore();
 const drawerRight = ref(false);
 const selectedProductType = ref("");
-const productTypeOptions = [
-  {
-    label: "International Certification",
-    value: "IC",
-  },
-  {
-    label: "Local Certification",
-    value: "LC",
-  },
-  {
-    label: "Training Courses",
-    value: "TC",
-  },
-];
-
+const productTypeOptions = ref([]);
 const selectedCoreAreas = ref([]);
-
 const coreAreaOptions = ref([]);
 
 const clearFilter = () => {
@@ -141,9 +135,11 @@ const clearFilter = () => {
 };
 
 const fetchCategory = async () => {
+  await categoryStore.fetchProductTypes();
   await categoryStore.fetchCoreAreas();
 
   coreAreaOptions.value = categoryStore.getCoreAreas;
+  productTypeOptions.value = categoryStore.getProductTypes;
 };
 
 onMounted(() => {

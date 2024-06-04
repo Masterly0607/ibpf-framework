@@ -158,7 +158,6 @@
                   flat
                   round
                   icon="mdi-cart"
-                  @click="removeFromCarts(data.id)"
                   color="primary"
                 />
                 <q-btn
@@ -250,8 +249,8 @@ const cartStore = useCartStore();
 
 const { cartItemsIds } = storeToRefs(cartStore);
 
-const addToCarts = (id) => {
-  cartStore.addToCart(id);
+const addToCarts = async (id) => {
+  await cartStore.serverAddToCart(id);
 };
 
 const removeFromCarts = (id) => {
