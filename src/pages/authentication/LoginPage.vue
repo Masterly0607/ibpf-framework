@@ -2,7 +2,7 @@
   <q-page
     padding
     :class="[
-      'window-height flex flex-start justify-center',
+      'window-height flex-start justify-center',
       Screen.gt.sm ? '' : 'background',
     ]"
   >
@@ -13,7 +13,7 @@
           square
           icon="mdi-arrow-left-thin"
           label="Back"
-          :to="{ name: 'home' }"
+          :to="{ name: 'home-page' }"
         />
       </div>
       <div class="row q-col-gutter-x-md">
@@ -24,10 +24,13 @@
 
               <div class="ibf-h11 text-grey-6">
                 Doesn't have an account yet?
-
-                <span class="text-secondary text-weight-medium text-underline">
-                  Sign Up
-                </span>
+                <router-link :to="{ name: 'sign-up-page' }">
+                  <span
+                    class="text-secondary text-weight-medium text-underline"
+                  >
+                    Sign Up
+                  </span>
+                </router-link>
               </div>
             </q-card-section>
 
@@ -96,7 +99,7 @@
 
           <q-card square flat bordered class="q-my-sm">
             <q-card-section>
-              <div class="text-bold">DEMO ACCOUNT</div>
+              <div class="text-weight-bold">DEMO ACCOUNT</div>
 
               <q-item>
                 <q-item-section side>
@@ -117,7 +120,7 @@
                 <q-item-section>
                   <q-item-label caption lines="2">password</q-item-label>
                   <q-item-label class="text-secondary text-weight-medium"
-                    >demo</q-item-label
+                    >demo123</q-item-label
                   >
                 </q-item-section>
               </q-item>
@@ -155,7 +158,7 @@ const login = async () => {
 
   if (res) {
     userStore.storeUser(res);
-    router.push({ name: "home" });
+    router.push({ name: "home-page" });
   }
 };
 </script>

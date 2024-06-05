@@ -39,11 +39,14 @@
     <q-page-container>
       <router-view />
     </q-page-container>
+
+    <!-- <footer-home></footer-home> -->
   </q-layout>
 </template>
 
 <script setup>
 import HeaderHome from "src/components/HeaderHome.vue";
+// import FooterHome from "src/components/FooterHome.vue";
 </script>
 
 <style scoped>

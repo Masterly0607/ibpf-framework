@@ -1,6 +1,6 @@
 <template>
   <section id="course-list">
-    <q-card square bordered>
+    <q-card square>
       <q-card class="my-card">
         <q-card-section>
           <div class="ibf-h8">View Courses</div>
@@ -10,11 +10,11 @@
 
         <q-card-actions vertical flat align="left">
           <q-list>
-            <q-item clickable>
+            <q-item clickable v-ripple>
               <q-item-section>Individual</q-item-section>
             </q-item>
 
-            <q-item clickable>
+            <q-item clickable v-ripple>
               <q-item-section>Business</q-item-section>
             </q-item>
 
@@ -44,7 +44,7 @@
 
         <q-separator />
         <div class="q-pa-sm card-bg text-primary" bordered align="right">
-          <q-btn flat no-caps label="Start Learning" @click="onClick" />
+          <q-btn flat no-caps label="Start Learning" @click="startLearning" />
         </div>
       </q-card>
     </q-card>
@@ -53,8 +53,11 @@
 
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 
-const onClick = () => {
-  console.log("Clicked");
+const router = useRouter();
+
+const startLearning = () => {
+  router.push({ name: "product-list-page" });
 };
 </script>

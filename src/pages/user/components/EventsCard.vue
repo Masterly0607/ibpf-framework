@@ -1,12 +1,12 @@
 <template>
   <section id="events-card">
-    <q-card square bordered>
-      <div class="ibf-h8 text-bold q-ma-md">Events</div>
+    <q-card square>
+      <div class="ibf-h8 text-weight-bold q-pa-md">Events</div>
       <q-card-section>
         <q-card flat square bordered>
           <q-card>
             <div class="row">
-              <div square class="q-ma-md">
+              <div square class="q-pa-md">
                 <img
                   src="https://cdn.quasar.dev/img/mountains.jpg"
                   width="150px"
@@ -23,7 +23,7 @@
           </q-card>
           <q-separator />
           <div class="q-pa-sm card-bg" bordered align="right">
-            <q-btn flat no-caps label="View Details" @click="onClick" />
+            <q-btn flat no-caps label="View Details" />
           </div>
         </q-card>
       </q-card-section>
@@ -49,7 +49,7 @@
           </q-card>
           <q-separator />
           <div class="q-pa-sm card-bg" bordered align="right">
-            <q-btn flat no-caps label="View Details" @click="onClick" />
+            <q-btn flat no-caps label="View Details" />
           </div>
         </q-card>
       </q-card-section>
