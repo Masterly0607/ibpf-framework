@@ -20,22 +20,6 @@
                 </template>
               </q-input>
 
-              <q-btn
-                flat
-                dense
-                color="primary"
-                icon="grid_view"
-                aria-label="Submit"
-                :to="{ name: 'product-list-page' }"
-              />
-              <q-btn
-                flat
-                dense
-                color="black-6"
-                icon="view_list"
-                aria-label="Submit"
-              />
-
               <filter-product></filter-product>
             </div>
           </div>
@@ -44,7 +28,7 @@
           <!--<div class="rounded-borders" :class="$q.dark.isActive ? '' : ''">
             <div class="q-py-lg"><q-separator /></div>
             <div class="row">
-              <span class="col-6 text-bold ibf-h9">Fillter</span>
+              <span class="col-6 text-weight-bold ibf-h9">Fillter</span>
 
               <div class="col-6" align="right">
                 <q-btn no-caps dense flat color="grey" label="Clear Fillter" />
@@ -53,7 +37,7 @@
 
             <div class="col-6 q-gutter-md">
               <q-card flat bordered class="q-pa-md row" style="max-width: 100%">
-                <span class="q-py-sm ibf-h11 text-bold">Course Type : </span>
+                <span class="q-py-sm ibf-h11 text-weight-bold">Course Type : </span>
                 <q-option-group
                   name="course_type"
                   v-model="preferred"
@@ -65,7 +49,7 @@
               <q-card flat bordered class="row q-py-sm">
                 <q-item class="q-py-none q-px-sm full-width">
                   <q-item-section top avatar>
-                    <span class="ibf-h11 text-bold q-pa-md">Core area : </span>
+                    <span class="ibf-h11 text-weight-bold q-pa-md">Core area : </span>
                   </q-item-section>
                   <q-item-section>
                     <q-select
@@ -105,67 +89,89 @@
           </div>-->
         </q-form>
 
-        <div class="ibf-h8 text-bold">New & Feature courses</div>
+        <div class="row justify-between items-center">
+          <div class="ibf-h8 text-weight-bold">New & Feature courses</div>
+
+          <div>
+            <q-btn
+              flat
+              dense
+              color="primary"
+              icon="grid_view"
+              aria-label="Submit"
+              :to="{ name: 'product-list-page' }"
+            />
+            <q-btn
+              flat
+              dense
+              color="black-6"
+              icon="view_list"
+              aria-label="Submit"
+            />
+          </div>
+        </div>
+
         <q-separator />
       </div>
 
       <!-- View product list -->
       <div class="row q-col-gutter-md q-py-md">
         <div
-          v-for="(data, image, index) in searchProductData"
+          v-for="(product, index) in searchProductData"
           :key="index"
           class="col-12 col-sm-6 col-md-3"
         >
           <q-card square flat bordered>
-            <img :src="data.thumbnail" height="200px" />
+            <img :src="product.thumbnail" height="200px" />
 
             <q-card-section class="q-pa-sm">
               <div class="ibf-h10 ellipsis-2-lines text-weight-medium">
-                {{ data.title }}
+                {{ product.title }}
               </div>
               <div
                 class="q-py-xs text-grey-7 text-weight-light ellipsis-2-lines"
               >
-                {{ data.description }}
+                {{ product.description }}
               </div>
             </q-card-section>
 
             <q-card-actions class="q-pb-none" align="between">
-              <div v-if="data.isFree">
+              <div v-if="product.isFree">
                 <q-badge color="grey" text-color="white" label="Free" />
               </div>
               <div v-else>
                 <div
-                  v-if="data.isDiscount"
-                  class="ibf-h11 text-negative text-weight-bold"
+                  v-if="product.isDiscount"
+                  class="ibf-h10 text-red-7 text-weight-bold"
                 >
-                  {{ `${data.currency} ${data.afterDiscount}` }}
+                  {{ `${product.currency} ${product.afterDiscount}` }}
 
                   <span
-                    class="ibf-h12 text-grey-7 text-strike text-weight-light"
+                    class="q-ml-xs ibf-h11 text-grey-7 text-strike text-weight-light"
                   >
-                    {{ `${data.currency} ${data.price}` }}
+                    {{ `${product.currency} ${product.price}` }}
                   </span>
                 </div>
-                <div v-else class="ibf-h11 text-negative text-bold">
-                  {{ `${data.currency} ${data.price}` }}
+                <div v-else class="ibf-h10 text-red-7 text-weight-bold">
+                  {{ `${product.currency} ${product.price}` }}
                 </div>
               </div>
 
               <div>
                 <q-btn
-                  v-if="checkInCart(data.id)"
+                  v-if="checkInCart(product.id)"
                   flat
                   round
                   icon="mdi-cart"
-                  color="primary"
+                  color="red-7"
+                  :to="{ name: 'add-to-cart-page' }"
                 />
                 <q-btn
                   v-else
                   flat
                   round
                   icon="mdi-cart-outline"
-                  @click="addToCarts(data.id)"
+                  @click="addToCarts(product.id)"
                   color="grey"
                 />
 
@@ -197,7 +203,7 @@
 
 <script setup>
 import FilterProduct from "./components/FilterProduct.vue";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import axios from "axios";
 import { useCartStore } from "src/stores/cart-store";
 import { storeToRefs } from "pinia";
@@ -246,8 +252,7 @@ const searchProduct = async () => {
 // add to carts
 
 const cartStore = useCartStore();
-
-const { cartItemsIds } = storeToRefs(cartStore);
+const cartItemsIds = computed(() => cartStore.getCartItemsIds || []);
 
 const addToCarts = async (id) => {
   await cartStore.serverAddToCart(id);

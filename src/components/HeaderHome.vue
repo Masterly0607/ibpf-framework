@@ -35,6 +35,7 @@
               aria-label="profile"
               :to="{ name: 'dashboard-page' }"
             />
+
             <!-- shopping cart btn -->
             <q-btn
               flat
@@ -119,45 +120,57 @@
                 </q-item>
               </div>
 
-              <q-separator />
-              <q-item>
-                <div class="row q-gutter-y-sm">
-                  <q-btn
-                    flat
-                    color="primary"
-                    icon="shopping_cart"
-                    aria-label="profile"
-                  />
-                  <q-btn
-                    flat
-                    color="primary"
-                    icon="favorite_border"
-                    aria-label="profile"
-                  />
-                </div>
-              </q-item>
+              <q-separator spaced />
+              <div class="row justify-center q-gutter-md">
+                <q-btn
+                  flat
+                  round
+                  dense
+                  color="black-10"
+                  icon="shopping_cart"
+                  aria-label="profile"
+                  :to="{ name: 'add-to-cart-page' }"
+                >
+                  <q-badge
+                    v-if="countCartItems > 0"
+                    rounded
+                    color="negative"
+                    floating
+                    transparent
+                  >
+                    {{ countCartItems }}
+                  </q-badge>
+                </q-btn>
+                <q-btn
+                  flat
+                  round
+                  color="primary"
+                  icon="favorite_border"
+                  aria-label="profile"
+                />
+              </div>
 
-              <q-item>
-                <div class="column q-gutter-y-sm">
-                  <q-btn
-                    outline
-                    color="primary"
-                    icon="mdi-clipboard-account-outline"
-                    label="Sign up"
-                    style="width: 100%"
-                    :to="{ name: 'sign-up-page' }"
-                  />
+              <div class="column q-gutter-y-sm q-pa-xs">
+                <q-btn
+                  outline
+                  square
+                  color="primary"
+                  icon="mdi-clipboard-account-outline"
+                  label="Sign up"
+                  style="width: 100%"
+                  :to="{ name: 'sign-up-page' }"
+                />
 
-                  <q-btn
-                    unelevated
-                    style="width: 100%"
-                    color="primary"
-                    icon="mdi-login"
-                    label="Login"
-                    :to="{ name: 'login-page' }"
-                  />
-                </div>
-              </q-item>
+                <q-btn
+                  square
+                  unelevated
+                  style="width: 100%"
+                  color="primary"
+                  icon="mdi-login"
+                  label="Login"
+                  :to="{ name: 'login-page' }"
+                />
+              </div>
             </q-list>
           </q-menu>
         </q-btn>
@@ -167,20 +180,28 @@
 </template>
 
 <script setup>
-import { storeToRefs } from "pinia";
+//import { storeToRefs } from "pinia";
 import { Screen } from "quasar";
 import { useCartStore } from "src/stores/cart-store";
 import { useUserStore } from "src/stores/user-store";
-import { computed, ref } from "vue";
+import { computed, ref, watchEffect } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
 const cartStore = useCartStore();
 const userStore = useUserStore();
 const isAuth = ref(userStore.isAuthenticated);
-const { cartItemsIds } = storeToRefs(cartStore);
+//const { cartItemsIds } = storeToRefs(cartStore);
 
-const countCartItems = computed(() => cartItemsIds.value.length);
+const fetchCartItems = async () => {
+  await cartStore.serverFetchCartItems();
+};
+
+watchEffect(() => {
+  fetchCartItems();
+});
+
+const countCartItems = computed(() => cartStore.getCartItemsIds.length || 0);
 const props = defineProps({
   bgColor: {
     type: String,

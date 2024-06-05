@@ -1,7 +1,7 @@
 <template>
   <section id="capability-model">
     <q-card square>
-      <div class="q-pa-md ibf-h8 text-bold">Capability Model</div>
+      <div class="q-pa-md ibf-h8 text-weight-bold">Capability Model</div>
       <q-card-section>
         <div class="row q-col-gutter-md">
           <div class="col-12 col-md-6">

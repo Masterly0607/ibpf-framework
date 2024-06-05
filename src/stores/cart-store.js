@@ -3,29 +3,43 @@ import { productAPI } from "src/boot/axios";
 
 export const useCartStore = defineStore("cart", {
   state: () => ({
-    cartItems: [],
+    lastCartFetch: null,
+    cart: {
+      order_items: [],
+      total_items: 0,
+      total_price: 0,
+    },
     cartItemsIds: [],
   }),
 
   getters: {
-    getCartItemsIds: (state) => state.cartItems,
-    getCartItems: (state) => state.cartItems,
-    countCartItemsIds: (state) => state.cartItems.length || 0,
+    getCartItemsIds: (state) => state.cartItemsIds,
+    getCartItems: (state) => state.cart.order_items,
+    //countCartItemsIds: (state) => state.cart.length || 0,
   },
 
   actions: {
     async serverFetchCartItems() {
-      try {
-        const res = await productAPI.get("/api/v1/user/product/list-item");
-        console.log(res);
-        if (!res.data.status) return;
-        this.storeCartItems(res.data.data);
-      } catch (error) {}
+      const now = Date.now();
+      const cacheDuration = 1000 * 60 * 10; // 10 minutes
+
+      if (!this.lastCartFetch || now - this.lastCartFetch > cacheDuration) {
+        try {
+          const res = await productAPI.get("/api/v1/user/product/list-item");
+          console.log(res);
+          if (!res.data.status) return;
+          this.storeCart(res.data.data);
+          this.lastCartFetch = now;
+        } catch (error) {
+          console.log(error.message);
+        }
+      }
     },
 
-    storeCartItems(payload) {
+    storeCart(payload) {
       if (payload) {
-        this.cartItems = payload;
+        this.cart = payload;
+        this.cartItemsIds = payload.order_items.map((el) => el.course.id);
       }
     },
     async serverAddToCart(id) {
@@ -35,7 +49,6 @@ export const useCartStore = defineStore("cart", {
         );
 
         if (!res.data.status) return;
-
         this.addToCart(id);
       } catch (error) {
         console.log(error.message);
@@ -44,6 +57,7 @@ export const useCartStore = defineStore("cart", {
     addToCart(id) {
       if (id) {
         this.cartItemsIds.push(id);
+        this.lastCartFetch = null;
       }
     },
 
@@ -53,4 +67,6 @@ export const useCartStore = defineStore("cart", {
       this.cartItemsIds = this.cartItemsIds.filter((el) => el !== id);
     },
   },
+
+  persist: true,
 });

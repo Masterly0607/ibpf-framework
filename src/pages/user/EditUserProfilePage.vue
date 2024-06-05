@@ -3,7 +3,7 @@
     <q-page-container class="ibf-container-1100">
       <div class="q-pa-md" style="max-width: 100%">
         <q-card flat bordered>
-          <div class="ibf-h8 text-bold q-pa-md">Edit Change</div>
+          <div class="ibf-h8 text-weight-bold q-pa-md">Edit Change</div>
           <q-card-section>
             <div class="row q-col-gutter-md">
               <div square bordered class="col-12 col-sm-8 col-md-4">
@@ -40,8 +40,8 @@
                   <q-img :src="url" style="max-width: 300px" />
                 </q-avatar>
 
-              <div class="ibf-h7 text-bold">Da Lyna</div>
-                <div class="ibf-h10 text-bold q-py-sm" id="q-app">
+              <div class="ibf-h7 text-weight-bold">Da Lyna</div>
+                <div class="ibf-h10 text-weight-bold q-py-sm" id="q-app">
                   <q-btn
                     push
                     color="primary"
@@ -57,7 +57,7 @@
               <div square bordered class="col-12 col-sm-8 col-md-8">
                 <q-card>
                   <q-card-section>
-                    <div class="ibf-h7 text-bold q-pa-sm" align="center">
+                    <div class="ibf-h7 text-weight-bold q-pa-sm" align="center">
                       Edit Profile
                     </div>
                     <div class="text-h4 q-pa-sm">
@@ -66,7 +66,7 @@
                         @reset="onReset"
                         class="q-gutter-md"
                       >
-                        <div class="ibf-h10 text-bold">
+                        <div class="ibf-h10 text-weight-bold">
                           Full Name
                           <q-input
                             filled
@@ -83,7 +83,7 @@
                           />
                         </div>
 
-                        <div class="ibf-h10 text-bold">
+                        <div class="ibf-h10 text-weight-bold">
                           User Position
                           <q-input
                             filled
@@ -99,7 +99,7 @@
                             ]"
                           />
                         </div>
-                        <div class="ibf-h10 text-bold">
+                        <div class="ibf-h10 text-weight-bold">
                           Email
                           <q-input
                             filled

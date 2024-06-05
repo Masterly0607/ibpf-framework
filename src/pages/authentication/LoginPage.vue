@@ -99,7 +99,7 @@
 
           <q-card square flat bordered class="q-my-sm">
             <q-card-section>
-              <div class="text-bold">DEMO ACCOUNT</div>
+              <div class="text-weight-bold">DEMO ACCOUNT</div>
 
               <q-item>
                 <q-item-section side>

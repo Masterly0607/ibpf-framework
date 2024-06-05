@@ -26,7 +26,7 @@
               <q-card class="my-card">
                 <q-card-section>
                   <div class="q-gutter-md">
-                    <div class="ibf-h8 text-bold">Profile Picture</div>
+                    <div class="ibf-h8 text-weight-bold">Profile Picture</div>
                     <q-separator />
                     <div class="row q-gutter-sm">
                       <q-avatar
@@ -36,7 +36,7 @@
                         icon="account_circle"
                       />
                       <div class="q-py-lg">
-                        <div class="ibf-h7 text-bold">Da Lyna</div>
+                        <div class="ibf-h7 text-weight-bold">Da Lyna</div>
                         <div class="text-subtitle2">Student in Finance</div>
                         <div class="text-subtitle2">
                           Email: ui.officer@ibfkh.org
@@ -62,7 +62,7 @@
                 <q-card-section>
                   <div class="q-gutter-md">
                     <div class="row">
-                      <div class="ibf-h8 text-bold">Work</div>
+                      <div class="ibf-h8 text-weight-bold">Work</div>
                       <q-space />
                       <div class="edit-bg">
                         <q-btn
@@ -81,7 +81,7 @@
                     <div class="q-gutter-y-md">
                       <div class="row q-col-gutter-md">
                         <div class="col-6">
-                          <div class="text-bold">Industry</div>
+                          <div class="text-weight-bold">Industry</div>
                           <q-field
                             color="grey-3"
                             label-color="teal"
@@ -104,7 +104,7 @@
                         </div>
 
                         <div class="col-6">
-                          <div class="text-bold">Role</div>
+                          <div class="text-weight-bold">Role</div>
                           <q-field
                             color="grey-3"
                             label-color="primary"
@@ -129,7 +129,7 @@
 
                       <div class="row q-col-gutter-x-md">
                         <div class="col-6">
-                          <div class="text-bold">Job Title</div>
+                          <div class="text-weight-bold">Job Title</div>
                           <q-field
                             color="grey-3"
                             label-color="teal"
@@ -149,7 +149,7 @@
                               </div>
                             </template>
                           </q-field>
-                          <!-- <div class="ibf-h10 text-bold">
+                          <!-- <div class="ibf-h10 text-weight-bold">
                             Job Title
                             <q-input
                               name="job"
@@ -162,7 +162,7 @@
                         </div>
 
                         <div class="col-6">
-                          <div class="text-bold">Company Name</div>
+                          <div class="text-weight-bold">Company Name</div>
                           <q-field
                             color="grey-3"
                             label-color="teal"

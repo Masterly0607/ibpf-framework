@@ -1,7 +1,7 @@
 <template>
   <section id="events-card">
     <q-card square>
-      <div class="ibf-h8 text-bold q-pa-md">Events</div>
+      <div class="ibf-h8 text-weight-bold q-pa-md">Events</div>
       <q-card-section>
         <q-card flat square bordered>
           <q-card>

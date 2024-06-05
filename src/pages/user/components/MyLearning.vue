@@ -1,7 +1,7 @@
 <template>
   <section id="my-learning">
     <q-card square>
-      <div class="ibf-h8 text-bold q-pa-md">My Learning Portfolio</div>
+      <div class="ibf-h8 text-weight-bold q-pa-md">My Learning Portfolio</div>
 
       <q-card-section>
         <div class="row q-col-gutter-md">

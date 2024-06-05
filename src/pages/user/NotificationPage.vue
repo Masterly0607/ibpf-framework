@@ -1,6 +1,6 @@
 <template>
   <section id="user-notification">
-    <div class="ibf-h8 text-bold">Today</div>
+    <div class="ibf-h8 text-weight-bold">Today</div>
     <!-- <div class="q-py-sm">
       <q-card flat square bordered>
         <q-card-section class="q-px-xs">
@@ -136,7 +136,7 @@
       </q-list>
     </div>
 
-    <div class="ibf-h8 text-bold">Earlier</div>
+    <div class="ibf-h8 text-weight-bold">Earlier</div>
     <div class="q-py-sm">
       <q-list bordered>
         <q-card flat>
