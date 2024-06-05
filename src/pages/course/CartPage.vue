@@ -1,7 +1,7 @@
 <template>
   <q-page class="q-pa-md">
     <div class="ibf-container-1200">
-      <q-card square flat bordered>
+      <q-card square flat>
         <q-card-section>
           <div class="text-h6 text-weight-bold text-primary">
             Check-out Items
@@ -9,62 +9,80 @@
           <q-separator spaced />
         </q-card-section>
 
-        <div v-for="(cartItem, itemIndex) in cartItems.items" :key="itemIndex">
-          <q-card-section class="q-pa-none">
-            <q-item class="q-px-sm">
-              <q-item-section side top>
-                <q-checkbox v-model="selectedItems" :val="cartItem.course.id" />
-              </q-item-section>
-              <q-item-section thumbnail top>
-                <img
-                  class="rounded-borders"
-                  src="https://cdn.quasar.dev/img/parallax2.jpg"
-                />
-              </q-item-section>
-              <q-item-section>
-                <q-item-label class="ibf-h11 text-weight-medium">
-                  {{ cartItem.course.title }}
-                </q-item-label>
-
-                <q-item-label caption lines="2">
-                  {{ cartItem.course.description }}
-                </q-item-label>
-
-                <div class="q-my-md row q-gutter-x-sm">
-                  <q-badge
-                    color="red"
-                    text-color="white"
-                    :label="cartItem.course.type_id"
+        <div class="column q-gutter-md">
+          <q-card
+            bordered
+            flat
+            square
+            v-for="(cartItem, itemIndex) in cartItems.items"
+            :key="itemIndex"
+          >
+            <q-card-section class="q-pa-xs">
+              <q-item class="q-px-sm">
+                <q-item-section side top>
+                  <q-checkbox
+                    v-model="selectedItems"
+                    :val="cartItem.course.id"
                   />
-                  <q-badge
-                    color="red"
-                    text-color="white"
-                    :label="cartItem.course.coreArea_id"
+                </q-item-section>
+                <q-item-section thumbnail top>
+                  <img
+                    style="height: 70px; width: 100%; object-fit: cover"
+                    class="rounded-borders"
+                    src="https://cdn.quasar.dev/img/parallax2.jpg"
                   />
-                </div>
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label
+                    class="ibf-h10 text-weight-medium ellipsis-2-lines"
+                  >
+                    {{ cartItem.course.title }}
+                  </q-item-label>
 
-                <div class="text-red-5 text-weight-medium ibf-h10">
-                  {{ `${cartItem.course.currency} ${cartItem.course.price}` }}
-                </div>
+                  <q-item-label caption lines="2">
+                    {{ cartItem.course.description }}
+                  </q-item-label>
 
-                <div
-                  v-if="cartItem.course.isDiscount"
-                  class="text-red text-weight-medium ibf-h11"
-                >
-                  <span class="text-weight-light ibf-h12 text-grey-9">
-                    After discount:
-                  </span>
-                  {{
-                    `${cartItem.course.currency} ${cartItem.course.afterDiscount}`
-                  }}
-                </div>
-              </q-item-section>
-              <q-item-section side top>
-                <q-input
+                  <div class="q-my-md row q-gutter-x-sm">
+                    <q-badge
+                      color="red"
+                      text-color="white"
+                      :label="cartItem.course.type_id"
+                    />
+                    <q-badge
+                      color="red"
+                      text-color="white"
+                      :label="cartItem.course.coreArea_id"
+                    />
+                  </div>
+
+                  <div class="text-red-5 text-weight-medium ibf-h10">
+                    {{ `${cartItem.course.currency} ${cartItem.course.price}` }}
+                  </div>
+
+                  <div
+                    v-if="cartItem.course.isDiscount"
+                    class="text-red text-weight-medium ibf-h11"
+                  >
+                    <span class="text-weight-light ibf-h12 text-grey-9">
+                      After discount:
+                    </span>
+                    {{
+                      `${cartItem.course.currency} ${cartItem.course.afterDiscount}`
+                    }}
+                  </div>
+                </q-item-section>
+                <q-item-section side top>
+                  <q-badge outline color="grey-6" text-color="black">
+                    <q-icon name="close" size="14px" class="q-mr-xs" />
+
+                    1
+                  </q-badge>
+
+                  <!--<q-input
                   style="width: 60px"
                   dense
                   outlined
-                  v-model="text"
                   type="number"
                 >
                   <template v-slot:before>
@@ -75,13 +93,13 @@
                       class="cursor-pointer"
                     />
                   </template>
-                </q-input>
-              </q-item-section>
-            </q-item>
-          </q-card-section>
-
-          <q-separator spaced inset />
+                </q-input>-->
+                </q-item-section>
+              </q-item>
+            </q-card-section>
+          </q-card>
         </div>
+
         <q-card-actions align="right">
           <q-btn color="primary">Check-out</q-btn>
         </q-card-actions>
