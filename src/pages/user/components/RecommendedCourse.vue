@@ -1,9 +1,3 @@
-<!-- <template>
-  <section id="recommended-course">
-
-  </section>
-</template> -->
-
 <template>
   <section id="recommended-course">
     <!-- <div class="q-pa-sm"> -->
