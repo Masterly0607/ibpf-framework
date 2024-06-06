@@ -13,7 +13,7 @@ export const useUserStore = defineStore("user", {
   getters: {
     getUser: (state) => state.user,
     getToken: (state) => state.token,
-    isAuthenticated: (state) => state.token !== null,
+    isAuthenticated: (state) => !!state.token,
     getRoles: (state) => state.roles || [],
     getPermissions: (state) => state.permissions || [],
   },
@@ -50,4 +50,6 @@ export const useUserStore = defineStore("user", {
       this.permissions = null;
     },
   },
+
+  persist: true,
 });

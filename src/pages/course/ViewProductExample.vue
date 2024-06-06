@@ -3,10 +3,10 @@
     <div class="ibf-container-1400">
       <div class="q-gutter-sm">
         <q-form @submit="onSubmit">
-          <!-- <div class="ibf-h8 text-bold">Fillter Course</div> -->
+          <!-- <div class="ibf-h8 text-weight-bold">Fillter Course</div> -->
           <div :class="$q.dark.isActive ? '' : ''">
             <div class="row q-gutter-sm">
-              <span class="ibf-h6 text-bold">Search Course</span>
+              <span class="ibf-h6 text-weight-bold">Search Course</span>
               <q-input
                 dense
                 filled
@@ -27,7 +27,6 @@
                 color="primary"
                 icon="grid_view"
                 aria-label="Submit"
-                @click="onClick"
               />
               <q-btn
                 dense
@@ -35,7 +34,6 @@
                 color="primary"
                 icon="view_list"
                 aria-label="Submit"
-                @click="onClick"
               />
             </div>
           </div>
@@ -43,22 +41,17 @@
           <!-- Fillter Course -->
           <div class="rounded-borders col" :class="$q.dark.isActive ? '' : ''">
             <div class="row q-py-sm">
-              <span class="col-6 text-bold ibf-h9">Fillter</span>
+              <span class="col-6 text-weight-bold ibf-h9">Fillter</span>
               <div class="col-6" align="right">
-                <q-btn
-                  no-caps
-                  dense
-                  flat
-                  color="grey"
-                  label="Clear Fillter"
-                  @click="onClick"
-                />
+                <q-btn no-caps dense flat color="grey" label="Clear Fillter" />
               </div>
             </div>
 
             <div class="col q-gutter-md">
               <q-card flat bordered class="q-pa-md row" style="max-width: 100%">
-                <span class="q-py-sm ibf-h11 text-bold">Course Type : </span>
+                <span class="q-py-sm ibf-h11 text-weight-bold"
+                  >Course Type :
+                </span>
                 <q-option-group
                   name="course_type"
                   v-model="preferred"
@@ -68,7 +61,9 @@
                 />
               </q-card>
               <q-card flat bordered class="row q-py-sm" style="max-width: 100%">
-                <span class="ibf-h11 text-bold q-pa-md">Core area : </span>
+                <span class="ibf-h11 text-weight-bold q-pa-md"
+                  >Core area :
+                </span>
                 <q-select
                   class="q-ml-md"
                   name="core_area"
@@ -87,7 +82,7 @@
         </q-form>
 
         <!-- Course List -->
-        <div class="ibf-h8 text-bold q-py-md">New & Feature courses</div>
+        <div class="ibf-h8 text-weight-bold q-py-md">New & Feature courses</div>
         <q-separator />
 
         <div class="row">
@@ -117,7 +112,9 @@
                 <div class="row q-py-sm">
                   <div class="col-5 ibf-h11 q-py-sm">
                     Price:
-                    <span class="ibf-h11 text-negative text-bold">US $120</span>
+                    <span class="ibf-h11 text-negative text-weight-bold"
+                      >US $120</span
+                    >
                   </div>
 
                   <div class="col-7" align="right">

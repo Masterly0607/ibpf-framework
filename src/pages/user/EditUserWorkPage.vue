@@ -7,7 +7,7 @@
             <div square bordered class="col-12 col-sm-8 col-md-8">
               <!-- <q-card>
               <q-card-section> -->
-              <div class="ibf-h7 text-bold q-pa-md" align="center">
+              <div class="ibf-h7 text-weight-bold q-pa-md" align="center">
                 Edit Work
               </div>
               <div class="q-pa-md">
@@ -18,7 +18,7 @@
                 >
                   <div class="row q-col-gutter-md">
                     <div class="col-6">
-                      <div class="ibf-h10 text-bold">
+                      <div class="ibf-h10 text-weight-bold">
                         Industry
                         <q-select
                           outlined
@@ -30,7 +30,7 @@
                       </div>
                     </div>
                     <div class="col-6">
-                      <div class="ibf-h10 text-bold">
+                      <div class="ibf-h10 text-weight-bold">
                         Role
                         <q-select
                           disabled
@@ -45,7 +45,7 @@
 
                   <div class="row q-col-gutter-x-md">
                     <div class="col-6">
-                      <div class="ibf-h10 text-bold">
+                      <div class="ibf-h10 text-weight-bold">
                         Job Title
                         <q-input
                           name="job"
@@ -58,7 +58,7 @@
                     </div>
 
                     <div class="col-6">
-                      <div class="ibf-h10 text-bold">
+                      <div class="ibf-h10 text-weight-bold">
                         Company Name
                         <q-input
                           name="company"

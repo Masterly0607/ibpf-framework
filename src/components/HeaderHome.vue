@@ -24,53 +24,66 @@
 
         <q-separator vertical size="3px" />
 
-        <div class="row q-gutter-x-md">
-          <q-btn
-            flat
-            dense
-            round
-            color="black-10"
-            icon="account_circle"
-            aria-label="profile"
-            :to="{ name: 'dashboard-page' }"
-          />
+        <div id="user-area">
+          <div v-if="isAuth" id="auth-area" class="row q-gutter-x-md">
+            <q-btn
+              flat
+              dense
+              round
+              color="black-10"
+              icon="account_circle"
+              aria-label="profile"
+              :to="{ name: 'dashboard-page' }"
+            />
 
-          <q-btn
-            flat
-            round
-            dense
-            color="black-10"
-            icon="shopping_cart"
-            aria-label="profile"
-            :to="{ name: 'add-to-cart-page' }"
-          >
-            <q-badge rounded color="negative" floating transparent> 4 </q-badge>
-          </q-btn>
+            <!-- shopping cart btn -->
+            <q-btn
+              flat
+              round
+              dense
+              color="black-10"
+              icon="shopping_cart"
+              aria-label="profile"
+              :to="{ name: 'add-to-cart-page' }"
+            >
+              <q-badge
+                v-if="countCartItems > 0"
+                rounded
+                color="negative"
+                floating
+                transparent
+              >
+                {{ countCartItems }}
+              </q-badge>
+            </q-btn>
 
-          <q-btn
-            flat
-            dense
-            round
-            color="black-10"
-            icon="favorite_border"
-            @click="addToWishlist"
-            counter
-            hint="4"
-          />
-          <q-btn
-            outline
-            color="primary"
-            icon="mdi-clipboard-account-outline"
-            label="Sign up"
-            :to="{ name: 'sign-up-page' }"
-          />
-          <q-btn
-            unelevated
-            color="primary"
-            icon="mdi-login"
-            label="Login"
-            :to="{ name: 'login-page' }"
-          />
+            <q-btn
+              flat
+              dense
+              round
+              color="black-10"
+              icon="favorite_border"
+              counter
+              hint="4"
+            />
+          </div>
+
+          <div v-else id="un-auth-area" class="row q-gutter-x-sm">
+            <q-btn
+              outline
+              color="primary"
+              icon="mdi-clipboard-account-outline"
+              label="Sign up"
+              :to="{ name: 'sign-up-page' }"
+            />
+            <q-btn
+              unelevated
+              color="primary"
+              icon="mdi-login"
+              label="Login"
+              :to="{ name: 'login-page' }"
+            />
+          </div>
         </div>
       </div>
 
@@ -107,47 +120,57 @@
                 </q-item>
               </div>
 
-              <q-separator />
-              <q-item>
-                <div class="row q-gutter-y-sm">
-                  <q-btn
-                    flat
-                    color="primary"
-                    icon="shopping_cart"
-                    aria-label="profile"
-                    @click="addToCard"
-                  />
-                  <q-btn
-                    flat
-                    color="primary"
-                    icon="favorite_border"
-                    aria-label="profile"
-                    @click="addToWishlist"
-                  />
-                </div>
-              </q-item>
+              <q-separator spaced />
+              <div class="row justify-center q-gutter-md">
+                <q-btn
+                  flat
+                  round
+                  dense
+                  color="black-10"
+                  icon="shopping_cart"
+                  aria-label="profile"
+                  :to="{ name: 'add-to-cart-page' }"
+                >
+                  <q-badge
+                    v-if="countCartItems > 0"
+                    rounded
+                    color="negative"
+                    floating
+                    transparent
+                  >
+                    {{ countCartItems }}
+                  </q-badge>
+                </q-btn>
+                <q-btn
+                  flat
+                  round
+                  color="primary"
+                  icon="favorite_border"
+                  aria-label="profile"
+                />
+              </div>
 
-              <q-item>
-                <div class="column q-gutter-y-sm">
-                  <q-btn
-                    outline
-                    color="primary"
-                    icon="mdi-clipboard-account-outline"
-                    label="Sign up"
-                    style="width: 100%"
-                    :to="{ name: 'sign-up-page' }"
-                  />
+              <div class="column q-gutter-y-sm q-pa-xs">
+                <q-btn
+                  outline
+                  square
+                  color="primary"
+                  icon="mdi-clipboard-account-outline"
+                  label="Sign up"
+                  style="width: 100%"
+                  :to="{ name: 'sign-up-page' }"
+                />
 
-                  <q-btn
-                    unelevated
-                    style="width: 100%"
-                    color="primary"
-                    icon="mdi-login"
-                    label="Login"
-                    :to="{ name: 'login-page' }"
-                  />
-                </div>
-              </q-item>
+                <q-btn
+                  square
+                  unelevated
+                  style="width: 100%"
+                  color="primary"
+                  icon="mdi-login"
+                  label="Login"
+                  :to="{ name: 'login-page' }"
+                />
+              </div>
             </q-list>
           </q-menu>
         </q-btn>
@@ -157,12 +180,28 @@
 </template>
 
 <script setup>
+//import { storeToRefs } from "pinia";
 import { Screen } from "quasar";
-import { ref } from "vue";
+import { useCartStore } from "src/stores/cart-store";
+import { useUserStore } from "src/stores/user-store";
+import { computed, ref, watchEffect } from "vue";
 import { useRouter } from "vue-router";
 
 const router = useRouter();
+const cartStore = useCartStore();
+const userStore = useUserStore();
+const isAuth = ref(userStore.isAuthenticated);
+//const { cartItemsIds } = storeToRefs(cartStore);
 
+const fetchCartItems = async () => {
+  await cartStore.serverFetchCartItems();
+};
+
+watchEffect(() => {
+  fetchCartItems();
+});
+
+const countCartItems = computed(() => cartStore.getCartItemsIds.length || 0);
 const props = defineProps({
   bgColor: {
     type: String,
@@ -220,12 +259,7 @@ const headerMenuItems = ref([
 ]);
 
 function goTo(routeName) {
-  // This is a placeholder for route navigation
-  // console.log("Navigating to:", routeName);
-  // this.$router.push({ name: routeName });
-
   if (routeName) {
-    console.log("hello");
     router.push({ name: routeName });
   }
 }

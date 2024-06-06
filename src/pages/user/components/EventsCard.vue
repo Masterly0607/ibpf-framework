@@ -49,6 +49,7 @@
                 </div>
               </div>
             </q-card-section>
+            
             <q-separator />
             <q-card-actions class="card-bg" align="right">
               <q-btn
@@ -59,6 +60,7 @@
               />
             </q-card-actions>
           </q-card>
+
         </div>
       </div>
 
@@ -83,7 +85,7 @@
           </q-card>
           <q-separator />
           <div class="q-pa-sm card-bg" bordered align="right">
-            <q-btn flat no-caps label="View Details" @click="onClick" />
+            <q-btn flat no-caps label="View Details" />
           </div>
         </q-card>
       </q-card-section> -->
