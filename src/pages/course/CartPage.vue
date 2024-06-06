@@ -149,7 +149,13 @@
                     <span class="ibf-h10">USD</span>
                     {{ formatCurrency(totalPrice) }}
                   </div>
-                  <q-btn unelevated rounded color="red">Check-out</q-btn>
+                  <q-btn
+                    unelevated
+                    rounded
+                    color="red"
+                    @click="pushToCheckOutItems()"
+                    >Place order</q-btn
+                  >
                 </div>
               </div>
             </div>
@@ -165,7 +171,11 @@ import CartSkeleton from "src/components/skeletons/CartSkeleton.vue";
 import PriceOriginal from "src/components/tools/PriceOriginal.vue";
 import { formatCurrency } from "src/helpers/utils";
 import { useCartStore } from "src/stores/cart-store";
+import { usePurchaseStore } from "src/stores/purchase-store";
 import { computed, onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
+const purchaseStore = usePurchaseStore();
+const router = useRouter();
 const selectedItems = ref([]);
 const isSelectedAll = ref("false");
 const cartStore = useCartStore();
@@ -175,6 +185,12 @@ const isLoading = ref(true);
 //const totalPrice = computed(() => {
 //  return selectedItems.value.reduce((acc, order) => acc + order.price, 0);
 //});
+
+const pushToCheckOutItems = () => {
+  if (selectedItems.value.length < 1) return;
+  purchaseStore.addToCheckOutList(selectedItems.value);
+  router.push({ name: "check-out-page" });
+};
 
 const totalPrice = computed(() => {
   return selectedItems.value.reduce((acc, order) => {

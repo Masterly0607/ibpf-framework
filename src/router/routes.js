@@ -96,6 +96,18 @@ const routes = [
     ],
   },
 
+  {
+    path: "/purchase",
+    component: () => import("layouts/AuthLayout.vue"),
+    children: [
+      {
+        path: "check-out",
+        name: "check-out-page",
+        component: () => import("pages/course/CheckOutPage.vue"),
+      },
+    ],
+  },
+
   // Authenitications route
   {
     path: "/auth",
