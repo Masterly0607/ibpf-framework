@@ -1,6 +1,6 @@
 <template>
   <q-page padding class="ibf-container-1400">
-    <div elevated style="max-width: 100%">
+    <div elevated>
       <!-- tab dashboard -->
       <q-tabs v-model="tab" class="text-primary" align="left">
         <q-tab label="Dashboard" name="TabOne" no-caps />
@@ -8,31 +8,44 @@
       </q-tabs>
       <q-separator />
 
-      <div>
+      <div class="q-py-sm">
         <q-tab-panels animated v-model="tab">
           <!-- tab one -->
           <q-tab-panel name="TabOne">
             <div class="row q-col-gutter-lg">
               <!-- profile -->
-              <div class="col-12 col-sm-6 col-md-3">
-                <q-card square>
-                  <q-card class="bg-primary q-px-sm">
-                    <q-item>
-                      <q-item-section avatar>
-                        <q-avatar>
-                          <img src="https://cdn.quasar.dev/img/avatar2.jpg" />
-                        </q-avatar>
-                      </q-item-section>
-                    </q-item>
-                  </q-card>
+              <div class="col-12 col-sm-8 col-md-3">
+                <q-card bordered square class="inset-shadow-down shadow-10">
+                  <div class="bg-primary q-pa-sm">
+                    <q-avatar>
+                      <img src="https://cdn.quasar.dev/img/avatar2.jpg" />
+                    </q-avatar>
+                  </div>
+
                   <q-card-section>
-                    <div class="ibf-h6 q-my-sm">Da Lyna</div>
-                    <div class="text-subtitle2 q-my-sm">Student in Finance</div>
+                    <div class="ibf-h7 text-weight-medium q-py-md">Da Lyna</div>
+                    <!-- <div class="text-weight-medium">
+                      <span class="text-weight-medium text-grey-7">
+                        Company :
+                      </span>
+                      Work at AC
+                    </div> -->
+                    <div class="text-weight-medium q-py-xs">
+                      <span class="text-weight-medium text-grey-7">
+                        Department :
+                      </span>
+                      Student in Finance
+                    </div>
+                    <div class="text-weight-medium">
+                      <span class="text-weight-medium text-grey-7"
+                        >Email :
+                      </span>
+                      anyalina@ibfkh.com
+                    </div>
                   </q-card-section>
 
                   <q-separator />
-
-                  <div class="q-pa-sm card-bg" bordered align="right">
+                  <q-card-actions class="card-bg" align="right">
                     <q-btn
                       color="primary"
                       flat
@@ -40,12 +53,12 @@
                       label="My Account"
                       @click="viewMyAccount"
                     />
-                  </div>
+                  </q-card-actions>
                 </q-card>
               </div>
 
               <!-- Capability Model -->
-              <div class="col-12 col-sm-6 col-md-9">
+              <div class="col-12 col-sm-8 col-md-9">
                 <capability-model></capability-model>
               </div>
             </div>
@@ -57,22 +70,21 @@
               </div>
 
               <div class="col-12 col-sm-6 col-md-9">
+                <!-- My Learning -->
                 <div>
-                  <!-- My Learning -->
-                  <div>
-                    <my-learning></my-learning>
-                  </div>
-                  <!-- Events -->
-                  <div class="q-py-sm">
-                    <events-card></events-card>
-                  </div>
+                  <my-learning></my-learning>
+                </div>
+                <!-- Events -->
+                <div class="q-py-lg">
+                  <events-card></events-card>
+                </div>
 
-                  <!-- Recommended -->
-                  <div class="text-h5 q-py-md">Recommended for you</div>
-                  <div>
-                    <RecommendedCourse></RecommendedCourse>
-                  </div>
-                  <!-- <div>
+                <!-- Recommended -->
+                <div class="ibf-h7 text-weight-meduim">Recommended for you</div>
+                <div class="q-py-sm">
+                  <RecommendedCourse></RecommendedCourse>
+                </div>
+                <!-- <div>
                     <q-card
                       square
                       flat
@@ -91,7 +103,6 @@
                       </q-card>
                     </q-card>
                   </div> -->
-                </div>
               </div>
             </div>
           </q-tab-panel>
