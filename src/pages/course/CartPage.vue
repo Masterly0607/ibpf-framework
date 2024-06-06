@@ -67,12 +67,12 @@
                     />
                   </div>-->
 
-                        <div
-                          class="q-mt-md text-red-5 text-weight-medium ibf-h10"
-                        >
-                          {{
-                            `${cartItem.course.currency} ${cartItem.course.price}`
-                          }}
+                        <div class="q-mt-md">
+                          <price-original
+                            :currency="cartItem.course.currency"
+                            :price="cartItem.course.price"
+                            :is-decimals="false"
+                          />
                         </div>
 
                         <div
@@ -83,7 +83,10 @@
                             After discount:
                           </span>
                           {{
-                            `${cartItem.course.currency} ${cartItem.course.after_discount}`
+                            `${cartItem.course.currency} ${formatCurrency(
+                              cartItem.course.after_discount,
+                              false
+                            )}`
                           }}
                         </div>
                       </div>
@@ -142,7 +145,7 @@
                 <div class="row q-gutter-x-md">
                   <div class="text-red-5 text-weight-medium ibf-h6">
                     <span class="ibf-h10">USD</span>
-                    {{ totalPrice }}
+                    {{ formatCurrency(totalPrice) }}
                   </div>
                   <q-btn unelevated rounded color="red">Check-out</q-btn>
                 </div>
@@ -156,6 +159,8 @@
 </template>
 
 <script setup>
+import PriceOriginal from "src/components/tools/PriceOriginal.vue";
+import { formatCurrency } from "src/helpers/utils";
 import { useCartStore } from "src/stores/cart-store";
 import { computed, onMounted, ref } from "vue";
 const selectedItems = ref([]);

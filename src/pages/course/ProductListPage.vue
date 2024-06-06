@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div class="ibf-container-1200">
-      <div class="q-gutter-md">
+      <div class="q-gutter-y-lg">
         <q-form @submit="onSubmit">
           <!-- Search product -->
           <div>
@@ -23,95 +23,32 @@
               <filter-product></filter-product>
             </div>
           </div>
-
-          <!-- Fillter product -->
-          <!--<div class="rounded-borders" :class="$q.dark.isActive ? '' : ''">
-            <div class="q-py-lg"><q-separator /></div>
-            <div class="row">
-              <span class="col-6 text-weight-bold ibf-h9">Fillter</span>
-
-              <div class="col-6" align="right">
-                <q-btn no-caps dense flat color="grey" label="Clear Fillter" />
-              </div>
-            </div>
-
-            <div class="col-6 q-gutter-md">
-              <q-card flat bordered class="q-pa-md row" style="max-width: 100%">
-                <span class="q-py-sm ibf-h11 text-weight-bold">Course Type : </span>
-                <q-option-group
-                  name="course_type"
-                  v-model="preferred"
-                  :options="options"
-                  color="primary"
-                  inline
-                />
-              </q-card>
-              <q-card flat bordered class="row q-py-sm">
-                <q-item class="q-py-none q-px-sm full-width">
-                  <q-item-section top avatar>
-                    <span class="ibf-h11 text-weight-bold q-pa-md">Core area : </span>
-                  </q-item-section>
-                  <q-item-section>
-                    <q-select
-                      borderless
-                      square
-                      class="q-ml-md"
-                      name="core_area"
-                      v-model="model"
-                      multiple
-                      use-chips
-                      option-label="title"
-                      option-value="id"
-                      :options="options1"
-                      label="Select options"
-                      color="teal-6"
-                      dense
-                    >
-                      <template v-slot:selected-item="scope">
-                        <q-chip
-                          removable
-                          dense
-                          size="12px"
-                          @remove="scope.removeAtIndex(scope.index)"
-                          :tabindex="scope.tabindex"
-                          color="grey-4"
-                          text-color="black"
-                          class="q-ma-xs"
-                        >
-                          {{ scope.opt }}
-                        </q-chip>
-                      </template>
-                    </q-select>
-                  </q-item-section>
-                </q-item>
-              </q-card>
-            </div>
-          </div>-->
         </q-form>
 
-        <div class="row justify-between items-center">
-          <div class="ibf-h8 text-weight-bold">New & Feature courses</div>
-
-          <div>
-            <q-btn
-              flat
-              dense
-              color="primary"
-              icon="grid_view"
-              aria-label="Submit"
-              :to="{ name: 'product-list-page' }"
-            />
-            <q-btn
-              flat
-              dense
-              color="black-6"
-              icon="view_list"
-              aria-label="Submit"
-            />
+        <div>
+          <div class="row justify-between items-center">
+            <div class="ibf-h8 text-weight-bold">New & Feature courses</div>
+            <div>
+              <q-btn
+                flat
+                dense
+                color="primary"
+                icon="grid_view"
+                aria-label="Submit"
+                :to="{ name: 'product-list-page' }"
+              />
+              <q-btn
+                flat
+                dense
+                color="black-6"
+                icon="view_list"
+                aria-label="Submit"
+              />
+            </div>
           </div>
-        </div>
 
-        <q-separator />
+          <q-separator spaced />
+        </div>
       </div>
 
       <!-- View product list -->
@@ -125,11 +62,11 @@
             <img :src="product.thumbnail" height="200px" />
 
             <q-card-section class="q-pa-sm">
-              <div class="ibf-h10 ellipsis-2-lines text-weight-medium">
+              <div class="ibf-h11 ellipsis-2-lines text-weight-medium">
                 {{ product.title }}
               </div>
               <div
-                class="q-py-xs text-grey-7 text-weight-light ellipsis-2-lines"
+                class="q-py-xs text-grey-7 ibf-h12 text-weight-light ellipsis-2-lines"
               >
                 {{ product.description }}
               </div>
@@ -140,20 +77,26 @@
                 <q-badge color="grey" text-color="white" label="Free" />
               </div>
               <div v-else>
-                <div
-                  v-if="product.isDiscount"
-                  class="ibf-h10 text-red-7 text-weight-bold"
-                >
-                  {{ `${product.currency} ${product.afterDiscount}` }}
+                <div v-if="product.isDiscount">
+                  <price-original
+                    :currency="product.currency"
+                    :price="product.afterDiscount"
+                    :is-decimals="false"
+                  />
 
-                  <span
-                    class="q-ml-xs ibf-h11 text-grey-7 text-strike text-weight-light"
+                  <price-discount
+                    :currency="product.currency"
+                    :price="product.price"
+                    :is-decimals="false"
                   >
-                    {{ `${product.currency} ${product.price}` }}
-                  </span>
+                  </price-discount>
                 </div>
-                <div v-else class="ibf-h10 text-red-7 text-weight-bold">
-                  {{ `${product.currency} ${product.price}` }}
+                <div v-else>
+                  <price-original
+                    :currency="product.currency"
+                    :price="product.price"
+                    :is-decimals="false"
+                  />
                 </div>
               </div>
 
@@ -202,12 +145,15 @@
 </template>
 
 <script setup>
+import PriceOriginal from "src/components/tools/PriceOriginal.vue";
+import PriceDiscount from "src/components/tools/PriceDiscount.vue";
 import FilterProduct from "./components/FilterProduct.vue";
 import { ref, onMounted, computed } from "vue";
 import axios from "axios";
 import { useCartStore } from "src/stores/cart-store";
 import { storeToRefs } from "pinia";
 import { useCategoryStore } from "src/stores/category-store";
+import { formatCurrency } from "src/helpers/utils";
 
 const categoryStore = useCategoryStore();
 const submitResult = ref([]);
