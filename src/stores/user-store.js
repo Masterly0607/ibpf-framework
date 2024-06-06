@@ -36,6 +36,10 @@ export const useUserStore = defineStore("user", {
       }
     },
 
+    logout() {
+      this.resetUser();
+    },
+
     storeUser(payload) {
       this.user = payload.user;
       this.token = payload.token;

@@ -51,111 +51,114 @@
         </div>
       </div>
 
+      <!-- skeleton list -->
+
+      <section v-if="isLoading" class="row q-col-gutter-md q-py-md">
+        <div v-for="i in 4" :key="i" class="col-12 col-sm-6 col-md-3">
+          <product-card-skeleton />
+        </div>
+      </section>
+
       <!-- View product list -->
-      <div class="row q-col-gutter-md q-py-md">
-        <div
-          v-for="(product, index) in searchProductData"
-          :key="index"
-          class="col-12 col-sm-6 col-md-3"
-        >
-          <q-card square flat bordered>
-            <img :src="product.thumbnail" height="200px" />
+      <section v-else>
+        <div class="row q-col-gutter-md q-py-md">
+          <div
+            v-for="(product, index) in searchProductData"
+            :key="index"
+            class="col-12 col-sm-6 col-md-3"
+          >
+            <q-card square flat bordered>
+              <img :src="product.thumbnail" height="200px" />
 
-            <q-card-section class="q-pa-sm">
-              <div class="ibf-h11 ellipsis-2-lines text-weight-medium">
-                {{ product.title }}
-              </div>
-              <div
-                class="q-py-xs text-grey-7 ibf-h12 text-weight-light ellipsis-2-lines"
-              >
-                {{ product.description }}
-              </div>
-            </q-card-section>
+              <q-card-section class="q-pa-sm">
+                <div class="ibf-h11 ellipsis-2-lines text-weight-medium">
+                  {{ product.title }}
+                </div>
+                <div
+                  class="q-py-xs text-grey-7 ibf-h12 text-weight-light ellipsis-2-lines"
+                >
+                  {{ product.description }}
+                </div>
+              </q-card-section>
 
-            <q-card-actions class="q-pb-none" align="between">
-              <div v-if="product.isFree">
-                <q-badge color="grey" text-color="white" label="Free" />
-              </div>
-              <div v-else>
-                <div v-if="product.isDiscount">
-                  <price-original
-                    :currency="product.currency"
-                    :price="product.afterDiscount"
-                    :is-decimals="false"
-                  />
-
-                  <price-discount
-                    :currency="product.currency"
-                    :price="product.price"
-                    :is-decimals="false"
-                  >
-                  </price-discount>
+              <q-card-actions class="q-pb-none" align="between">
+                <div v-if="product.isFree">
+                  <q-badge color="grey" text-color="white" label="Free" />
                 </div>
                 <div v-else>
-                  <price-original
-                    :currency="product.currency"
-                    :price="product.price"
-                    :is-decimals="false"
-                  />
+                  <div v-if="product.isDiscount">
+                    <price-original
+                      :currency="product.currency"
+                      :price="product.afterDiscount"
+                      :is-decimals="false"
+                    />
+
+                    <price-discount
+                      :currency="product.currency"
+                      :price="product.price"
+                      :is-decimals="false"
+                    >
+                    </price-discount>
+                  </div>
+                  <div v-else>
+                    <price-original
+                      :currency="product.currency"
+                      :price="product.price"
+                      :is-decimals="false"
+                    />
+                  </div>
                 </div>
-              </div>
 
-              <div>
-                <q-btn
-                  v-if="checkInCart(product.id)"
-                  flat
-                  round
-                  icon="mdi-cart"
-                  color="red-7"
-                  :to="{ name: 'add-to-cart-page' }"
-                />
-                <q-btn
-                  v-else
-                  flat
-                  round
-                  icon="mdi-cart-outline"
-                  @click="addToCarts(product.id)"
-                  color="grey"
-                />
+                <div>
+                  <q-btn
+                    v-if="checkInCart(product.id)"
+                    flat
+                    round
+                    icon="mdi-cart"
+                    color="red-7"
+                    :to="{ name: 'add-to-cart-page' }"
+                  />
+                  <q-btn
+                    v-else
+                    flat
+                    round
+                    icon="mdi-cart-outline"
+                    @click="addToCarts(product.id)"
+                    color="grey"
+                  />
 
-                <q-btn flat round icon="mdi-heart-outline" color="grey" />
-              </div>
-            </q-card-actions>
-
-            <!-- <div class="col-4 text-grey-6 ibf-h11">10 tasks</div>
-              <span class="col-8 text-grey-6 ibf-h11" align="right">
-                Start on 25-May-24
-              </span> -->
-          </q-card>
+                  <q-btn flat round icon="mdi-heart-outline" color="grey" />
+                </div>
+              </q-card-actions>
+            </q-card>
+          </div>
         </div>
-      </div>
-      <q-card flat square>
-        <q-btn
-          outline
-          no-caps
-          unelevated
-          color="primary"
-          style="width: 100%; height: 100%"
-          label="See more course"
-          :to="{ name: '' }"
-        />
-      </q-card>
+        <q-card flat square>
+          <q-btn
+            outline
+            no-caps
+            unelevated
+            color="primary"
+            style="width: 100%; height: 100%"
+            label="See more course"
+            :to="{ name: '' }"
+          />
+        </q-card>
+      </section>
     </div>
   </q-page>
 </template>
 
 <script setup>
+import ProductCardSkeleton from "src/components/skeletons/ProductCardSkeleton.vue";
 import PriceOriginal from "src/components/tools/PriceOriginal.vue";
 import PriceDiscount from "src/components/tools/PriceDiscount.vue";
 import FilterProduct from "./components/FilterProduct.vue";
 import { ref, onMounted, computed } from "vue";
 import axios from "axios";
 import { useCartStore } from "src/stores/cart-store";
-import { storeToRefs } from "pinia";
-import { useCategoryStore } from "src/stores/category-store";
-import { formatCurrency } from "src/helpers/utils";
 
-const categoryStore = useCategoryStore();
+const isLoading = ref(true);
 const submitResult = ref([]);
 const keyword = ref("");
 const searchProductData = ref(null);
@@ -174,10 +177,6 @@ const onSubmit = (evt) => {
   submitResult.value = data;
 };
 
-//const fetchCategory = async () => {
-//  await categoryStore.fetchCoreAreas();
-//};
-
 const searchProduct = async () => {
   try {
     const response = await axios.get(
@@ -188,8 +187,13 @@ const searchProduct = async () => {
         },
       }
     );
-    console.log(response);
+    console.log(response.data);
+
+    if (!response.data.status) return;
     searchProductData.value = response.data.data;
+    setTimeout(() => {
+      isLoading.value = false;
+    }, 1000);
   } catch (error) {
     console.log("Error fetching items:", error.message);
   }
@@ -204,38 +208,14 @@ const addToCarts = async (id) => {
   await cartStore.serverAddToCart(id);
 };
 
-const removeFromCarts = (id) => {
-  cartStore.removeFromCart(id);
-};
+//const removeFromCarts = (id) => {
+//  cartStore.removeFromCart(id);
+//};
 const checkInCart = (id) => {
   return cartItemsIds.value.includes(id);
 };
 
 onMounted(() => {
   searchProduct();
-  //  fetchCategory();
 });
 </script>
-
-<style scoped>
-.d-flex {
-  display: flex;
-}
-.w-100 {
-  width: 100%;
-}
-
-.single-line-ellipsis {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.multi-line-ellipsis {
-  display: -webkit-box;
-  -webkit-line-clamp: 2; /* Change this number to the desired number of lines */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-</style>

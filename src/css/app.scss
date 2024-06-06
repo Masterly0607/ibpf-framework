@@ -71,3 +71,17 @@
   max-width: 1400px;
   margin: 10px auto;
 }
+
+// Cards
+.ibf-card-1 {
+  border-radius: 12px;
+  box-shadow: 10px 32px 72px 0 rgba(0, 0, 0, 0.06);
+  transition: 0.3s;
+}
+
+.ibf-card-2 {
+  border-radius: 12px;
+  box-shadow: 10px 32px 72px 0 rgba(0, 0, 0, 0.06);
+  transition: 0.3s;
+  border: 1px solid rgba(100, 100, 100, 0.2);
+}

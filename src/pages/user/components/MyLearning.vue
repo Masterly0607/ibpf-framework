@@ -7,8 +7,8 @@
 
       <q-card-section class="q-px-lg">
         <div class="row q-col-gutter-lg q-pb-sm">
-          <div class="col-12 col-md-4">
-            <q-card square bordered class="shadow-1">
+          <div class="col-4">
+            <q-card class="ibf-card-1">
               <q-card-section class="q-py-lg" align="center">
                 <div class="text-h6 q-pa-sm">
                   Course in <br />
@@ -19,8 +19,8 @@
             </q-card>
           </div>
 
-          <div class="col-12 col-md-4">
-            <q-card square bordered class="shadow-1">
+          <div class="col-4">
+            <q-card class="ibf-card-1">
               <q-card-section class="q-py-lg" align="center">
                 <div class="text-h6 q-pa-sm">
                   Completed <br />
@@ -31,8 +31,8 @@
             </q-card>
           </div>
 
-          <div class="col-12 col-md-4">
-            <q-card square bordered class="shadow-1">
+          <div class="col-4">
+            <q-card class="ibf-card-1">
               <q-card-section class="q-py-lg" align="center">
                 <div class="text-h6 q-pa-sm">
                   CPD <br />
@@ -59,5 +59,3 @@
     </q-card>
   </section>
 </template>
-
-<script setup></script>

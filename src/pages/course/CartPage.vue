@@ -15,8 +15,10 @@
           </q-item>
 
           <q-separator spaced />
+          <!-- Skeleton -->
+          <cart-skeleton v-if="isLoading" />
 
-          <div class="column q-gutter-md q-mt-sm">
+          <div v-else class="column q-gutter-md q-mt-sm">
             <q-card
               bordered
               flat
@@ -159,6 +161,7 @@
 </template>
 
 <script setup>
+import CartSkeleton from "src/components/skeletons/CartSkeleton.vue";
 import PriceOriginal from "src/components/tools/PriceOriginal.vue";
 import { formatCurrency } from "src/helpers/utils";
 import { useCartStore } from "src/stores/cart-store";
@@ -167,6 +170,7 @@ const selectedItems = ref([]);
 const isSelectedAll = ref("false");
 const cartStore = useCartStore();
 const cartItems = ref([]);
+const isLoading = ref(true);
 
 //const totalPrice = computed(() => {
 //  return selectedItems.value.reduce((acc, order) => acc + order.price, 0);
@@ -185,6 +189,9 @@ const totalPrice = computed(() => {
 
 onMounted(() => {
   cartItems.value = cartStore.getCartItems;
+  setTimeout(() => {
+    isLoading.value = false;
+  }, 2000);
 });
 </script>
 
