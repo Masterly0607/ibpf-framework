@@ -40,13 +40,10 @@
 </template>
 
 <script setup>
-import { storeToRefs } from "pinia";
 import { usePurchaseStore } from "src/stores/purchase-store";
 import { ref } from "vue";
 const selectedPaymentOption = ref(null);
 const purchaseStore = usePurchaseStore();
-//const { checkOutItems } = storeToRefs(purchaseStore);
-
 const checkOutItems = purchaseStore.getCheckOutItems;
 
 const paymentOptions = [
