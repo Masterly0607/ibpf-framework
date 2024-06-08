@@ -37,25 +37,39 @@
             />
 
             <!-- shopping cart btn -->
-            <q-btn
-              flat
-              round
-              dense
-              color="black-10"
-              icon="shopping_cart"
-              aria-label="profile"
-              :to="{ name: 'add-to-cart-page' }"
-            >
-              <q-badge
-                v-if="countCartItems > 0"
-                rounded
-                color="negative"
-                floating
-                transparent
+
+            <div>
+              <q-btn
+                v-if="countCartItems < 1"
+                flat
+                round
+                dense
+                color="black-10"
+                icon="mdi-cart-outline"
+                :to="{ name: 'add-to-cart-page' }"
+              />
+
+              <q-btn
+                v-else
+                flat
+                round
+                dense
+                color="black-10"
+                icon="shopping_cart"
+                aria-label="profile"
+                :to="{ name: 'add-to-cart-page' }"
               >
-                {{ countCartItems }}
-              </q-badge>
-            </q-btn>
+                <q-badge
+                  v-if="countCartItems > 0"
+                  rounded
+                  color="negative"
+                  floating
+                  transparent
+                >
+                  {{ countCartItems }}
+                </q-badge>
+              </q-btn>
+            </div>
 
             <q-btn
               flat
@@ -122,25 +136,32 @@
 
               <q-separator spaced />
               <div class="row justify-center q-gutter-md">
-                <q-btn
-                  flat
-                  round
-                  dense
-                  color="black-10"
-                  icon="shopping_cart"
-                  aria-label="profile"
-                  :to="{ name: 'add-to-cart-page' }"
-                >
-                  <q-badge
-                    v-if="countCartItems > 0"
-                    rounded
-                    color="negative"
-                    floating
-                    transparent
+                <div>
+                  <q-btn
+                    v-if="countCartItems < 1"
+                    flat
+                    round
+                    dense
+                    color="black-10"
+                    icon="mdi-cart-outline"
+                    :to="{ name: 'add-to-cart-page' }"
+                  />
+
+                  <q-btn
+                    v-else
+                    flat
+                    round
+                    dense
+                    color="black-10"
+                    icon="shopping_cart"
+                    aria-label="profile"
+                    :to="{ name: 'add-to-cart-page' }"
                   >
-                    {{ countCartItems }}
-                  </q-badge>
-                </q-btn>
+                    <q-badge rounded color="negative" floating transparent>
+                      {{ countCartItems }}
+                    </q-badge>
+                  </q-btn>
+                </div>
                 <q-btn
                   flat
                   round

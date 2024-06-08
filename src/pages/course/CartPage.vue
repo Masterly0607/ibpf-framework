@@ -19,44 +19,47 @@
           <cart-skeleton v-if="isLoading" />
 
           <div v-else class="column q-gutter-md q-mt-sm">
-            <q-card
-              bordered
-              flat
-              square
-              v-for="(cartItem, itemIndex) in cartItems"
-              :key="itemIndex"
-            >
-              <q-card-section class="q-pa-xs">
-                <q-item class="q-px-sm">
-                  <q-item-section side top>
-                    <q-checkbox
-                      color="red"
-                      v-model="selectedItems"
-                      :val="cartItem"
-                    />
-                  </q-item-section>
-                  <q-item-section>
-                    <div class="row q-gutter-x-sm">
-                      <div class="col-12 col-md-2">
-                        <img
-                          style="height: 130px; width: 95%; object-fit: cover"
-                          class="rounded-borders"
-                          src="https://cdn.quasar.dev/img/parallax2.jpg"
-                        />
-                      </div>
+            <empty-cart v-if="isCartEmpty" />
 
-                      <div class="col-12 col-md">
-                        <q-item-label
-                          class="ibf-h9 text-weight-medium ellipsis-2-lines"
-                        >
-                          {{ cartItem.course.title }}
-                        </q-item-label>
+            <section v-else id="cart-item">
+              <q-card
+                bordered
+                flat
+                square
+                v-for="(cartItem, itemIndex) in cartItems"
+                :key="itemIndex"
+              >
+                <q-card-section class="q-pa-xs">
+                  <q-item class="q-px-sm">
+                    <q-item-section side top>
+                      <q-checkbox
+                        color="red"
+                        v-model="selectedItems"
+                        :val="cartItem"
+                      />
+                    </q-item-section>
+                    <q-item-section>
+                      <div class="row q-gutter-x-sm">
+                        <div class="col-12 col-md-2">
+                          <img
+                            style="height: 130px; width: 95%; object-fit: cover"
+                            class="rounded-borders"
+                            src="https://cdn.quasar.dev/img/parallax2.jpg"
+                          />
+                        </div>
 
-                        <q-item-label caption lines="2">
-                          {{ cartItem.course.description }}
-                        </q-item-label>
+                        <div class="col-12 col-md">
+                          <q-item-label
+                            class="ibf-h9 text-weight-medium ellipsis-2-lines"
+                          >
+                            {{ cartItem.product.title }}
+                          </q-item-label>
 
-                        <!--<div class="q-my-md row q-gutter-x-sm">
+                          <q-item-label caption lines="2">
+                            {{ cartItem.cproductdescription }}
+                          </q-item-label>
+
+                          <!--<div class="q-my-md row q-gutter-x-sm">
                     <q-badge
                       color="red"
                       text-color="white"
@@ -69,40 +72,40 @@
                     />
                   </div>-->
 
-                        <div class="q-mt-md">
-                          <price-original
-                            :currency="cartItem.course.currency"
-                            :price="cartItem.course.price"
-                            :is-decimals="false"
-                          />
-                        </div>
+                          <div class="q-mt-md">
+                            <price-original
+                              :currency="cartItem.product.currency"
+                              :price="cartItem.product.price"
+                              :is-decimals="false"
+                            />
+                          </div>
 
-                        <div
-                          v-if="cartItem.course.isDiscount"
-                          class="text-red text-weight-medium ibf-h11"
-                        >
-                          <span class="text-weight-light ibf-h12 text-grey-9">
-                            After discount:
-                          </span>
-                          {{
-                            `${cartItem.course.currency} ${formatCurrency(
-                              cartItem.course.after_discount,
-                              false
-                            )}`
-                          }}
+                          <div
+                            v-if="cartItem.product.isDiscount"
+                            class="text-red text-weight-medium ibf-h11"
+                          >
+                            <span class="text-weight-light ibf-h12 text-grey-9">
+                              After discount:
+                            </span>
+                            {{
+                              `${cartItem.product.currency} ${formatCurrency(
+                                cartItem.product.after_discount,
+                                false
+                              )}`
+                            }}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  </q-item-section>
+                    </q-item-section>
 
-                  <q-item-section side top>
-                    <q-badge outline color="grey-6" text-color="black">
-                      <q-icon name="close" size="14px" class="q-mr-xs" />
+                    <q-item-section side top>
+                      <q-badge outline color="grey-6" text-color="black">
+                        <q-icon name="close" size="14px" class="q-mr-xs" />
 
-                      1
-                    </q-badge>
+                        1
+                      </q-badge>
 
-                    <!--<q-input
+                      <!--<q-input
                   style="width: 60px"
                   dense
                   outlined
@@ -117,10 +120,11 @@
                     />
                   </template>
                 </q-input>-->
-                  </q-item-section>
-                </q-item>
-              </q-card-section>
-            </q-card>
+                    </q-item-section>
+                  </q-item>
+                </q-card-section>
+              </q-card>
+            </section>
           </div>
         </q-card-section>
 
@@ -129,6 +133,7 @@
             <div class="row justify-between items-center">
               <div class="col-auto">
                 <q-checkbox
+                  :disable="isCartEmpty"
                   color="red"
                   v-model="isSelectedAll"
                   true-value="true"
@@ -150,6 +155,7 @@
                     {{ formatCurrency(totalPrice) }}
                   </div>
                   <q-btn
+                    :disable="isCartEmpty"
                     unelevated
                     rounded
                     color="red"
@@ -167,6 +173,7 @@
 </template>
 
 <script setup>
+import EmptyCart from "./components/EmptyCart.vue";
 import CartSkeleton from "src/components/skeletons/CartSkeleton.vue";
 import PriceOriginal from "src/components/tools/PriceOriginal.vue";
 import { formatCurrency } from "src/helpers/utils";
@@ -185,6 +192,8 @@ const isLoading = ref(true);
 //const totalPrice = computed(() => {
 //  return selectedItems.value.reduce((acc, order) => acc + order.price, 0);
 //});
+
+const isCartEmpty = computed(() => cartItems.value.length < 1);
 
 const pushToCheckOutItems = () => {
   if (selectedItems.value.length < 1) return;

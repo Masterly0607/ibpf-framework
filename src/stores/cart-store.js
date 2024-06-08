@@ -6,8 +6,8 @@ export const useCartStore = defineStore("cart", {
     lastCartFetch: null,
     cart: {
       order_items: [],
-      total_items: 0,
-      total_price: 0,
+      //  total_items: 0,
+      //  total_price: 0,
     },
     cartItemsIds: [],
   }),
@@ -25,20 +25,29 @@ export const useCartStore = defineStore("cart", {
 
       if (!this.lastCartFetch || now - this.lastCartFetch > cacheDuration) {
         try {
-          const res = await productAPI.get("/api/v1/user/product/list-item");
+          const res = await productAPI.get(
+            "/api/v1/user/product/get/cart-items"
+          );
           console.log(res);
           if (!res.data.status) return;
+
+          if (res.data.data.length < 1) this.resetCart();
+
           this.storeCart(res.data.data);
-          this.lastCartFetch = now;
         } catch (error) {
           console.log(error.message);
         }
       }
     },
 
+    resetCart() {
+      this.cart.order_items = [];
+      this.cartItemsIds = [];
+    },
+
     storeCart(payload) {
       if (payload) {
-        this.cart = payload;
+        this.cart.order_items = payload.data;
         this.cartItemsIds = payload.order_items.map((el) => el.course.id);
       }
     },
