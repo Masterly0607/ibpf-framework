@@ -151,8 +151,6 @@
 
 <script setup>
 import ProductCardSkeleton from "src/components/skeletons/ProductCardSkeleton.vue";
-import PriceOriginal from "src/components/tools/PriceOriginal.vue";
-import PriceDiscount from "src/components/tools/PriceDiscount.vue";
 import FilterProduct from "./components/FilterProduct.vue";
 import { ref, onMounted, computed } from "vue";
 import axios from "axios";

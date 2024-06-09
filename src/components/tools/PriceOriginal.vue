@@ -1,6 +1,7 @@
 <template>
-  <span class="text-red-5 text-weight-medium ibf-h10">
-    {{ `${currency} ${formatCurrency(price, isDecimals)}` }}
+  <span class="text-red-5 text-weight-medium ibf-h9">
+    <span class="ibf-h12">{{ currency }}</span>
+    {{ formatCurrency(price, isDecimals) }}
   </span>
 </template>
 

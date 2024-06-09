@@ -1,6 +1,7 @@
 <template>
   <span class="q-ml-xs ibf-h11 text-grey-7 text-strike text-weight-light">
-    {{ `${currency} ${formatCurrency(price, isDecimals)}` }}
+    <span>{{ currency }}</span>
+    {{ ` ${formatCurrency(price, isDecimals)}` }}
   </span>
 </template>
 

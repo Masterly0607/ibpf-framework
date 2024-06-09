@@ -3,25 +3,20 @@
     <div class="ibf-container-1200">
       <q-card square flat>
         <q-card-section class="q-pa-none">
-          <q-item>
-            <q-item-section side>
-              <q-icon size="50px" color="primary" name="mdi-cart-variant" />
-            </q-item-section>
-            <q-item-section>
-              <q-item-label class="text-h4 text-weight-bold">
-                Cart
-              </q-item-label>
-            </q-item-section>
-          </q-item>
+          <q-heading-1
+            title="Cart"
+            icon="mdi-cart-variant"
+            showLine="true"
+          ></q-heading-1>
 
           <q-separator spaced />
           <!-- Skeleton -->
           <cart-skeleton v-if="isLoading" />
 
-          <div v-else class="column q-gutter-md q-mt-sm">
+          <div v-else>
             <empty-cart v-if="isCartEmpty" />
 
-            <section v-else id="cart-item">
+            <section v-else id="cart-item" class="column q-gutter-md q-mt-sm">
               <q-card
                 bordered
                 flat
@@ -56,21 +51,21 @@
                           </q-item-label>
 
                           <q-item-label caption lines="2">
-                            {{ cartItem.cproductdescription }}
+                            {{ cartItem.product.description }}
                           </q-item-label>
 
                           <!--<div class="q-my-md row q-gutter-x-sm">
-                    <q-badge
-                      color="red"
-                      text-color="white"
-                      :label="cartItem.course.type_id"
-                    />
-                    <q-badge
-                      color="red"
-                      text-color="white"
-                      :label="cartItem.course.coreArea_id"
-                    />
-                  </div>-->
+                            <q-badge
+                              color="red"
+                              text-color="white"
+                              :label="cartItem.product.type_id"
+                            />
+                            <q-badge
+                              color="red"
+                              text-color="white"
+                              :label="cartItem.product.coreArea_id"
+                            />
+                          </div>-->
 
                           <div class="q-mt-md">
                             <price-original
@@ -175,7 +170,6 @@
 <script setup>
 import EmptyCart from "./components/EmptyCart.vue";
 import CartSkeleton from "src/components/skeletons/CartSkeleton.vue";
-import PriceOriginal from "src/components/tools/PriceOriginal.vue";
 import { formatCurrency } from "src/helpers/utils";
 import { useCartStore } from "src/stores/cart-store";
 import { usePurchaseStore } from "src/stores/purchase-store";
@@ -205,9 +199,9 @@ const totalPrice = computed(() => {
   return selectedItems.value.reduce((acc, order) => {
     return (
       acc +
-      (order.course.isDiscount
-        ? order.course.after_discount
-        : order.course.price)
+      (order.product.isDiscount
+        ? order.product.after_discount
+        : order.product.price)
     );
   }, 0);
 });

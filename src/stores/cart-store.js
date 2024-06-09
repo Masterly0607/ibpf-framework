@@ -31,8 +31,8 @@ export const useCartStore = defineStore("cart", {
           console.log(res);
           if (!res.data.status) return;
 
-          if (res.data.data.length < 1) this.resetCart();
-
+          this.lastCartFetch = now;
+          if (res.data.data.length < 1) this.resetCart(); // auto empty cart if the data response is blank
           this.storeCart(res.data.data);
         } catch (error) {
           console.log(error.message);
@@ -48,7 +48,7 @@ export const useCartStore = defineStore("cart", {
     storeCart(payload) {
       if (payload) {
         this.cart.order_items = payload.data;
-        this.cartItemsIds = payload.order_items.map((el) => el.course.id);
+        this.cartItemsIds = payload.order_items.map((el) => el.course_id);
       }
     },
     async serverAddToCart(id) {
@@ -74,6 +74,7 @@ export const useCartStore = defineStore("cart", {
       //  const index = this.cartItems.findIndex((el) => el.id == id);
       //  if (index < 0) return;
       this.cartItemsIds = this.cartItemsIds.filter((el) => el !== id);
+      this.lastCartFetch = null;
     },
   },
 
