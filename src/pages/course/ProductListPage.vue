@@ -116,7 +116,7 @@
                     round
                     icon="mdi-cart"
                     color="red-7"
-                    :to="{ name: 'add-to-cart-page' }"
+                    :to="{ name: 'cart-page' }"
                   />
                   <q-btn
                     v-else

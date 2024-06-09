@@ -56,7 +56,7 @@ const routes = [
       // ----------- add to cart ------------
       {
         path: "add-to-cart",
-        name: "add-to-cart-page",
+        name: "cart-page",
         component: () => import("src/pages/course/CartPage.vue"),
       },
     ],

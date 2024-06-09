@@ -46,7 +46,7 @@
                 dense
                 color="black-10"
                 icon="mdi-cart-outline"
-                :to="{ name: 'add-to-cart-page' }"
+                :to="{ name: 'cart-page' }"
               />
 
               <q-btn
@@ -57,7 +57,7 @@
                 color="black-10"
                 icon="shopping_cart"
                 aria-label="profile"
-                :to="{ name: 'add-to-cart-page' }"
+                :to="{ name: 'cart-page' }"
               >
                 <q-badge
                   v-if="countCartItems > 0"
@@ -144,7 +144,7 @@
                     dense
                     color="black-10"
                     icon="mdi-cart-outline"
-                    :to="{ name: 'add-to-cart-page' }"
+                    :to="{ name: 'cart-page' }"
                   />
 
                   <q-btn
@@ -155,7 +155,7 @@
                     color="black-10"
                     icon="shopping_cart"
                     aria-label="profile"
-                    :to="{ name: 'add-to-cart-page' }"
+                    :to="{ name: 'cart-page' }"
                   >
                     <q-badge rounded color="negative" floating transparent>
                       {{ countCartItems }}

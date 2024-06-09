@@ -1,5 +1,5 @@
 <template>
-  <span class="text-red-5 text-weight-medium ibf-h9">
+  <span :class="['text-weight-medium', color, textSize]">
     <span class="ibf-h12">{{ currency }}</span>
     {{ formatCurrency(price, isDecimals) }}
   </span>
@@ -15,6 +15,16 @@ const props = defineProps({
   price: {
     type: Number,
     default: 0,
+  },
+
+  textSize: {
+    type: String,
+    default: "ibf-h9",
+  },
+
+  color: {
+    type: String,
+    default: "text-red-5",
   },
 
   isDecimals: {

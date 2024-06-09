@@ -4,207 +4,19 @@
       <q-card square flat>
         <q-card-section>
           <q-heading-1
-            title="Check Out"
+            title="Checkout"
             icon="mdi-account-credit-card-outline"
             subtitle="Check your purchase items carefully before checking out"
             iconSize="50px"
           />
         </q-card-section>
         <q-separator spaced />
-        <q-card-section>
-          <div class="row q-col-gutter-xl">
-            <div class="col-12 col-md-6">
-              <div class="q-gutter-lg">
-                <!--<q-card
-                class="ibf-card-2"
-                v-for="(item, itemIndex) in checkOutItems"
-                :key="itemIndex"
-              >
-                <q-card-section>
-                  <div class="ibf-h9 text-we">
-                    {{ item.product.title }}
-                  </div>
-                </q-card-section>
-              </q-card>-->
 
-                <q-card>
-                  <q-card-section>
-                    <div class="ibf-h8 text-weight-bold">Order Summary</div>
-                    <q-separator spaced />
+        <check-out-skeleton v-if="isLoading"></check-out-skeleton>
 
-                    <div
-                      class="q-my-sm"
-                      v-for="(item, itemIndex) in checkOutItems"
-                      :key="item.id"
-                    >
-                      <q-item>
-                        <q-item-section top avatar>
-                          <q-avatar
-                            color="grey-2"
-                            text-color="grey-6"
-                            icon="mdi-file-document-outline"
-                          />
-                        </q-item-section>
-                        <q-item-section>
-                          <q-item-label>
-                            {{ item.product.title }}
-                          </q-item-label>
-                          <q-item-label
-                            caption
-                            lines="1"
-                            v-if="selectedPaymentOption === 3"
-                          >
-                            {{ item.product.description }}
-                          </q-item-label>
-
-                          <q-item-label caption v-else>
-                            <div class="row q-gutter-md">
-                              <div
-                                v-for="(priceOption, priceOptinIndex) in item
-                                  .product.price_options"
-                                :key="priceOptinIndex"
-                              >
-                                {{
-                                  `${priceOption.title}: ${priceOption.currency} ${priceOption.price}`
-                                }}
-                              </div>
-                            </div>
-                          </q-item-label>
-                        </q-item-section>
-
-                        <q-item-section side v-if="item.product.isDiscount">
-                          <q-item-label caption>
-                            <price-original
-                              :currency="item.product.currency"
-                              :price="item.product.after_discount"
-                              :isDecimals="false"
-                            ></price-original>
-                          </q-item-label>
-
-                          <q-item-label caption>
-                            <price-discount
-                              :currency="item.product.currency"
-                              :price="item.product.price"
-                              :isDecimals="false"
-                            />
-                          </q-item-label>
-                        </q-item-section>
-
-                        <q-item-section side v-else>
-                          <q-item-label caption>
-                            <price-original
-                              :currency="item.product.currency"
-                              :price="item.product.price"
-                              :isDecimals="false"
-                            ></price-original>
-                          </q-item-label>
-                        </q-item-section>
-                      </q-item>
-
-                      <!--<hr style="border: 1px dashed black" />-->
-
-                      <q-separator
-                        v-show="itemIndex < checkOutItems.length - 1"
-                        spaced
-                        inset
-                        color="grey-3"
-                      />
-                    </div>
-                  </q-card-section>
-
-                  <q-separator inset spaced />
-
-                  <q-card-section>
-                    <q-item class="q-pa-xs">
-                      <q-item-section>
-                        <q-item-label
-                          class="ibf-h10 text-weight-regular text-grey-6"
-                        >
-                          Sub-total
-                        </q-item-label>
-                      </q-item-section>
-                      <q-item-section side>
-                        <q-item-label class="ibf-h10 text-weight-medium">
-                          USD 1,000
-                        </q-item-label>
-                      </q-item-section>
-                    </q-item>
-
-                    <q-item class="q-pa-xs">
-                      <q-item-section>
-                        <q-item-label
-                          class="ibf-h10 text-weight-regular text-grey-6"
-                          >Incl. VAT</q-item-label
-                        >
-                      </q-item-section>
-                      <q-item-section side>
-                        <q-item-label class="ibf-h10 text-weight-medium">
-                          USD 5
-                        </q-item-label>
-                      </q-item-section>
-                    </q-item>
-
-                    <q-separator spaced />
-
-                    <q-item class="q-pa-xs">
-                      <q-item-section>
-                        <q-item-label
-                          class="ibf-h9 text-weight-regular text-grey-9"
-                          >Grand total</q-item-label
-                        >
-                      </q-item-section>
-                      <q-item-section side>
-                        <q-item-label
-                          class="ibf-h9 text-weight-medium text-grey-9"
-                        >
-                          USD 1,005
-                        </q-item-label>
-                      </q-item-section>
-                    </q-item>
-                  </q-card-section>
-
-                  <q-card-actions align="right">
-                    <q-btn
-                      no-caps
-                      unelevated
-                      outline
-                      color="red-7"
-                      label="Return to cart"
-                    />
-                    <q-btn unelevated color="red-7" label="Checkout Now" />
-                  </q-card-actions>
-
-                  <!--<q-card-section>
-                  <preview-json :list="checkOutItems" title="Check out items">
-                  </preview-json>
-                </q-card-section>-->
-                </q-card>
-
-                <q-card class="my-card">
-                  <q-card-section>
-                    <div class="ibf-h8 text-weight-medium">Print this page</div>
-
-                    <q-separator spaced />
-
-                    <div>
-                      Print this page to share with your company for approval
-                      and purchase.
-                    </div>
-                  </q-card-section>
-
-                  <q-card-actions align="right">
-                    <q-btn
-                      unelevated
-                      outline
-                      color="secondary"
-                      icon="print"
-                      label="Print"
-                    />
-                  </q-card-actions>
-                </q-card>
-              </div>
-            </div>
-
+        <q-card-section v-else>
+          <empty-check-out v-if="isItemsEmpty" />
+          <div class="row q-col-gutter-xl" v-else>
             <div class="col-12 col-md-6">
               <div class="column q-gutter-lg">
                 <q-card flat bordered square>
@@ -212,12 +24,6 @@
                     <div class="ibf-h9 text-weight-medium">Payment Options</div>
 
                     <q-separator spaced />
-                    <!--<q-option-group
-                      v-model="selectedPaymentOption"
-                      type="radio"
-                      color="red-7"
-                      :options="paymentOptions"
-                    />-->
 
                     <q-item
                       class="q-px-none"
@@ -277,6 +83,341 @@
                     </q-item>
                   </q-card-section>
                 </q-card>
+
+                <q-card flat bordered v-else>
+                  <q-card-section>
+                    <div class="ibf-h9 text-weight-medium">
+                      HR's information
+                    </div>
+
+                    <q-separator spaced />
+
+                    <div class="column q-gutter-md">
+                      <q-field filled square>
+                        <template v-slot:control>
+                          <div
+                            class="self-center full-width no-outline"
+                            tabindex="0"
+                          >
+                            {{ maskValue(HRInfo.name) }}
+                          </div>
+                        </template>
+                      </q-field>
+
+                      <q-field filled square>
+                        <template v-slot:control>
+                          <div
+                            class="self-center full-width no-outline"
+                            tabindex="0"
+                          >
+                            {{ maskValue(HRInfo.phone) }}
+                          </div>
+                        </template>
+                      </q-field>
+                      <q-field filled square>
+                        <template v-slot:control>
+                          <div
+                            class="self-center full-width no-outline"
+                            tabindex="0"
+                          >
+                            {{ maskValue(HRInfo.email) }}
+                          </div>
+                        </template>
+                      </q-field>
+                      <!--<q-form class="column q-gutter-md">
+                        <q-input
+                          color="secondary"
+                          square
+                          filled
+                          dense
+                          v-model="HRInfo.name"
+                          type="text"
+                          label="HR's name"
+                        />
+
+                        <q-input
+                          color="secondary"
+                          square
+                          filled
+                          dense
+                          v-model="HRInfo.phone"
+                          type="text"
+                          label="HR's telegram number"
+                        />
+
+                        <q-input
+                          color="secondary"
+                          square
+                          filled
+                          dense
+                          v-model="HRInfo.email"
+                          type="email"
+                          label="HR's email"
+                        />
+                      </q-form>-->
+                    </div>
+                  </q-card-section>
+                </q-card>
+              </div>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <div class="q-gutter-lg">
+                <q-card>
+                  <q-card-section>
+                    <q-item class="q-pa-none">
+                      <q-item-section>
+                        <div class="ibf-h8 text-weight-bold">Order Summary</div>
+                      </q-item-section>
+                      <q-item-section side>
+                        <div class="row">
+                          <q-btn
+                            round
+                            flat
+                            outline
+                            color="grey-6"
+                            icon="mdi-cart"
+                            :to="{ name: 'cart-page' }"
+                          />
+                          <q-btn
+                            round
+                            flat
+                            outline
+                            color="grey-6"
+                            icon="print"
+                          />
+                        </div>
+                      </q-item-section>
+                    </q-item>
+                    <q-separator spaced />
+
+                    <div
+                      class="q-my-sm"
+                      v-for="(item, itemIndex) in checkOutItems"
+                      :key="item.id"
+                    >
+                      <q-item class="q-px-none">
+                        <q-item-section top avatar>
+                          <q-avatar
+                            size="50px"
+                            color="grey-2"
+                            text-color="grey-6"
+                            icon="mdi-file-document-outline"
+                          />
+                        </q-item-section>
+                        <q-item-section>
+                          <q-item-label
+                            class="ibf-h10 text-grey-9 text-weight-medium"
+                          >
+                            {{ item.product.title }}
+                          </q-item-label>
+                          <q-item-label
+                            caption
+                            lines="2"
+                            v-if="selectedPaymentOption === 3"
+                          >
+                            {{ item.product.description }}
+                          </q-item-label>
+
+                          <q-item-label caption v-else>
+                            <div class="row q-gutter-md">
+                              <div
+                                v-for="(priceOption, priceOptinIndex) in item
+                                  .product.price_options"
+                                :key="priceOptinIndex"
+                              >
+                                {{ `${priceOption.title}:` }}
+                                <price-original
+                                  :price="priceOption.price"
+                                  :currency="priceOption.currency"
+                                  color="secondary"
+                                  textSize="ibf-h12"
+                                />
+                              </div>
+                            </div>
+                          </q-item-label>
+                        </q-item-section>
+
+                        <q-item-section side top v-if="item.product.is_free">
+                          <q-item-label class="text-teal"> Free </q-item-label>
+                        </q-item-section>
+
+                        <q-item-section side top v-else>
+                          <div v-if="item.product.isDiscount">
+                            <q-item-label caption>
+                              <price-original
+                                :currency="item.product.currency"
+                                :price="item.product.after_discount"
+                                :isDecimals="false"
+                              ></price-original>
+                            </q-item-label>
+
+                            <q-item-label caption>
+                              <price-discount
+                                :currency="item.product.currency"
+                                :price="item.product.price"
+                                :isDecimals="false"
+                              />
+                            </q-item-label>
+                          </div>
+
+                          <div v-else>
+                            <q-item-label caption>
+                              <price-original
+                                :currency="item.product.currency"
+                                :price="item.product.price"
+                                :isDecimals="false"
+                              ></price-original>
+                            </q-item-label>
+                          </div>
+                        </q-item-section>
+                      </q-item>
+
+                      <!--<hr style="border: 1px dashed black" />-->
+
+                      <q-separator
+                        v-show="itemIndex < checkOutItems.length - 1"
+                        spaced
+                        inset
+                        color="grey-3"
+                      />
+                    </div>
+                  </q-card-section>
+
+                  <q-separator inset spaced />
+
+                  <q-card-section>
+                    <q-item class="q-pa-xs">
+                      <q-item-section>
+                        <q-item-label
+                          class="ibf-h10 text-weight-regular text-grey-6"
+                        >
+                          Sub-total
+                        </q-item-label>
+                      </q-item-section>
+                      <q-item-section side>
+                        <q-item-label class="text-weight-medium">
+                          <price-original
+                            currency="USD"
+                            :price="subTotalCost"
+                            textSize="ibf-h10"
+                            color="black"
+                          />
+                        </q-item-label>
+                      </q-item-section>
+                    </q-item>
+
+                    <q-item class="q-pa-xs">
+                      <q-item-section>
+                        <q-item-label
+                          class="ibf-h10 text-weight-regular text-grey-6"
+                        >
+                          Incl. VAT
+                        </q-item-label>
+                      </q-item-section>
+                      <q-item-section side>
+                        <q-item-label class="ibf-h10 text-weight-medium">
+                          <price-original
+                            currency="USD"
+                            :price="VAT"
+                            textSize="ibf-h10"
+                            color="black"
+                          />
+                        </q-item-label>
+                      </q-item-section>
+                    </q-item>
+
+                    <q-separator color="grey-4" class="q-mt-sm" />
+                    <q-separator color="grey-4" class="q-my-xs" />
+
+                    <q-item class="q-pa-xs">
+                      <q-item-section>
+                        <q-item-label
+                          class="ibf-h9 text-weight-regular text-grey-9"
+                          >Grand total</q-item-label
+                        >
+                      </q-item-section>
+                      <q-item-section side>
+                        <q-item-label class="text-weight-medium">
+                          <price-original
+                            currency="USD"
+                            :price="grandTotal"
+                            textSize="ibf-h9"
+                            color="text-grey-9"
+                          />
+                        </q-item-label>
+                      </q-item-section>
+                    </q-item>
+                  </q-card-section>
+
+                  <q-card-section class="column q-gutter-y-md">
+                    <q-item class="q-px-none">
+                      <q-item-section side>
+                        <q-checkbox
+                          v-model="isAgreed"
+                          color="secondary"
+                          :true-value="true"
+                          :false-value="false"
+                        />
+                      </q-item-section>
+                      <q-item-section>
+                        <q-item-label>
+                          I agree to the IBF's policy and terms&conditions
+                        </q-item-label>
+                      </q-item-section>
+                    </q-item>
+
+                    <q-btn
+                      :disable="!isAgreed"
+                      style="width: 100%; height: 70px"
+                      square
+                      unelevated
+                      color="red-7"
+                      label="Checkout Now"
+                    />
+                  </q-card-section>
+
+                  <div v-if="selectedPaymentOption !== 3">
+                    <q-separator spaced />
+
+                    <q-card-section>
+                      <q-item>
+                        <q-item-section side top>
+                          <q-icon name="check" color="teal" />
+                        </q-item-section>
+                        <q-item-section>
+                          <q-item-section class="ibf-h11 text-grey-9">
+                            Please check out.
+                          </q-item-section>
+                          <q-item-label caption>
+                            The total cost will be adjusted. We will contact
+                            your HR to clarify the information and clear the
+                            payment.
+                          </q-item-label>
+                        </q-item-section>
+                      </q-item>
+                      <q-item>
+                        <q-item-section side top>
+                          <q-icon name="info" color="amber" />
+                        </q-item-section>
+                        <q-item-section>
+                          <q-item-label caption
+                            >NDF: Non-development fund</q-item-label
+                          >
+                          <q-item-label caption
+                            >DF: Development fund</q-item-label
+                          >
+                          <q-item-label caption>SH: Shareholder</q-item-label>
+                        </q-item-section>
+                      </q-item>
+                    </q-card-section>
+                  </div>
+
+                  <!--<q-card-section>
+                    <preview-json :list="checkOutItems" title="Check out items">
+                    </preview-json>
+                  </q-card-section>-->
+                </q-card>
               </div>
             </div>
           </div>
@@ -287,11 +428,53 @@
 </template>
 
 <script setup>
+import EmptyCheckOut from "./components/EmptyCheckOut.vue";
+import CheckOutSkeleton from "src/components/skeletons/CheckOutSkeleton.vue";
 import { usePurchaseStore } from "src/stores/purchase-store";
-import { ref } from "vue";
+import { computed, onMounted, reactive, ref } from "vue";
 const selectedPaymentOption = ref(1);
 const purchaseStore = usePurchaseStore();
-const checkOutItems = purchaseStore.getCheckOutItems;
+const checkOutItems = ref(purchaseStore.getCheckOutItems);
+const isLoading = ref(true);
+
+const HRInfo = reactive({
+  name: "Peter",
+  phone: "012884325",
+  email: "peter@test.comz",
+});
+
+const isAgreed = ref(false);
+
+const VAT = ref(5);
+
+const isItemsEmpty = computed(() => checkOutItems.value.length < 1);
+const subTotalCost = computed(() => {
+  if (checkOutItems.value.length < 1) return 0;
+  return checkOutItems.value.reduce((acc, order) => {
+    return (
+      acc +
+      (order.product.is_free
+        ? 0
+        : order.product.isDiscount
+        ? order.product.after_discount
+        : order.product.price)
+    );
+  }, 0);
+});
+
+const grandTotal = computed(() => {
+  return subTotalCost.value + VAT.value || 0;
+});
+
+const maskValue = (value) => {
+  if (!value) return "";
+  const length = value.length;
+  if (length < 5) return "*".repeat(length); // Hide all characters if length is less than 4
+  const visibleChars = length <= 10 ? 2 : 3; // Show at least 2 characters if length <= 10, otherwise 3
+  return `${value.substring(0, visibleChars)}${"*".repeat(
+    length - visibleChars * 2
+  )}${value.substring(length - visibleChars)}`;
+};
 
 const paymentOptions = [
   {
@@ -334,4 +517,10 @@ const paymentMethods = ref([
     icon: "mdi-bank-outline",
   },
 ]);
+
+onMounted(() => {
+  setTimeout(() => {
+    isLoading.value = false;
+  }, 2000);
+});
 </script>

@@ -67,27 +67,36 @@
                             />
                           </div>-->
 
-                          <div class="q-mt-md">
+                          <div
+                            class="q-mt-md ibf-h9 text-teal"
+                            v-if="cartItem.product.is_free"
+                          >
+                            Free
+                          </div>
+
+                          <div class="q-mt-md" v-else>
                             <price-original
                               :currency="cartItem.product.currency"
                               :price="cartItem.product.price"
                               :is-decimals="false"
                             />
-                          </div>
 
-                          <div
-                            v-if="cartItem.product.isDiscount"
-                            class="text-red text-weight-medium ibf-h11"
-                          >
-                            <span class="text-weight-light ibf-h12 text-grey-9">
-                              After discount:
-                            </span>
-                            {{
-                              `${cartItem.product.currency} ${formatCurrency(
-                                cartItem.product.after_discount,
-                                false
-                              )}`
-                            }}
+                            <div
+                              v-if="cartItem.product.isDiscount"
+                              class="text-red text-weight-medium ibf-h11"
+                            >
+                              <span
+                                class="text-weight-light ibf-h12 text-grey-9"
+                              >
+                                After discount:
+                              </span>
+                              {{
+                                `${cartItem.product.currency} ${formatCurrency(
+                                  cartItem.product.after_discount,
+                                  false
+                                )}`
+                              }}
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -199,7 +208,9 @@ const totalPrice = computed(() => {
   return selectedItems.value.reduce((acc, order) => {
     return (
       acc +
-      (order.product.isDiscount
+      (order.product.is_free
+        ? 0
+        : order.product.isDiscount
         ? order.product.after_discount
         : order.product.price)
     );
