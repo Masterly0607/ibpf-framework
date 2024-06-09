@@ -124,37 +124,6 @@
                           </div>
                         </template>
                       </q-field>
-                      <!--<q-form class="column q-gutter-md">
-                        <q-input
-                          color="secondary"
-                          square
-                          filled
-                          dense
-                          v-model="HRInfo.name"
-                          type="text"
-                          label="HR's name"
-                        />
-
-                        <q-input
-                          color="secondary"
-                          square
-                          filled
-                          dense
-                          v-model="HRInfo.phone"
-                          type="text"
-                          label="HR's telegram number"
-                        />
-
-                        <q-input
-                          color="secondary"
-                          square
-                          filled
-                          dense
-                          v-model="HRInfo.email"
-                          type="email"
-                          label="HR's email"
-                        />
-                      </q-form>-->
                     </div>
                   </q-card-section>
                 </q-card>
