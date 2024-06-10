@@ -115,7 +115,12 @@
                         round
                         color="red-5"
                         icon="delete"
-                        @click="removeItem(cartItem.id)"
+                        @click="
+                          removeItem({
+                            courseId: cartItem.course_id,
+                            orderId: cartItem.id,
+                          })
+                        "
                       />
 
                       <!--<q-input
@@ -172,7 +177,7 @@
                     unelevated
                     rounded
                     color="red"
-                    @click="pushToCheckOutItems()"
+                    @click="placeOrders()"
                     >Place order</q-btn
                   >
                 </div>
@@ -198,7 +203,7 @@ const router = useRouter();
 const selectedItems = ref([]);
 const isSelectedAll = ref("false");
 const cartStore = useCartStore();
-const cartItems = ref([]);
+const cartItems = computed(() => cartStore.getCartItems || []);
 const isLoading = ref(true);
 
 //const totalPrice = computed(() => {
@@ -207,14 +212,21 @@ const isLoading = ref(true);
 
 const isCartEmpty = computed(() => cartItems.value.length < 1);
 
-const pushToCheckOutItems = () => {
+const serverCreateOrder = async () => {
+  const itemsId = selectedItems.value.map((el) => el.id);
+  console.log(itemsId);
+  await purchaseStore.serverPlaceOrder(itemsId);
+};
+
+const placeOrders = () => {
   if (selectedItems.value.length < 1) return;
   purchaseStore.addToCheckOutList(selectedItems.value);
+  serverCreateOrder();
   router.push({ name: "check-out-page" });
 };
 
-const removeItem = async (id) => {
-  await cartStore.serverRemoveItem(id);
+const removeItem = async (payload) => {
+  await cartStore.serverRemoveItem(payload);
 };
 
 const totalPrice = computed(() => {
@@ -230,8 +242,12 @@ const totalPrice = computed(() => {
   }, 0);
 });
 
+const fetchCartItems = async () => {
+  await cartStore.serverFetchCartItems();
+};
+
 onMounted(() => {
-  cartItems.value = cartStore.getCartItems;
+  fetchCartItems();
   setTimeout(() => {
     isLoading.value = false;
   }, 2000);

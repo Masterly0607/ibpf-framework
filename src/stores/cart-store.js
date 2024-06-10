@@ -13,8 +13,8 @@ export const useCartStore = defineStore("cart", {
   }),
 
   getters: {
-    getCartItemsIds: (state) => state.cartItemsIds,
-    getCartItems: (state) => state.cart.order_items,
+    getCartItemsIds: (state) => state.cartItemsIds || [],
+    getCartItems: (state) => state.cart.order_items || [],
     //countCartItemsIds: (state) => state.cart.length || 0,
   },
 
@@ -23,31 +23,19 @@ export const useCartStore = defineStore("cart", {
       const now = Date.now();
       const cacheDuration = 1000 * 60 * 10; // 10 minutes
 
-      try {
-        const res = await productAPI.get("/api/v1/user/product/get/cart-items");
-        console.log(res);
-        if (!res.data.status) return;
+      if (!this.lastCartFetch || now - this.lastCartFetch > cacheDuration) {
+        try {
+          const res = await productAPI.get(
+            "/api/v1/user/product/get/cart-items"
+          );
 
-        this.storeCart(res.data.data);
-      } catch (error) {
-        console.log(error.message);
+          if (!res.data.status) return;
+          this.storeCart(res.data.data);
+          this.lastCartFetch = now;
+        } catch (error) {
+          console.log(error.message);
+        }
       }
-
-      //  if (!this.lastCartFetch || now - this.lastCartFetch > cacheDuration) {
-      //    try {
-      //      const res = await productAPI.get(
-      //        "/api/v1/user/product/get/cart-items"
-      //      );
-      //      console.log(res);
-      //      if (!res.data.status) return;
-
-      //      this.lastCartFetch = now;
-      //      if (res.data.data.length < 1) this.resetCart(); // auto empty cart if the data response is blank
-      //      this.storeCart(res.data.data);
-      //    } catch (error) {
-      //      console.log(error.message);
-      //    }
-      //  }
     },
 
     resetCart() {
@@ -58,7 +46,11 @@ export const useCartStore = defineStore("cart", {
     storeCart(payload) {
       if (payload) {
         this.cart.order_items = payload.data;
-        this.cartItemsIds = payload.data.map((el) => el.course_id);
+
+        // fill the cartItemsIds with the course_id to verify which is already in the cart
+        this.cartItemsIds = payload.data
+          ? payload.data.map((el) => el.course_id)
+          : [];
       }
     },
     async serverAddToCart(id) {
@@ -76,32 +68,51 @@ export const useCartStore = defineStore("cart", {
     addToCart(id) {
       if (id) {
         this.cartItemsIds.push(id);
+
+        // reset the lastCartFetch to fetch the items for cart again
         this.lastCartFetch = null;
       }
     },
 
-    async serverRemoveItem(id) {
+    async serverRemoveItem(payload) {
+      console.log(payload);
       try {
         const res = await productAPI.delete(
-          "/api/v1/user/delete/item-in-cart/" + id
+          "/api/v1/user/delete/item-in-cart/" + payload.orderId
         );
-
-        console.log(res);
 
         if (!res.data.status) return;
 
-        this.removeFromCart(id);
+        this.removeFromCart(payload);
       } catch (error) {
         console.log(error.message);
       }
     },
 
-    removeFromCart(id) {
-      const index = this.cart.order_items.findIndex((el) => el.id == id);
+    removeFromCart(payload) {
+      const index = this.cart.order_items.findIndex(
+        (el) => el.id == payload.orderId
+      );
       if (index < 0) return;
+
+      // remove the order by id from the order_items list
       this.cart.order_items.splice(index, 1);
-      this.cartItemsIds = this.cartItemsIds.filter((el) => el !== id);
+
+      // remove the product id from the list
+      this.cartItemsIds = this.cartItemsIds.filter(
+        (el) => el !== payload.courseId
+      );
+
+      // reset the lastCartFetch to fetch the items for cart again
       this.lastCartFetch = null;
+    },
+
+    async serverCheckOut(payload) {
+      try {
+        const res = await productAPI.post("/api/v1/user/product/checkout");
+      } catch (error) {
+        console.log(error.message);
+      }
     },
   },
 
