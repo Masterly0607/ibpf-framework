@@ -1,6 +1,6 @@
 <template>
   <q-page class="q-pa-md">
-    <div class="ibf-container-1200">
+    <div class="ibf-container-1200 prevent-select">
       <q-card square flat>
         <q-card-section>
           <q-heading-1
@@ -147,13 +147,6 @@
                             color="grey-6"
                             icon="mdi-cart"
                             :to="{ name: 'cart-page' }"
-                          />
-                          <q-btn
-                            round
-                            flat
-                            outline
-                            color="grey-6"
-                            icon="print"
                           />
                         </div>
                       </q-item-section>
@@ -382,10 +375,10 @@
                     </q-card-section>
                   </div>
 
-                  <!--<q-card-section>
+                  <q-card-section>
                     <preview-json :list="checkOutItems" title="Check out items">
                     </preview-json>
-                  </q-card-section>-->
+                  </q-card-section>
                 </q-card>
               </div>
             </div>
@@ -493,3 +486,11 @@ onMounted(() => {
   }, 2000);
 });
 </script>
+
+<style lang="scss" scoped>
+.prevent-select {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+</style>

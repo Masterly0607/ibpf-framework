@@ -23,21 +23,31 @@ export const useCartStore = defineStore("cart", {
       const now = Date.now();
       const cacheDuration = 1000 * 60 * 10; // 10 minutes
 
-      if (!this.lastCartFetch || now - this.lastCartFetch > cacheDuration) {
-        try {
-          const res = await productAPI.get(
-            "/api/v1/user/product/get/cart-items"
-          );
-          console.log(res);
-          if (!res.data.status) return;
+      try {
+        const res = await productAPI.get("/api/v1/user/product/get/cart-items");
+        console.log(res);
+        if (!res.data.status) return;
 
-          this.lastCartFetch = now;
-          if (res.data.data.length < 1) this.resetCart(); // auto empty cart if the data response is blank
-          this.storeCart(res.data.data);
-        } catch (error) {
-          console.log(error.message);
-        }
+        this.storeCart(res.data.data);
+      } catch (error) {
+        console.log(error.message);
       }
+
+      //  if (!this.lastCartFetch || now - this.lastCartFetch > cacheDuration) {
+      //    try {
+      //      const res = await productAPI.get(
+      //        "/api/v1/user/product/get/cart-items"
+      //      );
+      //      console.log(res);
+      //      if (!res.data.status) return;
+
+      //      this.lastCartFetch = now;
+      //      if (res.data.data.length < 1) this.resetCart(); // auto empty cart if the data response is blank
+      //      this.storeCart(res.data.data);
+      //    } catch (error) {
+      //      console.log(error.message);
+      //    }
+      //  }
     },
 
     resetCart() {
@@ -48,7 +58,7 @@ export const useCartStore = defineStore("cart", {
     storeCart(payload) {
       if (payload) {
         this.cart.order_items = payload.data;
-        this.cartItemsIds = payload.order_items.map((el) => el.course_id);
+        this.cartItemsIds = payload.data.map((el) => el.course_id);
       }
     },
     async serverAddToCart(id) {
@@ -70,9 +80,26 @@ export const useCartStore = defineStore("cart", {
       }
     },
 
+    async serverRemoveItem(id) {
+      try {
+        const res = await productAPI.delete(
+          "/api/v1/user/delete/item-in-cart/" + id
+        );
+
+        console.log(res);
+
+        if (!res.data.status) return;
+
+        this.removeFromCart(id);
+      } catch (error) {
+        console.log(error.message);
+      }
+    },
+
     removeFromCart(id) {
-      //  const index = this.cartItems.findIndex((el) => el.id == id);
-      //  if (index < 0) return;
+      const index = this.cart.order_items.findIndex((el) => el.id == id);
+      if (index < 0) return;
+      this.cart.order_items.splice(index, 1);
       this.cartItemsIds = this.cartItemsIds.filter((el) => el !== id);
       this.lastCartFetch = null;
     },

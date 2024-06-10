@@ -101,13 +101,22 @@
                         </div>
                       </div>
                     </q-item-section>
-
                     <q-item-section side top>
                       <q-badge outline color="grey-6" text-color="black">
                         <q-icon name="close" size="14px" class="q-mr-xs" />
-
                         1
                       </q-badge>
+
+                      <q-space />
+
+                      <q-btn
+                        flat
+                        size="12px"
+                        round
+                        color="red-5"
+                        icon="delete"
+                        @click="removeItem(cartItem.id)"
+                      />
 
                       <!--<q-input
                   style="width: 60px"
@@ -202,6 +211,10 @@ const pushToCheckOutItems = () => {
   if (selectedItems.value.length < 1) return;
   purchaseStore.addToCheckOutList(selectedItems.value);
   router.push({ name: "check-out-page" });
+};
+
+const removeItem = async (id) => {
+  await cartStore.serverRemoveItem(id);
 };
 
 const totalPrice = computed(() => {
