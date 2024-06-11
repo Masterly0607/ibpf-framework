@@ -23,24 +23,38 @@ export const useCartStore = defineStore("cart", {
       const now = Date.now();
       const cacheDuration = 1000 * 60 * 10; // 10 minutes
 
-      if (!this.lastCartFetch || now - this.lastCartFetch > cacheDuration) {
-        try {
-          const res = await productAPI.get(
-            "/api/v1/user/product/get/cart-items"
-          );
+      try {
+        const res = await productAPI.get("/api/v1/user/product/get/cart-items");
 
-          if (!res.data.status) return;
-          this.storeCart(res.data.data);
-          this.lastCartFetch = now;
-        } catch (error) {
-          console.log(error.message);
-        }
+        if (!res.data.status) return;
+        this.storeCart(res.data.data);
+        this.lastCartFetch = now;
+      } catch (error) {
+        console.log(error.message);
       }
+
+      //  if (!this.lastCartFetch || now - this.lastCartFetch > cacheDuration) {
+      //    try {
+      //      const res = await productAPI.get(
+      //        "/api/v1/user/product/get/cart-items"
+      //      );
+
+      //      if (!res.data.status) return;
+      //      this.storeCart(res.data.data);
+      //      this.lastCartFetch = now;
+      //    } catch (error) {
+      //      console.log(error.message);
+      //    }
+      //  }
     },
 
     resetCart() {
       this.cart.order_items = [];
       this.cartItemsIds = [];
+    },
+
+    resetLastCartFetch() {
+      this.lastCartFetch = null;
     },
 
     storeCart(payload) {
@@ -105,14 +119,6 @@ export const useCartStore = defineStore("cart", {
 
       // reset the lastCartFetch to fetch the items for cart again
       this.lastCartFetch = null;
-    },
-
-    async serverCheckOut(payload) {
-      try {
-        const res = await productAPI.post("/api/v1/user/product/checkout");
-      } catch (error) {
-        console.log(error.message);
-      }
     },
   },
 

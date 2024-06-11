@@ -27,13 +27,13 @@
 
                     <q-item
                       class="q-px-none"
-                      v-for="(option, optionIndex) in paymentOptions"
+                      v-for="(option, optionIndex) in paymentTypeOptions"
                       :key="optionIndex"
                     >
                       <q-item-section side>
                         <q-radio
                           color="red-7"
-                          v-model="selectedPaymentOption"
+                          v-model="selectedPaymentTypeOption"
                           :val="option.value"
                         />
                       </q-item-section>
@@ -51,7 +51,12 @@
                   </q-card-section>
                 </q-card>
 
-                <q-card flat bordered square v-if="selectedPaymentOption === 3">
+                <q-card
+                  flat
+                  bordered
+                  square
+                  v-if="selectedPaymentTypeOption === 2"
+                >
                   <q-card-section>
                     <div class="ibf-h9 text-weight-medium">Payment Method</div>
 
@@ -176,7 +181,7 @@
                           <q-item-label
                             caption
                             lines="2"
-                            v-if="selectedPaymentOption === 3"
+                            v-if="selectedPaymentTypeOption === 2"
                           >
                             {{ item.product.description }}
                           </q-item-label>
@@ -335,11 +340,12 @@
                       square
                       unelevated
                       color="red-7"
+                      @click="orderCheckout"
                       label="Checkout Now"
                     />
                   </q-card-section>
 
-                  <div v-if="selectedPaymentOption !== 3">
+                  <div v-if="selectedPaymentTypeOption !== 2">
                     <q-separator spaced />
 
                     <q-card-section>
@@ -386,18 +392,31 @@
         </q-card-section>
       </q-card>
     </div>
+
+    <check-out-transition></check-out-transition>
   </q-page>
 </template>
 
 <script setup>
+import CheckOutTransition from "./components/CheckOutTransition.vue";
 import EmptyCheckOut from "./components/EmptyCheckOut.vue";
 import CheckOutSkeleton from "src/components/skeletons/CheckOutSkeleton.vue";
+import { useCartStore } from "src/stores/cart-store";
 import { usePurchaseStore } from "src/stores/purchase-store";
-import { computed, onMounted, reactive, ref } from "vue";
-const selectedPaymentOption = ref(1);
+import { computed, onMounted, provide, reactive, ref } from "vue";
+import { useRouter } from "vue-router";
+const selectedPaymentTypeOption = ref(1);
 const purchaseStore = usePurchaseStore();
 const checkOutItems = ref(purchaseStore.getCheckOutItems);
 const isLoading = ref(true);
+const cartStore = useCartStore();
+const isCheckOutProvide = ref(false);
+const router = useRouter();
+provide("checkout-dialog:start", isCheckOutProvide);
+
+const startCheckOut = () => {
+  isCheckOutProvide.value = true;
+};
 
 const HRInfo = reactive({
   name: "Peter",
@@ -438,10 +457,10 @@ const maskValue = (value) => {
   )}${value.substring(length - visibleChars)}`;
 };
 
-const paymentOptions = [
+const paymentTypeOptions = [
   {
     label: "Personal",
-    value: 3,
+    value: 2,
     icon: "",
     description: "You pay by yourself.",
   },
@@ -454,7 +473,7 @@ const paymentOptions = [
 
   {
     label: "Training Credit",
-    value: 2,
+    value: 3,
     icon: "",
     description: "Training credit at ABC/CMA",
   },
@@ -479,6 +498,35 @@ const paymentMethods = ref([
     icon: "mdi-bank-outline",
   },
 ]);
+
+const orderCheckout = async () => {
+  startCheckOut();
+  try {
+    const itemsId = checkOutItems.value.map((el) => el.id);
+    const placeOrderStatus = await purchaseStore.serverPlaceOrder(itemsId);
+    const checkoutStatus = await purchaseStore.serverCheckOut({
+      payment_type: selectedPaymentTypeOption.value,
+    });
+
+    console.log("p", placeOrderStatus, "checkout", checkoutStatus);
+
+    //router.replace({ name: "cart-page" });
+    //isCheckOutProvide.value = false;
+
+    if (!placeOrderStatus.status && !checkoutStatus.status) {
+      isCheckOutProvide.value = false;
+    } else {
+      setTimeout(() => {
+        isCheckOutProvide.value = false;
+        router.replace({ name: "cart-page" });
+      }, 1000);
+    }
+
+    cartStore.resetLastCartFetch();
+  } catch (error) {
+    console.log(error.message);
+  }
+};
 
 onMounted(() => {
   setTimeout(() => {

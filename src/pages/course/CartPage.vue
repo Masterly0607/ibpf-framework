@@ -212,16 +212,9 @@ const isLoading = ref(true);
 
 const isCartEmpty = computed(() => cartItems.value.length < 1);
 
-const serverCreateOrder = async () => {
-  const itemsId = selectedItems.value.map((el) => el.id);
-  console.log(itemsId);
-  await purchaseStore.serverPlaceOrder(itemsId);
-};
-
 const placeOrders = () => {
   if (selectedItems.value.length < 1) return;
   purchaseStore.addToCheckOutList(selectedItems.value);
-  serverCreateOrder();
   router.push({ name: "check-out-page" });
 };
 
