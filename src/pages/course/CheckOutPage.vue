@@ -513,6 +513,12 @@ const orderCheckout = async () => {
     //router.replace({ name: "cart-page" });
     //isCheckOutProvide.value = false;
 
+    if (placeOrderStatus === undefined || checkoutStatus === undefined)
+      setTimeout(() => {
+        isCheckOutProvide.value = false;
+        router.replace({ name: "home-page" });
+      }, 1000);
+
     if (!placeOrderStatus.status && !checkoutStatus.status) {
       isCheckOutProvide.value = false;
     } else {

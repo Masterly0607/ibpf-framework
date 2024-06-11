@@ -211,10 +211,11 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 const cartStore = useCartStore();
 const userStore = useUserStore();
-const isAuth = ref(userStore.isAuthenticated);
+const isAuth = computed(() => userStore.isAuthenticated);
 //const { cartItemsIds } = storeToRefs(cartStore);
 
 const fetchCartItems = async () => {
+  if (!isAuth.value) return;
   await cartStore.serverFetchCartItems();
 };
 
