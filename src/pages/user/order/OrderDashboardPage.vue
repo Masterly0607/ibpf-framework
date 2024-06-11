@@ -1,8 +1,8 @@
 <template>
-  <div class="ibf-container-900">
+  <div class="ibf-container-1400">
     <div class="column q-gutter-md">
       <q-card
-        class="ibf-card-2"
+        class="ibf-card-1"
         v-for="(orderItem, orderItemIndex) in orderedPaginate.data"
         :key="orderItemIndex"
       >
@@ -16,8 +16,8 @@
                   name="mdi-invoice-list-outline"
                 />
 
-                <div class="ibf-h10 text-black text-weight-medium">
-                  {{ orderItem.id }}
+                <div class="ibf-h11 text-black text-weight-medium">
+                  #{{ orderItem.id }}
                 </div>
               </div>
             </q-item-section>
@@ -37,8 +37,9 @@
               <div
                 v-for="(item, itemIndex) in orderItem.order_items"
                 :key="itemIndex"
+                class="q-my-xs"
               >
-                <div class="ibf-h12 text-grey-9">
+                <div class="ibf-h12 text-grey-8">
                   {{ item.course.title }}
                 </div>
               </div>
