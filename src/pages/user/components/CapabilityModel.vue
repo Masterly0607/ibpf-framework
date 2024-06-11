@@ -24,7 +24,6 @@
                   flat
                   no-caps
                   label="Begin the assessment"
-                  @click="viewMyAccount"
                 />
               </q-card-actions>
             </q-card>
@@ -41,13 +40,7 @@
               </q-card-section>
               <q-separator />
               <q-card-actions class="card-bg" align="right">
-                <q-btn
-                  color="primary"
-                  flat
-                  no-caps
-                  label="Begin the TNA"
-                  @click="onClick"
-                />
+                <q-btn color="primary" flat no-caps label="Begin the TNA" />
               </q-card-actions>
             </q-card>
           </div>

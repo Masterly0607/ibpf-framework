@@ -21,31 +21,31 @@ export const useCartStore = defineStore("cart", {
   actions: {
     async serverFetchCartItems() {
       const now = Date.now();
-      const cacheDuration = 1000 * 60 * 10; // 10 minutes
+      const cacheDuration = 1000 * 60 * 15; // 15 minutes
 
-      try {
-        const res = await productAPI.get("/api/v1/user/product/get/cart-items");
+      //  try {
+      //    const res = await productAPI.get("/api/v1/user/product/get/cart-items");
 
-        if (!res.data.status) return;
-        this.storeCart(res.data.data);
-        this.lastCartFetch = now;
-      } catch (error) {
-        console.log(error.message);
-      }
-
-      //  if (!this.lastCartFetch || now - this.lastCartFetch > cacheDuration) {
-      //    try {
-      //      const res = await productAPI.get(
-      //        "/api/v1/user/product/get/cart-items"
-      //      );
-
-      //      if (!res.data.status) return;
-      //      this.storeCart(res.data.data);
-      //      this.lastCartFetch = now;
-      //    } catch (error) {
-      //      console.log(error.message);
-      //    }
+      //    if (!res.data.status) return;
+      //    this.storeCart(res.data.data);
+      //    this.lastCartFetch = now;
+      //  } catch (error) {
+      //    console.log(error.message);
       //  }
+
+      if (!this.lastCartFetch || now - this.lastCartFetch > cacheDuration) {
+        try {
+          const res = await productAPI.get(
+            "/api/v1/user/product/get/cart-items"
+          );
+
+          if (!res.data.status) return;
+          this.storeCart(res.data.data);
+          this.lastCartFetch = now;
+        } catch (error) {
+          console.log(error.message);
+        }
+      }
     },
 
     resetCart() {

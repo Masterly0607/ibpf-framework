@@ -50,12 +50,7 @@
 
             <q-separator />
             <q-card-actions class="card-bg" align="right">
-              <q-btn
-                flat
-                no-caps
-                label="View Details"
-                @click="viewEventDetails"
-              />
+              <q-btn flat no-caps label="View Details" />
             </q-card-actions>
           </q-card>
         </div>
