@@ -19,13 +19,7 @@
     >
       <q-scroll-area class="fit q-pa-md">
         <div class="flex justify-between q-mb-md">
-          <q-btn
-            flat
-            round
-            color="red"
-            icon="close"
-            @click="drawerRight = !drawerRight"
-          />
+          <q-btn flat round color="red" icon="close" @click="closeDrawer()" />
           <q-btn
             no-caps
             dense
@@ -112,6 +106,7 @@
             color="primary"
             icon="search"
             label="View result"
+            @click="viewResults()"
           />
         </div>
       </q-scroll-area>
@@ -124,14 +119,31 @@ import { useCategoryStore } from "src/stores/category-store";
 import { onMounted, ref } from "vue";
 const categoryStore = useCategoryStore();
 const drawerRight = ref(false);
+const emit = defineEmits(["product:filter"]);
 const selectedProductType = ref("");
 const productTypeOptions = ref([]);
 const selectedCoreAreas = ref([]);
 const coreAreaOptions = ref([]);
 
+const closeDrawer = () => {
+  drawerRight.value = !drawerRight.value;
+};
+
 const clearFilter = () => {
   selectedCoreAreas.value = [];
   selectedProductType.value = "";
+
+  emit("product:filter", {
+    product_type_id: selectedProductType.value,
+    core_area_id: selectedCoreAreas.value,
+  });
+};
+
+const viewResults = () => {
+  emit("product:filter", {
+    product_type_id: selectedProductType.value,
+    core_area_id: selectedCoreAreas.value,
+  });
 };
 
 const fetchCategory = async () => {
