@@ -398,6 +398,7 @@
 </template>
 
 <script setup>
+import { CheckoutStatus } from "src/helpers/enums";
 import CheckOutTransition from "./components/CheckOutTransition.vue";
 import EmptyCheckOut from "./components/EmptyCheckOut.vue";
 import CheckOutSkeleton from "src/components/skeletons/CheckOutSkeleton.vue";
@@ -410,12 +411,19 @@ const purchaseStore = usePurchaseStore();
 const checkOutItems = ref(purchaseStore.getCheckOutItems);
 const isLoading = ref(true);
 const cartStore = useCartStore();
-const isCheckOutProvide = ref(false);
+const checkOutProvide = ref({
+  dialog: false,
+  checkout_status: CheckoutStatus.PENDING,
+});
 const router = useRouter();
-provide("checkout-dialog:start", isCheckOutProvide);
+
+provide("checkout-dialog:data", checkOutProvide);
 
 const startCheckOut = () => {
-  isCheckOutProvide.value = true;
+  checkOutProvide.value = {
+    dialog: true,
+    checkout_status: CheckoutStatus.PENDING,
+  };
 };
 
 const HRInfo = reactive({
@@ -508,23 +516,17 @@ const orderCheckout = async () => {
       payment_type: selectedPaymentTypeOption.value,
     });
 
-    console.log("p", placeOrderStatus, "checkout", checkoutStatus);
-
-    //router.replace({ name: "cart-page" });
-    //isCheckOutProvide.value = false;
-
     if (placeOrderStatus === undefined || checkoutStatus === undefined)
       setTimeout(() => {
-        isCheckOutProvide.value = false;
-        router.replace({ name: "home-page" });
+        checkOutProvide.value.checkout_status = CheckoutStatus.ERROR;
       }, 1000);
 
     if (!placeOrderStatus.status && !checkoutStatus.status) {
-      isCheckOutProvide.value = false;
+      checkOutProvide.value.checkout_status = CheckoutStatus.FAIL;
     } else {
       setTimeout(() => {
-        isCheckOutProvide.value = false;
-        router.replace({ name: "cart-page" });
+        checkOutProvide.value.checkout_status = CheckoutStatus.SUCCESS;
+        //router.replace({ name: "cart-page" });
       }, 1000);
     }
 
