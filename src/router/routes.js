@@ -56,7 +56,7 @@ const routes = [
       // ----------- add to cart ------------
       {
         path: "add-to-cart",
-        name: "add-to-cart-page",
+        name: "cart-page",
         component: () => import("src/pages/course/CartPage.vue"),
       },
     ],
@@ -92,6 +92,18 @@ const routes = [
         path: "edit-user-work",
         name: "edit-user-work",
         component: () => import("pages/user/EditUserWorkPage.vue"),
+      },
+    ],
+  },
+
+  {
+    path: "/purchase",
+    component: () => import("layouts/AuthLayout.vue"),
+    children: [
+      {
+        path: "check-out",
+        name: "check-out-page",
+        component: () => import("pages/course/CheckOutPage.vue"),
       },
     ],
   },

@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <div class="ibf-container-1200">
-      <div class="q-gutter-md">
+      <div class="q-gutter-y-lg">
         <q-form @submit="onSubmit">
           <!-- Search product -->
           <div>
@@ -23,193 +23,140 @@
               <filter-product></filter-product>
             </div>
           </div>
-
-          <!-- Fillter product -->
-          <!--<div class="rounded-borders" :class="$q.dark.isActive ? '' : ''">
-            <div class="q-py-lg"><q-separator /></div>
-            <div class="row">
-              <span class="col-6 text-weight-bold ibf-h9">Fillter</span>
-
-              <div class="col-6" align="right">
-                <q-btn no-caps dense flat color="grey" label="Clear Fillter" />
-              </div>
-            </div>
-
-            <div class="col-6 q-gutter-md">
-              <q-card flat bordered class="q-pa-md row" style="max-width: 100%">
-                <span class="q-py-sm ibf-h11 text-weight-bold">Course Type : </span>
-                <q-option-group
-                  name="course_type"
-                  v-model="preferred"
-                  :options="options"
-                  color="primary"
-                  inline
-                />
-              </q-card>
-              <q-card flat bordered class="row q-py-sm">
-                <q-item class="q-py-none q-px-sm full-width">
-                  <q-item-section top avatar>
-                    <span class="ibf-h11 text-weight-bold q-pa-md">Core area : </span>
-                  </q-item-section>
-                  <q-item-section>
-                    <q-select
-                      borderless
-                      square
-                      class="q-ml-md"
-                      name="core_area"
-                      v-model="model"
-                      multiple
-                      use-chips
-                      option-label="title"
-                      option-value="id"
-                      :options="options1"
-                      label="Select options"
-                      color="teal-6"
-                      dense
-                    >
-                      <template v-slot:selected-item="scope">
-                        <q-chip
-                          removable
-                          dense
-                          size="12px"
-                          @remove="scope.removeAtIndex(scope.index)"
-                          :tabindex="scope.tabindex"
-                          color="grey-4"
-                          text-color="black"
-                          class="q-ma-xs"
-                        >
-                          {{ scope.opt }}
-                        </q-chip>
-                      </template>
-                    </q-select>
-                  </q-item-section>
-                </q-item>
-              </q-card>
-            </div>
-          </div>-->
         </q-form>
 
-        <div class="row justify-between items-center">
-          <div class="ibf-h8 text-weight-bold">New & Feature courses</div>
-
-          <div>
-            <q-btn
-              flat
-              dense
-              color="primary"
-              icon="grid_view"
-              aria-label="Submit"
-              :to="{ name: 'product-list-page' }"
-            />
-            <q-btn
-              flat
-              dense
-              color="black-6"
-              icon="view_list"
-              aria-label="Submit"
-            />
+        <div>
+          <div class="row justify-between items-center">
+            <div class="ibf-h8 text-weight-bold">New & Feature courses</div>
+            <div>
+              <q-btn
+                flat
+                dense
+                color="primary"
+                icon="grid_view"
+                aria-label="Submit"
+                :to="{ name: 'product-list-page' }"
+              />
+              <q-btn
+                flat
+                dense
+                color="black-6"
+                icon="view_list"
+                aria-label="Submit"
+              />
+            </div>
           </div>
-        </div>
 
-        <q-separator />
+          <q-separator spaced />
+        </div>
       </div>
+
+      <!-- skeleton list -->
+
+      <section v-if="isLoading" class="row q-col-gutter-md q-py-md">
+        <div v-for="i in 4" :key="i" class="col-12 col-sm-6 col-md-3">
+          <product-card-skeleton />
+        </div>
+      </section>
 
       <!-- View product list -->
-      <div class="row q-col-gutter-md q-py-md">
-        <div
-          v-for="(product, index) in searchProductData"
-          :key="index"
-          class="col-12 col-sm-6 col-md-3"
-        >
-          <q-card square flat bordered>
-            <img :src="product.thumbnail" height="200px" />
+      <section v-else>
+        <div class="row q-col-gutter-md q-py-md">
+          <div
+            v-for="(product, index) in searchProductData"
+            :key="index"
+            class="col-12 col-sm-6 col-md-3"
+          >
+            <q-card square flat bordered>
+              <img :src="product.thumbnail" height="200px" />
 
-            <q-card-section class="q-pa-sm">
-              <div class="ibf-h10 ellipsis-2-lines text-weight-medium">
-                {{ product.title }}
-              </div>
-              <div
-                class="q-py-xs text-grey-7 text-weight-light ellipsis-2-lines"
-              >
-                {{ product.description }}
-              </div>
-            </q-card-section>
-
-            <q-card-actions class="q-pb-none" align="between">
-              <div v-if="product.isFree">
-                <q-badge color="grey" text-color="white" label="Free" />
-              </div>
-              <div v-else>
+              <q-card-section class="q-pa-sm">
+                <div class="ibf-h11 ellipsis-2-lines text-weight-medium">
+                  {{ product.title }}
+                </div>
                 <div
-                  v-if="product.isDiscount"
-                  class="ibf-h10 text-red-7 text-weight-bold"
+                  class="q-py-xs text-grey-7 ibf-h12 text-weight-light ellipsis-2-lines"
                 >
-                  {{ `${product.currency} ${product.afterDiscount}` }}
-
-                  <span
-                    class="q-ml-xs ibf-h11 text-grey-7 text-strike text-weight-light"
-                  >
-                    {{ `${product.currency} ${product.price}` }}
-                  </span>
+                  {{ product.description }}
                 </div>
-                <div v-else class="ibf-h10 text-red-7 text-weight-bold">
-                  {{ `${product.currency} ${product.price}` }}
+              </q-card-section>
+
+              <q-card-actions class="q-pb-none" align="between">
+                <div v-if="product.isFree">
+                  <q-badge color="grey" text-color="white" label="Free" />
                 </div>
-              </div>
+                <div v-else>
+                  <div v-if="product.isDiscount">
+                    <price-original
+                      :currency="product.currency"
+                      :price="product.afterDiscount"
+                      :is-decimals="false"
+                    />
 
-              <div>
-                <q-btn
-                  v-if="checkInCart(product.id)"
-                  flat
-                  round
-                  icon="mdi-cart"
-                  color="red-7"
-                  :to="{ name: 'add-to-cart-page' }"
-                />
-                <q-btn
-                  v-else
-                  flat
-                  round
-                  icon="mdi-cart-outline"
-                  @click="addToCarts(product.id)"
-                  color="grey"
-                />
+                    <price-discount
+                      :currency="product.currency"
+                      :price="product.price"
+                      :is-decimals="false"
+                    >
+                    </price-discount>
+                  </div>
+                  <div v-else>
+                    <price-original
+                      :currency="product.currency"
+                      :price="product.price"
+                      :is-decimals="false"
+                    />
+                  </div>
+                </div>
 
-                <q-btn flat round icon="mdi-heart-outline" color="grey" />
-              </div>
-            </q-card-actions>
+                <div>
+                  <q-btn
+                    v-if="checkInCart(product.id)"
+                    flat
+                    round
+                    icon="mdi-cart"
+                    color="red-7"
+                    :to="{ name: 'cart-page' }"
+                  />
+                  <q-btn
+                    v-else
+                    flat
+                    round
+                    icon="mdi-cart-outline"
+                    @click="addToCarts(product.id)"
+                    color="grey"
+                  />
 
-            <!-- <div class="col-4 text-grey-6 ibf-h11">10 tasks</div>
-              <span class="col-8 text-grey-6 ibf-h11" align="right">
-                Start on 25-May-24
-              </span> -->
-          </q-card>
+                  <q-btn flat round icon="mdi-heart-outline" color="grey" />
+                </div>
+              </q-card-actions>
+            </q-card>
+          </div>
         </div>
-      </div>
-      <q-card flat square>
-        <q-btn
-          outline
-          no-caps
-          unelevated
-          color="primary"
-          style="width: 100%; height: 100%"
-          label="See more course"
-          :to="{ name: '' }"
-        />
-      </q-card>
+        <q-card flat square>
+          <q-btn
+            outline
+            no-caps
+            unelevated
+            color="primary"
+            style="width: 100%; height: 100%"
+            label="See more course"
+            :to="{ name: '' }"
+          />
+        </q-card>
+      </section>
     </div>
   </q-page>
 </template>
 
 <script setup>
+import ProductCardSkeleton from "src/components/skeletons/ProductCardSkeleton.vue";
 import FilterProduct from "./components/FilterProduct.vue";
 import { ref, onMounted, computed } from "vue";
 import axios from "axios";
 import { useCartStore } from "src/stores/cart-store";
-import { storeToRefs } from "pinia";
-import { useCategoryStore } from "src/stores/category-store";
 
-const categoryStore = useCategoryStore();
+const isLoading = ref(true);
 const submitResult = ref([]);
 const keyword = ref("");
 const searchProductData = ref(null);
@@ -228,10 +175,6 @@ const onSubmit = (evt) => {
   submitResult.value = data;
 };
 
-//const fetchCategory = async () => {
-//  await categoryStore.fetchCoreAreas();
-//};
-
 const searchProduct = async () => {
   try {
     const response = await axios.get(
@@ -242,8 +185,13 @@ const searchProduct = async () => {
         },
       }
     );
-    console.log(response);
+    console.log(response.data);
+
+    if (!response.data.status) return;
     searchProductData.value = response.data.data;
+    setTimeout(() => {
+      isLoading.value = false;
+    }, 1000);
   } catch (error) {
     console.log("Error fetching items:", error.message);
   }
@@ -258,38 +206,14 @@ const addToCarts = async (id) => {
   await cartStore.serverAddToCart(id);
 };
 
-const removeFromCarts = (id) => {
-  cartStore.removeFromCart(id);
-};
+//const removeFromCarts = (id) => {
+//  cartStore.removeFromCart(id);
+//};
 const checkInCart = (id) => {
   return cartItemsIds.value.includes(id);
 };
 
 onMounted(() => {
   searchProduct();
-  //  fetchCategory();
 });
 </script>
-
-<style scoped>
-.d-flex {
-  display: flex;
-}
-.w-100 {
-  width: 100%;
-}
-
-.single-line-ellipsis {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.multi-line-ellipsis {
-  display: -webkit-box;
-  -webkit-line-clamp: 2; /* Change this number to the desired number of lines */
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-</style>

@@ -9,9 +9,7 @@
 
         <div class="column q-gutter-y-lg">
           <q-card
-            square
-            flat
-            bordered
+            class="ibf-card-2"
             v-for="(itemEvent, index) in eventData"
             :key="index"
           >
@@ -49,18 +47,12 @@
                 </div>
               </div>
             </q-card-section>
-            
+
             <q-separator />
             <q-card-actions class="card-bg" align="right">
-              <q-btn
-                flat
-                no-caps
-                label="View Details"
-                @click="viewEventDetails"
-              />
+              <q-btn flat no-caps label="View Details" />
             </q-card-actions>
           </q-card>
-
         </div>
       </div>
 
