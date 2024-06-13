@@ -508,8 +508,8 @@ const paymentMethods = ref([
 ]);
 
 const orderCheckout = async () => {
-  startCheckOut();
   try {
+    startCheckOut();
     const itemsId = checkOutItems.value.map((el) => el.id);
     const placeOrderStatus = await purchaseStore.serverPlaceOrder(itemsId);
     const checkoutStatus = await purchaseStore.serverCheckOut({
@@ -519,14 +519,15 @@ const orderCheckout = async () => {
     if (placeOrderStatus === undefined || checkoutStatus === undefined)
       setTimeout(() => {
         checkOutProvide.value.checkout_status = CheckoutStatus.ERROR;
-      }, 1000);
+      }, 2000);
 
     if (!placeOrderStatus.status && !checkoutStatus.status) {
-      checkOutProvide.value.checkout_status = CheckoutStatus.FAIL;
+      setTimeout(() => {
+        checkOutProvide.value.checkout_status = CheckoutStatus.FAIL;
+      }, 2000);
     } else {
       setTimeout(() => {
         checkOutProvide.value.checkout_status = CheckoutStatus.SUCCESS;
-        //router.replace({ name: "cart-page" });
       }, 1000);
     }
 
