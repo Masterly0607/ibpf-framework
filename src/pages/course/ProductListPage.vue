@@ -4,24 +4,25 @@
       <div class="q-gutter-y-lg">
         <q-form @submit="onSubmit">
           <!-- Search product -->
-          <div>
-            <div class="row items-center q-gutter-sm">
-              <q-input
-                class="col"
-                filled
-                square
-                v-model="keyword"
-                placeholder="Search for IBF products"
-              >
-                <template v-slot:append>
-                  <q-btn flat round @click="searchProduct">
-                    <q-icon name="search" />
-                  </q-btn>
-                </template>
-              </q-input>
 
-              <filter-product></filter-product>
-            </div>
+          <div class="row items-center q-gutter-sm">
+            <q-input
+              class="col"
+              filled
+              square
+              v-model="keyword"
+              placeholder="Search for IBF products"
+            >
+              <template v-slot:append>
+                <q-btn flat round @click="searchProduct">
+                  <q-icon name="search" />
+                </q-btn>
+              </template>
+            </q-input>
+
+            <filter-product
+              @product:filter="handleProductFilter"
+            ></filter-product>
           </div>
         </q-form>
 
@@ -135,13 +136,14 @@
         </div>
         <q-card flat square>
           <q-btn
+            v-if="canLoadMore"
             outline
             no-caps
             unelevated
             color="primary"
             style="width: 100%; height: 100%"
             label="See more course"
-            :to="{ name: '' }"
+            @click="loadMoreProducts"
           />
         </q-card>
       </section>
@@ -160,6 +162,11 @@ const isLoading = ref(true);
 const submitResult = ref([]);
 const keyword = ref("");
 const searchProductData = ref(null);
+const searchMeta = ref({
+  per_page: 5,
+  current_page: 1,
+  total_pages: null,
+});
 
 const onSubmit = (evt) => {
   const formData = new FormData(evt.target);
@@ -175,26 +182,86 @@ const onSubmit = (evt) => {
   submitResult.value = data;
 };
 
-const searchProduct = async () => {
+const searchProduct = async (filter) => {
   try {
     const response = await axios.get(
       "https://product.ibfnxt.com/api/v1/user/product/search",
       {
         params: {
           keyword: keyword.value,
+          product_type_id: filter ? filter.product_type_id : "",
+          core_area_id: filter ? filter.corea_area_id : [],
+          rowsPerPage: searchMeta.value.per_page,
+          page: 1,
         },
       }
     );
     console.log(response.data);
 
-    if (!response.data.status) return;
-    searchProductData.value = response.data.data;
+    if (!response.data.status) {
+      searchProductData.value = [];
+    } else {
+      searchProductData.value = response.data.data;
+      searchMeta.value = response.data.meta;
+    }
+
     setTimeout(() => {
       isLoading.value = false;
     }, 1000);
   } catch (error) {
     console.log("Error fetching items:", error.message);
   }
+};
+
+const searchLoadProduct = async (filter) => {
+  try {
+    const response = await axios.get(
+      "https://product.ibfnxt.com/api/v1/user/product/search",
+      {
+        params: {
+          keyword: keyword.value,
+          product_type_id: filter ? filter.product_type_id : "",
+          core_area_id: filter ? filter.corea_area_id : [],
+          rowsPerPage: searchMeta.value.per_page,
+          page: searchMeta.value.current_page,
+        },
+      }
+    );
+    console.log(response.data);
+
+    if (!response.data.status) {
+      searchProductData.value = [];
+    } else {
+      searchProductData.value = [
+        ...searchProductData.value,
+        ...response.data.data,
+      ];
+      searchMeta.value = response.data.meta;
+    }
+
+    setTimeout(() => {
+      isLoading.value = false;
+    }, 1000);
+  } catch (error) {
+    console.log("Error fetching items:", error.message);
+  }
+};
+
+const canLoadMore = computed(
+  () => searchMeta.value.current_page < searchMeta.value.total_pages
+);
+
+const loadMoreProducts = () => {
+  if (canLoadMore.value) {
+    searchMeta.value.current_page = searchMeta.value.current_page + 1;
+    searchLoadProduct();
+  } else {
+    console.log("that is the end");
+  }
+};
+
+const handleProductFilter = (payload) => {
+  searchProduct(payload);
 };
 
 // add to carts

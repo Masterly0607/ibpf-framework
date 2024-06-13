@@ -10,4 +10,12 @@ const PaymentOptions = Object.freeze({
   SH: "SH",
 });
 
-export { PaymentTypes, PaymentOptions };
+const CheckoutStatus = Object.freeze({
+  PENDING: "pending",
+  SUCCESS: "success",
+  FAIL: "fail",
+  ERROR: "error",
+  SUSPECT: "suspect",
+});
+
+export { PaymentTypes, PaymentOptions, CheckoutStatus };

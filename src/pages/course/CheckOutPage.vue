@@ -274,7 +274,7 @@
                       </q-item-section>
                     </q-item>
 
-                    <q-item class="q-pa-xs">
+                    <q-item class="q-pa-xs" v-if="VAT > 0">
                       <q-item-section>
                         <q-item-label
                           class="ibf-h10 text-weight-regular text-grey-6"
@@ -398,6 +398,7 @@
 </template>
 
 <script setup>
+import { CheckoutStatus } from "src/helpers/enums";
 import CheckOutTransition from "./components/CheckOutTransition.vue";
 import EmptyCheckOut from "./components/EmptyCheckOut.vue";
 import CheckOutSkeleton from "src/components/skeletons/CheckOutSkeleton.vue";
@@ -410,12 +411,18 @@ const purchaseStore = usePurchaseStore();
 const checkOutItems = ref(purchaseStore.getCheckOutItems);
 const isLoading = ref(true);
 const cartStore = useCartStore();
-const isCheckOutProvide = ref(false);
-const router = useRouter();
-provide("checkout-dialog:start", isCheckOutProvide);
+const checkOutProvide = ref({
+  dialog: false,
+  checkout_status: CheckoutStatus.PENDING,
+});
+
+provide("checkout-dialog:data", checkOutProvide);
 
 const startCheckOut = () => {
-  isCheckOutProvide.value = true;
+  checkOutProvide.value = {
+    dialog: true,
+    checkout_status: CheckoutStatus.PENDING,
+  };
 };
 
 const HRInfo = reactive({
@@ -426,7 +433,7 @@ const HRInfo = reactive({
 
 const isAgreed = ref(false);
 
-const VAT = ref(5);
+const VAT = ref(0);
 
 const isItemsEmpty = computed(() => checkOutItems.value.length < 1);
 const subTotalCost = computed(() => {
@@ -500,31 +507,26 @@ const paymentMethods = ref([
 ]);
 
 const orderCheckout = async () => {
-  startCheckOut();
   try {
+    startCheckOut();
     const itemsId = checkOutItems.value.map((el) => el.id);
     const placeOrderStatus = await purchaseStore.serverPlaceOrder(itemsId);
     const checkoutStatus = await purchaseStore.serverCheckOut({
       payment_type: selectedPaymentTypeOption.value,
     });
 
-    console.log("p", placeOrderStatus, "checkout", checkoutStatus);
-
-    //router.replace({ name: "cart-page" });
-    //isCheckOutProvide.value = false;
-
     if (placeOrderStatus === undefined || checkoutStatus === undefined)
       setTimeout(() => {
-        isCheckOutProvide.value = false;
-        router.replace({ name: "home-page" });
-      }, 1000);
+        checkOutProvide.value.checkout_status = CheckoutStatus.ERROR;
+      }, 2000);
 
     if (!placeOrderStatus.status && !checkoutStatus.status) {
-      isCheckOutProvide.value = false;
+      setTimeout(() => {
+        checkOutProvide.value.checkout_status = CheckoutStatus.FAIL;
+      }, 2000);
     } else {
       setTimeout(() => {
-        isCheckOutProvide.value = false;
-        router.replace({ name: "cart-page" });
+        checkOutProvide.value.checkout_status = CheckoutStatus.SUCCESS;
       }, 1000);
     }
 
