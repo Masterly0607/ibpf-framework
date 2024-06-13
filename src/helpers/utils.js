@@ -23,4 +23,35 @@ const formatDate = (dateString) => {
   }
 };
 
-export { formatCurrency, formatDate };
+const checkPaymentStatusColor = (paymentString) => {
+  let key = paymentString || "pending";
+  let data = {
+    color: "grey-11",
+    icon: "mdi",
+  };
+  // paid (teal-11), unpaid (red-11), pending (amber-11), reject (red-12), cancel (red-12)
+  switch (key) {
+    case "paid":
+      data.color = "teal";
+      data.icon = "mdi-check";
+      break;
+    case "unpaid":
+      data.color = "red";
+      data.icon = "mdi-close";
+      break;
+    case "pending":
+      data.color = "orange";
+      data.icon = "mdi-exclamation";
+      break;
+    case "reject" || "cancel":
+      color = "red";
+      data.icon = "mdi-close-octagon";
+      break;
+    default:
+      break;
+  }
+
+  return data;
+};
+
+export { formatCurrency, formatDate, checkPaymentStatusColor };

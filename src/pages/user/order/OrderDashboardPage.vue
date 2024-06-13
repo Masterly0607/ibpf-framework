@@ -27,9 +27,31 @@
                   {{ orderItem.total_item }} Item(s)
                 </div>
 
-                <div class="ibf-h12">
-                  {{ orderItem.payment_status }}
+                <div>
+                  <q-chip
+                    size="12px"
+                    :color="
+                      checkPaymentStatusColor(orderItem.payment_status).color
+                    "
+                    text-color="white"
+                    :icon="
+                      checkPaymentStatusColor(orderItem.payment_status).icon
+                    "
+                  >
+                    <div class="text-capitalize">
+                      {{ orderItem.payment_status }}
+                    </div>
+                  </q-chip>
                 </div>
+
+                <!--<div
+                  :class="[
+                    'ibf-h10 text-weight-bold text-capitalize',
+                    checkPaymentStatusColor(orderItem.payment_status),
+                  ]"
+                >
+                  {{ orderItem.payment_status }}
+                </div>-->
               </q-item-label>
 
               <q-separator spaced />
@@ -73,15 +95,17 @@
 <script setup>
 import { ref } from "vue";
 import { productAPI } from "src/boot/axios";
-import { formatDate } from "src/helpers/utils";
+import { checkPaymentStatusColor, formatDate } from "src/helpers/utils";
 const orderedPaginate = ref([]);
 
 const fetchOrderedItems = async () => {
   try {
     const res = await productAPI.get("/api/v1/user/order/list");
+    console.log(res);
     if (!res.data.status) return;
     orderedPaginate.value = res.data.data;
-    console.log(res);
-  } catch (error) {}
+  } catch (error) {
+    console.log(error.message);
+  }
 };
 </script>

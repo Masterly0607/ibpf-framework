@@ -274,7 +274,7 @@
                       </q-item-section>
                     </q-item>
 
-                    <q-item class="q-pa-xs">
+                    <q-item class="q-pa-xs" v-if="VAT > 0">
                       <q-item-section>
                         <q-item-label
                           class="ibf-h10 text-weight-regular text-grey-6"
@@ -415,7 +415,6 @@ const checkOutProvide = ref({
   dialog: false,
   checkout_status: CheckoutStatus.PENDING,
 });
-const router = useRouter();
 
 provide("checkout-dialog:data", checkOutProvide);
 
@@ -434,7 +433,7 @@ const HRInfo = reactive({
 
 const isAgreed = ref(false);
 
-const VAT = ref(5);
+const VAT = ref(0);
 
 const isItemsEmpty = computed(() => checkOutItems.value.length < 1);
 const subTotalCost = computed(() => {
