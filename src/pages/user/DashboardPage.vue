@@ -16,24 +16,37 @@
             <!-- profile -->
             <div class="col-12 col-md-3">
               <q-card bordered square class="inset-shadow-down shadow-10">
-                <div class="bg-primary q-pa-sm">
+                <div class="bg-primary row q-pa-sm">
                   <q-avatar>
                     <img src="https://cdn.quasar.dev/img/avatar2.jpg" />
                   </q-avatar>
+                  <div
+                    class="q-pa-sm q-px-md ibf-h8 text-grey-4 text-weight-medium"
+                  >
+                    Da Lyna
+                  </div>
                 </div>
 
-                <q-card-section>
-                  <div class="ibf-h7 text-weight-medium q-py-md">Da Lyna</div>
-
-                  <div class="text-weight-medium q-py-xs">
-                    <span class="text-weight-medium text-grey-7">
-                      Department :
-                    </span>
-                    Student in Finance
+                <q-card-section class="q-pa-md">
+                  <!-- <div class="q-pa-sm ibf-h8">Da Lyna</div> -->
+                  <div class="text-weight-medium q-py-md">
+                    <a href="#" class="text-primary">Student in Finance</a>
                   </div>
                   <div class="text-weight-medium">
                     <span class="text-weight-medium text-grey-7">Email : </span>
                     anyalina@ibfkh.com
+                  </div>
+                  <div class="text-weight-medium">
+                    <span class="text-weight-medium text-grey-7"
+                      >Address :
+                    </span>
+                    Phnom Penh
+                  </div>
+                  <div class="text-weight-medium">
+                    <span class="text-weight-medium text-grey-7"
+                      >Phone Number :
+                    </span>
+                    091 23 45 678
                   </div>
                 </q-card-section>
 

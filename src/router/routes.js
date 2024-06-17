@@ -47,10 +47,16 @@ const routes = [
         component: () => import("pages/user/NotificationsPage.vue"),
       },
 
+      //------------- product ---------------
       {
         path: "view-product",
         name: "view-product-page",
         component: () => import("pages/course/ViewProductPage.vue"),
+      },
+      {
+        path: "product-detail",
+        name: "product-detail-page",
+        component: () => import("pages/course/ProductDetailPage.vue"),
       },
 
       // ----------- add to cart ------------
