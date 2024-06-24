@@ -70,9 +70,12 @@
           >
             <q-card square flat bordered>
               <!-- <img :src="product.thumbnail" height="200px" /> -->
-              <router-link to="/product-detail">
+              <div
+                style="cursor: pointer"
+                @click="viewProductDetail(product.product_code)"
+              >
                 <img :src="product.thumbnail" height="200px" width="100%" />
-              </router-link>
+              </div>
 
               <q-card-section class="q-pa-sm">
                 <div class="ibf-h11 ellipsis-2-lines text-weight-medium">
@@ -158,13 +161,15 @@
 import ProductCardSkeleton from "src/components/skeletons/ProductCardSkeleton.vue";
 import FilterProduct from "./components/FilterProduct.vue";
 import { ref, onMounted, computed } from "vue";
-import axios from "axios";
 import { useCartStore } from "src/stores/cart-store";
-
+import { useProductStore } from "src/stores/product-store";
+import { useRouter } from "vue-router";
+const router = useRouter();
+const productStore = useProductStore();
 const isLoading = ref(true);
 const submitResult = ref([]);
 const keyword = ref("");
-const searchProductData = ref(null);
+const searchProductData = computed(() => productStore.getProductList);
 const searchMeta = ref({
   per_page: 5,
   current_page: 1,
@@ -185,68 +190,63 @@ const onSubmit = (evt) => {
   submitResult.value = data;
 };
 
+const viewProductDetail = (productCode) => {
+  const item = productStore.findProduct(productCode);
+  if (item) {
+    productStore.storeOneProduct(item);
+    router.push({ name: "product-detail-page", params: { productCode } });
+  }
+};
+
 const searchProduct = async (filter) => {
   try {
-    const response = await axios.get(
-      "https://product.ibfnxt.com/api/v1/user/product/search",
-      {
-        params: {
-          keyword: keyword.value,
-          product_type_id: filter ? filter.product_type_id : "",
-          core_area_id: filter ? filter.corea_area_id : [],
-          rowsPerPage: searchMeta.value.per_page,
-          page: 1,
-        },
-      }
-    );
+    const response = await productStore.serverFetchProductList({
+      keyword: keyword.value,
+      product_type_id: filter ? filter.product_type_id : "",
+      core_area_id: filter ? filter.corea_area_id : [],
+      rowsPerPage: searchMeta.value.per_page,
+      page: 1,
+    });
+
     console.log(response.data);
 
     if (!response.data.status) {
-      searchProductData.value = [];
+      productStore.resetProductList();
     } else {
-      searchProductData.value = response.data.data;
+      productStore.storeProductList(response.data.data);
       searchMeta.value = response.data.meta;
     }
-
+  } catch (error) {
+    console.log("Error fetching items:", error.message);
+  } finally {
     setTimeout(() => {
       isLoading.value = false;
     }, 1000);
-  } catch (error) {
-    console.log("Error fetching items:", error.message);
   }
 };
 
 const searchLoadProduct = async (filter) => {
   try {
-    const response = await axios.get(
-      "https://product.ibfnxt.com/api/v1/user/product/search",
-      {
-        params: {
-          keyword: keyword.value,
-          product_type_id: filter ? filter.product_type_id : "",
-          core_area_id: filter ? filter.corea_area_id : [],
-          rowsPerPage: searchMeta.value.per_page,
-          page: searchMeta.value.current_page,
-        },
-      }
-    );
-    console.log(response.data);
+    const response = await productStore.serverFetchProductList({
+      keyword: keyword.value,
+      product_type_id: filter ? filter.product_type_id : "",
+      core_area_id: filter ? filter.corea_area_id : [],
+      rowsPerPage: searchMeta.value.per_page,
+      page: searchMeta.value.current_page,
+    });
 
     if (!response.data.status) {
-      searchProductData.value = [];
+      productStore.resetProductList();
     } else {
-      searchProductData.value = [
-        ...searchProductData.value,
-        ...response.data.data,
-      ];
+      productStore.mergeProductList(response.data.data);
       searchMeta.value = response.data.meta;
     }
-
+  } catch (error) {
+    console.log("Error fetching items:", error.message);
+  } finally {
     setTimeout(() => {
       isLoading.value = false;
     }, 1000);
-  } catch (error) {
-    console.log("Error fetching items:", error.message);
   }
 };
 

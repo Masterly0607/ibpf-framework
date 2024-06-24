@@ -18,5 +18,8 @@
 </template>
 
 <script setup>
+import { ref } from "vue";
+
+const slide = ref(1);
 const fitModes = ["cover", "cover", "cover", "none"];
 </script>
