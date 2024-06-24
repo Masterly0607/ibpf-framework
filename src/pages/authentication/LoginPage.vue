@@ -119,9 +119,9 @@
                 </q-item-section>
                 <q-item-section>
                   <q-item-label caption lines="2">password</q-item-label>
-                  <q-item-label class="text-secondary text-weight-medium"
+                  <!--<q-item-label class="text-secondary text-weight-medium"
                     >demo123</q-item-label
-                  >
+                  >-->
                 </q-item-section>
               </q-item>
             </q-card-section>
