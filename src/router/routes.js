@@ -41,11 +41,11 @@ const routes = [
         name: "profile-page",
         component: () => import("pages/user/ProfilePage.vue"),
       },
-      {
-        path: "notifications",
-        name: "notifications-page",
-        component: () => import("pages/user/NotificationsPage.vue"),
-      },
+      //  {
+      //    path: "notifications",
+      //    name: "notifications-page",
+      //    component: () => import("pages/user/NotificationsPage.vue"),
+      //  },
 
       //------------- product ---------------
       {
