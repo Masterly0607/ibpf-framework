@@ -1,79 +1,91 @@
 <template>
   <q-page>
-    <div class="certification-page" style="width: 100%; height: 500px">
-      <!-- <AboutProduct></AboutProduct> -->
-      <div class="row q-col-gutter-xs">
-        <!-- Title Course -->
-        <div class="col-12 col-md-8 q-pa-xl">
-          <q-card class="q-pa-lg">
-            <div class="text-h4">Certified Branch Manager</div>
-            <div class="q-mt-sm text-grey">
-              Created by IBF of Admin
-              <br />
-              Last updated 06/06/2024
-              <br />
-              Languages: English/Khmer
+    <div>
+      <q-img
+        src="https://cdn.quasar.dev/img/parallax2.jpg"
+        style="width: 100%; height: 55vh"
+      >
+        <div class="absolute-full flex flex-center">
+          <div class="row justify-center items-center">
+            <div class="col-12 col-md-8 q-px-xl q-gutter-xs">
+              <!-- course title -->
+              <div class="ibf-h3 text-white text-weight-medium">
+                Certified Branch Manager
+              </div>
+              <!-- course subtitle -->
+              <q-item
+                class="q-pa-none q-mt-xs"
+                v-for="(coreType, index) in dataType"
+                :key="index"
+              >
+                <q-item-section side>
+                  <q-icon size="sm" color="teal" name="mdi-library" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label caption class="text-grey-2">{{
+                    coreType.title
+                  }}</q-item-label>
+                  <q-item-label lines="2">
+                    {{ coreType.subtitle }}
+                  </q-item-label>
+                </q-item-section>
+              </q-item>
+
+              <q-item class="q-pa-none q-mt-xs">
+                <!-- duration -->
+                <q-item-section side>
+                  <q-icon size="sm" color="teal" name="mdi-library" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label>Duration: 3 months</q-item-label>
+                </q-item-section>
+                <!-- start on -->
+                <q-item-section side>
+                  <q-icon size="sm" color="teal" name="mdi-library" />
+                </q-item-section>
+                <q-item-section class="q-px-md">
+                  <q-item-label>Start On: 15-08-2024</q-item-label>
+                </q-item-section>
+              </q-item>
             </div>
-            <div class="q-mt-md">
-              <q-btn color="primary" label="Checkout" @click="checkout" />
+
+            <!-- course image & subtitle -->
+            <div class="col-12 col-md-4 q-px-xl">
+              <q-card-actions align="center">
+                <img
+                  src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg"
+                  style="width: 150px; height: 150px"
+                />
+                <div class="text-grey-3 q-py-md">
+                  Created by IBF of Admin
+                  <br />
+                  Last updated 06/06/2024
+                </div>
+              </q-card-actions>
             </div>
-            <div class="q-mt-md text-center">
-              <q-badge color="red">USD 150</q-badge>
-              <q-badge outline color="grey" class="q-ml-sm">USD 300</q-badge>
-              <q-badge color="green" class="q-ml-sm">50% off</q-badge>
-            </div>
-          </q-card>
+          </div>
         </div>
-
-        <div class="col-12 col-md-4 q-pa-xl">
-          <q-card class="q-pa-lg">
-            <div class="text-h4">Certified Branch Manager</div>
-            <div class="q-mt-sm text-grey">
-              Created by IBF of Admin
-              <br />
-              Last updated 06/06/2024
-              <br />
-              Languages: English/Khmer
-            </div>
-            <div class="q-mt-md">
-              <q-btn color="primary" label="Checkout" @click="checkout" />
-            </div>
-            <div class="q-mt-md text-center">
-              <q-badge color="red">USD 150</q-badge>
-              <q-badge outline color="grey" class="q-ml-sm">USD 300</q-badge>
-              <q-badge color="green" class="q-ml-sm">50% off</q-badge>
-            </div>
-          </q-card>
-        </div>
-
-        <!-- <div class="q-pa-xl col-12 col-md-4">
-          <q-card
-            class="certification-page q-pa-lg"
-            style="width: 100%; height: 400px"
-          >
-            <q-card-section>
-              <div class="text-h6">Our Changing Planet</div>
-              <div class="text-subtitle2">by John Doe</div>
-            </q-card-section>
-            <q-card-section>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit
-            </q-card-section>
-
-            <q-card-actions>
-              <q-btn flat color="white" label="View" />
-            </q-card-actions>
-          </q-card>
-        </div> -->
-      </div>
+      </q-img>
     </div>
 
     <!-- IBF Container -->
-    <div class="ibf-container-1200 q-py-xs">
-      <!-- About This Course -->
-      <AboutProduct></AboutProduct>
+    <div class="ibf-container-1200 q-pa-md">
+      <div class="row q-col-gutter-lg">
+        <!-- About This Course -->
+        <div class="col-12 col-md-8">
+          <AboutProduct></AboutProduct>
+        </div>
+        <!-- Price Option -->
+        <div class="col-12 col-md-4">
+          <PriceOption></PriceOption>
+        </div>
+      </div>
 
-      <!-- Course Promotion -->
+      <!-- Promotion Bonner -->
       <PromotionProduct></PromotionProduct>
+
+      <!-- Related Course -->
+      <RelatedProduct></RelatedProduct>
     </div>
   </q-page>
 </template>
@@ -81,8 +93,26 @@
 <script setup>
 import { ref } from "vue";
 import AboutProduct from "./components/AboutProduct.vue";
+import RelatedProduct from "./components/RelatedProduct.vue";
+import PriceOption from "./components/PriceOption.vue";
 import PromotionProduct from "./components/PromotionProduct.vue";
 
+const url = "https://cdn.quasar.dev/img/mountains.jpg";
+
+const fitModes = ref(["cover"]);
+
+const dataType = ref([
+  {
+    id: 1,
+    title: "Course Type",
+    subtitle: "Branch Management",
+  },
+  {
+    id: 2,
+    title: "Core Area ",
+    subtitle: "International Certification",
+  },
+]);
 const checkout = () => {
   console.log("Checkout");
 };
@@ -91,19 +121,8 @@ const checkout = () => {
 <style lang="scss" scoped>
 .certification-page {
   background-image: url("https://cdn.quasar.dev/img/mountains.jpg");
+  // background-image: url("https://s3.ap-southeast-1.amazonaws.com/svc-lms-bucket.ibfkh.org/61f17951-d509-4b60-967b-a84442f949b6/courses/8a0332d1-db4d-40c6-b691-7ed0ddd2767c/materials/1700040760478-THEPRINCIPLLESOFESG.png");
   background-size: cover;
   background-position: center;
-}
-
-.text-h4 {
-  font-size: 24px;
-}
-
-.text-h5 {
-  font-size: 20px;
-}
-
-.q-badge {
-  font-size: 18px;
 }
 </style>

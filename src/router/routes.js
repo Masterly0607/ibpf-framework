@@ -54,6 +54,11 @@ const routes = [
         component: () => import("pages/course/ViewProductPage.vue"),
       },
       {
+        path: "grid-product",
+        name: "grid-product-page",
+        component: () => import("pages/course/GridProductListPage.vue"),
+      },
+      {
         path: "product-detail",
         name: "product-detail-page",
         component: () => import("pages/course/ProductDetailPage.vue"),
