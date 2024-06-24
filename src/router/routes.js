@@ -48,11 +48,11 @@ const routes = [
       //  },
 
       //------------- product ---------------
-      {
-        path: "view-product",
-        name: "view-product-page",
-        component: () => import("pages/course/ViewProductPage.vue"),
-      },
+      //  {
+      //    path: "view-product",
+      //    name: "view-product-page",
+      //    component: () => import("pages/course/ViewProductPage.vue"),
+      //  },
       {
         path: "grid-product",
         name: "grid-product-page",
