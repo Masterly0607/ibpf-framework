@@ -44,6 +44,7 @@
                 color="black-6"
                 icon="view_list"
                 aria-label="Submit"
+                :to="{ name: 'grid-product-page' }"
               />
             </div>
           </div>
@@ -53,7 +54,6 @@
       </div>
 
       <!-- skeleton list -->
-
       <section v-if="isLoading" class="row q-col-gutter-md q-py-md">
         <div v-for="i in 4" :key="i" class="col-12 col-sm-6 col-md-3">
           <product-card-skeleton />
@@ -69,7 +69,10 @@
             class="col-12 col-sm-6 col-md-3"
           >
             <q-card square flat bordered>
-              <img :src="product.thumbnail" height="200px" />
+              <!-- <img :src="product.thumbnail" height="200px" /> -->
+              <router-link to="/product-detail">
+                <img :src="product.thumbnail" height="200px" width="100%" />
+              </router-link>
 
               <q-card-section class="q-pa-sm">
                 <div class="ibf-h11 ellipsis-2-lines text-weight-medium">
