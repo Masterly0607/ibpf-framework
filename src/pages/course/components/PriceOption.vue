@@ -32,9 +32,10 @@
           </q-item-section>
         </q-item>
       </q-card-section>
-      <q-card-actions>
+
+      <q-card-actions class="q-py-none">
         <q-btn style="width: 85%" color="primary" label="Add to cart" />
-        <q-btn align="left" aria-label="Favorite" icon="favorite" />
+        <q-btn aria-label="Favorite" icon="favorite" />
       </q-card-actions>
       <br />
     </q-card>

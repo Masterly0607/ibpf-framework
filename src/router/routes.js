@@ -59,7 +59,7 @@ const routes = [
         component: () => import("pages/course/GridProductListPage.vue"),
       },
       {
-        path: "product-detail",
+        path: "product-detail/:productCode",
         name: "product-detail-page",
         component: () => import("pages/course/ProductDetailPage.vue"),
       },

@@ -10,23 +10,33 @@
             <div class="col-12 col-md-8 q-px-xl q-gutter-xs">
               <!-- course title -->
               <div class="ibf-h3 text-white text-weight-medium">
-                Certified Branch Manager
+                {{ product.title }}
               </div>
               <!-- course subtitle -->
-              <q-item
-                class="q-pa-none q-mt-xs"
-                v-for="(coreType, index) in dataType"
-                :key="index"
-              >
+              <q-item class="q-pa-none q-mt-xs">
                 <q-item-section side>
                   <q-icon size="sm" color="teal" name="mdi-library" />
                 </q-item-section>
                 <q-item-section>
-                  <q-item-label caption class="text-grey-2">{{
-                    coreType.title
-                  }}</q-item-label>
+                  <q-item-label caption class="text-grey-2">
+                    Course Type
+                  </q-item-label>
                   <q-item-label lines="2">
-                    {{ coreType.subtitle }}
+                    {{ product.product_type.title }}
+                  </q-item-label>
+                </q-item-section>
+              </q-item>
+
+              <q-item class="q-pa-none q-mt-xs">
+                <q-item-section side>
+                  <q-icon size="sm" color="teal" name="mdi-library" />
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label caption class="text-grey-2">
+                    Core Area
+                  </q-item-label>
+                  <q-item-label lines="2">
+                    {{ product.core_area.title }}
                   </q-item-label>
                 </q-item-section>
               </q-item>
@@ -87,35 +97,20 @@
       <!-- Related Course -->
       <RelatedProduct></RelatedProduct>
     </div>
+
+    <preview-json :list="product"></preview-json>
   </q-page>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import AboutProduct from "./components/AboutProduct.vue";
 import RelatedProduct from "./components/RelatedProduct.vue";
 import PriceOption from "./components/PriceOption.vue";
 import PromotionProduct from "./components/PromotionProduct.vue";
-
-const url = "https://cdn.quasar.dev/img/mountains.jpg";
-
-const fitModes = ref(["cover"]);
-
-const dataType = ref([
-  {
-    id: 1,
-    title: "Course Type",
-    subtitle: "Branch Management",
-  },
-  {
-    id: 2,
-    title: "Core Area ",
-    subtitle: "International Certification",
-  },
-]);
-const checkout = () => {
-  console.log("Checkout");
-};
+import { useProductStore } from "src/stores/product-store";
+const productStore = useProductStore();
+const product = computed(() => productStore.getOneProduct);
 </script>
 
 <style lang="scss" scoped>
