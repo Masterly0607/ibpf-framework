@@ -33,18 +33,18 @@
               <q-btn
                 flat
                 dense
-                color="primary"
+                :color="isGrid ? 'primary' : 'grey-7'"
                 icon="grid_view"
-                aria-label="Submit"
-                :to="{ name: 'product-list-page' }"
+                aria-label="Grid"
+                @click="onChangeView"
               />
               <q-btn
                 flat
                 dense
-                color="black-6"
+                :color="isGrid ? 'grey-7' : 'primary'"
                 icon="view_list"
-                aria-label="Submit"
-                :to="{ name: 'grid-product-page' }"
+                aria-label="List"
+                @click="onChangeView"
               />
             </div>
           </div>
@@ -55,91 +55,18 @@
 
       <!-- skeleton list -->
       <section v-if="isLoading" class="row q-col-gutter-md q-py-md">
-        <div v-for="i in 4" :key="i" class="col-12 col-sm-6 col-md-3">
+        <div v-for="i in 8" :key="i" class="col-12 col-sm-6 col-md-3">
           <product-card-skeleton />
         </div>
       </section>
 
       <!-- View product list -->
       <section v-else>
-        <div class="row q-col-gutter-md q-py-md">
-          <div
-            v-for="(product, index) in searchProductData"
-            :key="index"
-            class="col-12 col-sm-6 col-md-3"
-          >
-            <q-card square flat bordered>
-              <!-- <img :src="product.thumbnail" height="200px" /> -->
-              <div
-                style="cursor: pointer"
-                @click="viewProductDetail(product.product_code)"
-              >
-                <img :src="product.thumbnail" height="200px" width="100%" />
-              </div>
+        <!-- grid view -->
+        <ProductListGrid v-if="isGrid" :products="searchProductData" />
+        <!-- list view -->
+        <ProductListView v-else :products="searchProductData" />
 
-              <q-card-section class="q-pa-sm">
-                <div class="ibf-h11 ellipsis-2-lines text-weight-medium">
-                  {{ product.title }}
-                </div>
-                <div
-                  class="q-py-xs text-grey-7 ibf-h12 text-weight-light ellipsis-2-lines"
-                >
-                  {{ product.description }}
-                </div>
-              </q-card-section>
-
-              <q-card-actions class="q-pb-none" align="between">
-                <div v-if="product.isFree">
-                  <q-badge color="grey" text-color="white" label="Free" />
-                </div>
-                <div v-else>
-                  <div v-if="product.isDiscount">
-                    <price-original
-                      :currency="product.currency"
-                      :price="product.afterDiscount"
-                      :is-decimals="false"
-                    />
-
-                    <price-discount
-                      :currency="product.currency"
-                      :price="product.price"
-                      :is-decimals="false"
-                    >
-                    </price-discount>
-                  </div>
-                  <div v-else>
-                    <price-original
-                      :currency="product.currency"
-                      :price="product.price"
-                      :is-decimals="false"
-                    />
-                  </div>
-                </div>
-
-                <div>
-                  <q-btn
-                    v-if="checkInCart(product.id)"
-                    flat
-                    round
-                    icon="mdi-cart"
-                    color="red-7"
-                    :to="{ name: 'cart-page' }"
-                  />
-                  <q-btn
-                    v-else
-                    flat
-                    round
-                    icon="mdi-cart-outline"
-                    @click="addToCarts(product.id)"
-                    color="grey"
-                  />
-
-                  <q-btn flat round icon="mdi-heart-outline" color="grey" />
-                </div>
-              </q-card-actions>
-            </q-card>
-          </div>
-        </div>
         <q-card flat square>
           <q-btn
             v-if="canLoadMore"
@@ -153,15 +80,20 @@
           />
         </q-card>
       </section>
+
+      <section>
+        <preview-json :list="searchProductData"></preview-json>
+      </section>
     </div>
   </q-page>
 </template>
 
 <script setup>
+import ProductListView from "./components/product-view/ProductListView.vue";
+import ProductListGrid from "./components/product-view/ProductListGrid.vue";
 import ProductCardSkeleton from "src/components/skeletons/ProductCardSkeleton.vue";
 import FilterProduct from "./components/FilterProduct.vue";
 import { ref, onMounted, computed } from "vue";
-import { useCartStore } from "src/stores/cart-store";
 import { useProductStore } from "src/stores/product-store";
 import { useRouter } from "vue-router";
 const router = useRouter();
@@ -171,10 +103,16 @@ const submitResult = ref([]);
 const keyword = ref("");
 const searchProductData = computed(() => productStore.getProductList);
 const searchMeta = ref({
-  per_page: 5,
+  per_page: 8,
   current_page: 1,
   total_pages: null,
 });
+
+const isGrid = ref(true);
+
+const onChangeView = () => {
+  isGrid.value = !isGrid.value;
+};
 
 const onSubmit = (evt) => {
   const formData = new FormData(evt.target);
@@ -265,23 +203,14 @@ const loadMoreProducts = () => {
 
 const handleProductFilter = (payload) => {
   searchProduct(payload);
+
+  console.log(payload);
 };
 
 // add to carts
 
-const cartStore = useCartStore();
-const cartItemsIds = computed(() => cartStore.getCartItemsIds || []);
-
-const addToCarts = async (id) => {
-  await cartStore.serverAddToCart(id);
-};
-
-//const removeFromCarts = (id) => {
-//  cartStore.removeFromCart(id);
-//};
-const checkInCart = (id) => {
-  return cartItemsIds.value.includes(id);
-};
+//const cartStore = useCartStore();
+//const cartItemsIds = computed(() => cartStore.getCartItemsIds || []);
 
 onMounted(() => {
   searchProduct();

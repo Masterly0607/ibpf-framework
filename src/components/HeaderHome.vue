@@ -1,5 +1,5 @@
 <template>
-  <q-header reveal bordered :class="[bgColor, textColor]">
+  <q-header bordered :class="[bgColor, textColor]">
     <q-toolbar>
       <q-toolbar-title class="q-py-xs">
         <img
