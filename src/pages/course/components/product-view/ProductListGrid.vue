@@ -8,50 +8,56 @@
       <q-intersection :key="product.id" once transition="scale">
         <q-card square class="ibf-card-2 full-height">
           <div class="full-height">
-            <q-img
-              :src="product.thumbnail"
-              spinner-color="primary"
-              spinner-size="82px"
-              :ratio="1"
-            />
+            <div
+              id="clickable"
+              style="cursor: pointer"
+              @click="viewProductDetail(product)"
+            >
+              <q-img
+                :src="product.thumbnail"
+                spinner-color="primary"
+                spinner-size="82px"
+                :ratio="1"
+              />
 
-            <q-card-section class="q-pa-sm">
-              <div
-                class="q-mt-sm ibf-h10 text-grey-7 text-weight-medium ibf-ellipsis"
-              >
-                {{ product.title }}
-              </div>
-              <q-separator spaced />
+              <q-card-section class="q-pa-sm">
+                <div
+                  class="q-mt-sm ibf-h10 text-grey-7 text-weight-medium ibf-ellipsis"
+                >
+                  {{ product.title }}
+                </div>
+                <q-separator spaced />
 
-              <div class="column">
-                <div class="q-mt-sm row q-gutter-x-sm items-center">
-                  <q-icon color="grey-7" size="20px" name="mdi-earth" />
-                  <div class="text-grey-8 ibf-h12 text-weight-light">
-                    {{ product.product_type.title }}
+                <div class="column">
+                  <div class="q-mt-sm row q-gutter-x-sm items-center">
+                    <q-icon color="grey-7" size="20px" name="mdi-earth" />
+                    <div class="text-grey-8 ibf-h12 text-weight-light">
+                      {{ product.product_type.title }}
+                    </div>
+                  </div>
+
+                  <div class="q-my-md row q-gutter-x-sm items-center">
+                    <q-icon
+                      color="grey-7"
+                      size="20px"
+                      name="mdi-checkbox-blank-badge-outline"
+                    />
+                    <div class="text-grey-8 ibf-h12 text-weight-light">
+                      {{ product.core_area.title }}
+                    </div>
+                  </div>
+
+                  <div>
+                    <q-badge
+                      v-if="product.is_free"
+                      color="secondary"
+                      text-color="white"
+                      label="Free"
+                    />
                   </div>
                 </div>
-
-                <div class="q-my-md row q-gutter-x-sm items-center">
-                  <q-icon
-                    color="grey-7"
-                    size="20px"
-                    name="mdi-checkbox-blank-badge-outline"
-                  />
-                  <div class="text-grey-8 ibf-h12 text-weight-light">
-                    {{ product.core_area.title }}
-                  </div>
-                </div>
-
-                <div>
-                  <q-badge
-                    v-if="product.is_free"
-                    color="secondary"
-                    text-color="white"
-                    label="Free"
-                  />
-                </div>
-              </div>
-            </q-card-section>
+              </q-card-section>
+            </div>
 
             <q-space />
 
@@ -102,15 +108,39 @@
 </template>
 
 <script setup>
+import { useQuasar } from "quasar";
 import { useCartStore } from "src/stores/cart-store";
+import { useProductStore } from "src/stores/product-store";
 import { computed } from "vue";
-
+import { useRouter } from "vue-router";
+const productStore = useProductStore();
+const $q = useQuasar();
+const router = useRouter();
 const props = defineProps({
   products: {
     type: [Array, null],
     required: true,
   },
 });
+
+const viewProductDetail = (product) => {
+  const item = productStore.findProduct({
+    id: product.id,
+    code: product.product_code,
+  });
+  if (item) {
+    productStore.storeOneProduct(item);
+    router.push({
+      name: "product-detail-page",
+      params: { productCode: product.product_code },
+    });
+  } else {
+    $q.notify({
+      type: "negative",
+      message: "Cannot find this item.",
+    });
+  }
+};
 
 const cartStore = useCartStore();
 const cartItemsIds = computed(() => cartStore.getCartItemsIds || []);

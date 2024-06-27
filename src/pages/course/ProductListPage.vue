@@ -128,14 +128,6 @@ const onSubmit = (evt) => {
   submitResult.value = data;
 };
 
-const viewProductDetail = (productCode) => {
-  const item = productStore.findProduct(productCode);
-  if (item) {
-    productStore.storeOneProduct(item);
-    router.push({ name: "product-detail-page", params: { productCode } });
-  }
-};
-
 const searchProduct = async (filter) => {
   try {
     const response = await productStore.serverFetchProductList({

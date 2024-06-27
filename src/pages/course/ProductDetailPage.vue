@@ -1,81 +1,90 @@
 <template>
   <q-page>
     <div>
-      <q-img
-        src="https://cdn.quasar.dev/img/parallax2.jpg"
-        style="width: 100%; height: 55vh"
-      >
-        <div class="absolute-full flex flex-center">
-          <div class="row justify-center items-center">
-            <div class="col-12 col-md-8 q-px-xl q-gutter-xs">
-              <!-- course title -->
-              <div class="ibf-h3 text-white text-weight-medium">
-                {{ product.title }}
-              </div>
-              <!-- course subtitle -->
-              <q-item class="q-pa-none q-mt-xs">
-                <q-item-section side>
-                  <q-icon size="sm" color="teal" name="mdi-library" />
-                </q-item-section>
-                <q-item-section>
-                  <q-item-label caption class="text-grey-2">
-                    Course Type
-                  </q-item-label>
-                  <q-item-label lines="2">
-                    {{ product.product_type.title }}
-                  </q-item-label>
-                </q-item-section>
-              </q-item>
+      <div class="q-gutter-md">
+        <div class="row justify-between">
+          <q-parallax :src="product.thumbnail" :speed="0.5">
+            <div class="absolute-full">
+              <div
+                style="padding: 40px; background: rgba(134, 134, 134, 0.6)"
+                class="row justify-center items-start full-height"
+              >
+                <div class="col-12 col-md-8 q-gutter-xs">
+                  <!-- course title -->
+                  <div class="ibf-h3 q-mb-md text-weight-medium text-white">
+                    {{ product.title }}
+                  </div>
+                  <!-- course subtitle -->
+                  <q-item class="q-pa-none q-mt-xs">
+                    <q-item-section side>
+                      <q-icon size="sm" color="teal" name="mdi-library" />
+                    </q-item-section>
+                    <q-item-section>
+                      <q-item-label caption class="text-grey-1">
+                        Course Type
+                      </q-item-label>
+                      <q-item-label
+                        class="text-weight-bold text-white"
+                        lines="2"
+                      >
+                        {{ product.product_type.title }}
+                      </q-item-label>
+                    </q-item-section>
+                  </q-item>
 
-              <q-item class="q-pa-none q-mt-xs">
-                <q-item-section side>
-                  <q-icon size="sm" color="teal" name="mdi-library" />
-                </q-item-section>
-                <q-item-section>
-                  <q-item-label caption class="text-grey-2">
-                    Core Area
-                  </q-item-label>
-                  <q-item-label lines="2">
-                    {{ product.core_area.title }}
-                  </q-item-label>
-                </q-item-section>
-              </q-item>
+                  <q-item class="q-pa-none q-mt-xs">
+                    <q-item-section side>
+                      <q-icon size="sm" color="teal" name="mdi-library" />
+                    </q-item-section>
+                    <q-item-section>
+                      <q-item-label caption class="text-grey-1">
+                        Core Area
+                      </q-item-label>
+                      <q-item-label
+                        class="text-weight-bold text-white"
+                        lines="2"
+                      >
+                        {{ product.core_area.title }}
+                      </q-item-label>
+                    </q-item-section>
+                  </q-item>
 
-              <q-item class="q-pa-none q-mt-xs">
-                <!-- duration -->
-                <q-item-section side>
-                  <q-icon size="sm" color="teal" name="mdi-library" />
-                </q-item-section>
-                <q-item-section>
-                  <q-item-label>Duration: 3 months</q-item-label>
-                </q-item-section>
-                <!-- start on -->
-                <q-item-section side>
-                  <q-icon size="sm" color="teal" name="mdi-library" />
-                </q-item-section>
-                <q-item-section class="q-px-md">
-                  <q-item-label>Start On: 15-08-2024</q-item-label>
-                </q-item-section>
-              </q-item>
-            </div>
-
-            <!-- course image & subtitle -->
-            <div class="col-12 col-md-4 q-px-xl">
-              <q-card-actions align="center">
-                <img
-                  src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg"
-                  style="width: 150px; height: 150px"
-                />
-                <div class="text-grey-3 q-py-md">
-                  Created by IBF of Admin
-                  <br />
-                  Last updated 06/06/2024
+                  <q-item class="q-pa-none q-mt-xs">
+                    <!-- duration -->
+                    <q-item-section side>
+                      <q-icon size="sm" color="teal" name="mdi-library" />
+                    </q-item-section>
+                    <q-item-section>
+                      <q-item-label class="text-weight-bold text-white"
+                        >Duration: 3 months</q-item-label
+                      >
+                    </q-item-section>
+                    <!-- start on -->
+                    <q-item-section side>
+                      <q-icon size="sm" color="teal" name="mdi-library" />
+                    </q-item-section>
+                    <q-item-section class="q-px-md text-weight-bold text-white">
+                      <q-item-label>Start On: 15-08-2024</q-item-label>
+                    </q-item-section>
+                  </q-item>
                 </div>
-              </q-card-actions>
+
+                <!-- course image & subtitle -->
+                <div class="col-12 col-md-4">
+                  <q-card-section align="center">
+                    <q-img
+                      :src="product.thumbnail"
+                      :ratio="1"
+                      spinner-color="primary"
+                      spinner-size="82px"
+                    />
+                  </q-card-section>
+                </div>
+              </div>
             </div>
-          </div>
+          </q-parallax>
         </div>
-      </q-img>
+      </div>
     </div>
 
     <!-- IBF Container -->
@@ -83,19 +92,22 @@
       <div class="row q-col-gutter-lg">
         <!-- About This Course -->
         <div class="col-12 col-md-8">
-          <AboutProduct></AboutProduct>
+          <AboutProduct :payload="product.description" />
         </div>
         <!-- Price Option -->
         <div class="col-12 col-md-4">
-          <PriceOption></PriceOption>
+          <PriceOption
+            :payload="product.price_options"
+            :price="product.price"
+          />
         </div>
       </div>
 
       <!-- Promotion Bonner -->
-      <PromotionProduct></PromotionProduct>
+      <PromotionProduct />
 
       <!-- Related Course -->
-      <RelatedProduct></RelatedProduct>
+      <RelatedProduct />
     </div>
 
     <preview-json :list="product"></preview-json>
