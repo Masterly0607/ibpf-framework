@@ -49,10 +49,8 @@ export const useProductStore = defineStore("product", {
       this.productList = [];
     },
 
-    findProduct(productCode) {
-      const result = this.productList.find(
-        (el) => el.product_code === productCode
-      );
+    findProduct({ id: productId, productCode: code }) {
+      const result = this.productList.find((el) => el.id === productId);
       return result;
     },
 
