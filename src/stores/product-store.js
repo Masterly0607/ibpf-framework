@@ -21,7 +21,7 @@ export const useProductStore = defineStore("product", {
             params: {
               keyword: payload.keyword,
               product_type_id: payload.product_type_id,
-              core_area_id: payload.corea_area_id,
+              core_area_id: payload.core_area_id,
               rowsPerPage: payload.rowsPerPage,
               page: payload.page,
             },
