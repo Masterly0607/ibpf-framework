@@ -3,6 +3,7 @@ import QHeading1 from "src/components/slots/QHeading1.vue";
 import PriceOriginal from "src/components/tools/PriceOriginal.vue";
 import PriceDiscount from "src/components/tools/PriceDiscount.vue";
 import PreviewJSON from "src/components/PreviewJSON.vue";
+import ItemInfo from "src/components/tools/ItemInfo.vue";
 //import AnotherComponent from 'src/components/AnotherComponent.vue';
 //import YetAnotherComponent from 'src/components/YetAnotherComponent.vue';
 
@@ -12,4 +13,5 @@ export default boot(({ app }) => {
   app.component("price-original", PriceOriginal);
   app.component("price-discount", PriceDiscount);
   app.component("preview-json", PreviewJSON);
+  app.component("item-info", ItemInfo);
 });

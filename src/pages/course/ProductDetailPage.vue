@@ -3,78 +3,55 @@
     <div>
       <div class="q-gutter-md">
         <div class="row justify-between">
-          <q-parallax :src="product.thumbnail" :speed="0.5">
+          <q-parallax :src="product.thumbnail" :height="450" :speed="0.5">
             <div class="absolute-full">
               <div
-                style="padding: 40px; background: rgba(134, 134, 134, 0.6)"
+                style="background: rgba(134, 24, 39, 0.9)"
                 class="row justify-center items-start full-height"
               >
-                <div class="col-12 col-md-8 q-gutter-xs">
-                  <!-- course title -->
+                <div class="col-12 col-md-8 q-pa-xl">
                   <div class="ibf-h3 q-mb-md text-weight-medium text-white">
                     {{ product.title }}
                   </div>
-                  <!-- course subtitle -->
-                  <q-item class="q-pa-none q-mt-xs">
-                    <q-item-section side>
-                      <q-icon size="sm" color="teal" name="mdi-library" />
-                    </q-item-section>
-                    <q-item-section>
-                      <q-item-label caption class="text-grey-1">
-                        Course Type
-                      </q-item-label>
-                      <q-item-label
-                        class="text-weight-bold text-white"
-                        lines="2"
-                      >
-                        {{ product.product_type.title }}
-                      </q-item-label>
-                    </q-item-section>
-                  </q-item>
 
-                  <q-item class="q-pa-none q-mt-xs">
-                    <q-item-section side>
-                      <q-icon size="sm" color="teal" name="mdi-library" />
-                    </q-item-section>
-                    <q-item-section>
-                      <q-item-label caption class="text-grey-1">
-                        Core Area
-                      </q-item-label>
-                      <q-item-label
-                        class="text-weight-bold text-white"
-                        lines="2"
-                      >
-                        {{ product.core_area.title }}
-                      </q-item-label>
-                    </q-item-section>
-                  </q-item>
+                  <div class="row q-col-gutter-md q-mt-md">
+                    <div class="col-6 col-md-3">
+                      <item-info
+                        :title="product.product_type.title"
+                        caption="Course Type"
+                        icon="mdi-earth"
+                      />
 
-                  <q-item class="q-pa-none q-mt-xs">
-                    <!-- duration -->
-                    <q-item-section side>
-                      <q-icon size="sm" color="teal" name="mdi-library" />
-                    </q-item-section>
-                    <q-item-section>
-                      <q-item-label class="text-weight-bold text-white"
-                        >Duration: 3 months</q-item-label
-                      >
-                    </q-item-section>
-                    <!-- start on -->
-                    <q-item-section side>
-                      <q-icon size="sm" color="teal" name="mdi-library" />
-                    </q-item-section>
-                    <q-item-section class="q-px-md text-weight-bold text-white">
-                      <q-item-label>Start On: 15-08-2024</q-item-label>
-                    </q-item-section>
-                  </q-item>
+                      <item-info
+                        :title="product.core_area.title"
+                        caption="Core Area"
+                        icon="mdi-checkbox-blank-badge-outline"
+                      />
+                    </div>
+
+                    <div class="col-6 col-md-3">
+                      <item-info
+                        :title="product.duration_text"
+                        caption="Duration"
+                        icon="mdi-clock-start"
+                      />
+
+                      <item-info
+                        :title="product.start_date"
+                        caption="Start on"
+                        icon="mdi-calendar"
+                      />
+                    </div>
+                  </div>
                 </div>
 
                 <!-- course image & subtitle -->
-                <div class="col-12 col-md-4">
+                <div class="col-12 col-md-4 q-pa-xl">
                   <q-card-section align="center">
                     <q-img
                       :src="product.thumbnail"
                       :ratio="1"
+                      width="300px"
                       spinner-color="primary"
                       spinner-size="82px"
                     />
@@ -88,18 +65,18 @@
     </div>
 
     <!-- IBF Container -->
-    <div class="ibf-container-1200 q-pa-md">
+    <div class="ibf-container-1400 q-pa-md">
       <div class="row q-col-gutter-lg">
-        <!-- About This Course -->
-        <div class="col-12 col-md-8">
-          <AboutProduct :payload="product.description" />
-        </div>
         <!-- Price Option -->
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-4 order-md-last">
           <PriceOption
             :payload="product.price_options"
             :price="product.price"
           />
+        </div>
+        <!-- About This Course -->
+        <div class="col-12 col-md-8">
+          <AboutProduct :payload="product.description" />
         </div>
       </div>
 
@@ -115,7 +92,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from "vue";
+import { computed } from "vue";
 import AboutProduct from "./components/AboutProduct.vue";
 import RelatedProduct from "./components/RelatedProduct.vue";
 import PriceOption from "./components/PriceOption.vue";
