@@ -6,7 +6,7 @@
         <price-original textSize="ibf-h5" :price="price"></price-original>
       </q-card-section>
 
-      <q-separator inset color="red" />
+      <q-separator inset color="red" size="2px" />
       <q-card-section>
         <!-- price option -->
         <div class="ibf-h9 text-weight-medium text-grey-7 q-my-sm">
@@ -49,9 +49,23 @@
           </div>
 
           <div class="col-2 flex flex-center">
-            <q-btn flat round aria-label="Favorite" icon="favorite" />
+            <q-btn
+              flat
+              aria-label="Favorite"
+              size="lg"
+              icon="mdi-heart-outline"
+            />
           </div>
         </div>
+      </q-card-section>
+
+      <q-separator spaced size="4px" color="grey-2" />
+
+      <q-card-section align="center" class="q-gutter-y-sm">
+        <div class="text-grey-8 ibf-9">Contact Us For More Information</div>
+
+        <div class="text-grey-8 ibf-9">(Monday - Friday, 8 AM - 5 PM)</div>
+        <div class="text-grey-8 ibf-9">(+855) 23 224 313/ 61 626 902</div>
       </q-card-section>
     </q-card>
   </section>
