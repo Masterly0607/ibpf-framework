@@ -141,7 +141,7 @@ const searchProduct = async (filter) => {
     const response = await productStore.serverFetchProductList({
       keyword: keyword.value,
       product_type_id: filter ? filter.product_type_id : "",
-      core_area_id: filter ? filter.corea_area_id : [],
+      core_area_id: filter ? filter.core_area_id : [],
       rowsPerPage: searchMeta.value.per_page,
       page: 1,
     });
@@ -168,7 +168,7 @@ const searchLoadProduct = async (filter) => {
     const response = await productStore.serverFetchProductList({
       keyword: keyword.value,
       product_type_id: filter ? filter.product_type_id : "",
-      core_area_id: filter ? filter.corea_area_id : [],
+      core_area_id: filter ? filter.core_area_id : [],
       rowsPerPage: searchMeta.value.per_page,
       page: searchMeta.value.current_page,
     });
@@ -202,9 +202,8 @@ const loadMoreProducts = () => {
 };
 
 const handleProductFilter = (payload) => {
+  console.log("filters", payload.core_area_id);
   searchProduct(payload);
-
-  console.log(payload);
 };
 
 // add to carts

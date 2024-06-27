@@ -12,7 +12,7 @@
               :src="product.thumbnail"
               spinner-color="primary"
               spinner-size="82px"
-              :ratio="1 / 1"
+              :ratio="1"
             />
 
             <q-card-section class="q-pa-sm">
