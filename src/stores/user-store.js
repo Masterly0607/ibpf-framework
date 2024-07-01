@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import { authAPI } from "src/boot/axios";
+import { authAPI, productAPI } from "src/boot/axios";
 
 export const useUserStore = defineStore("user", {
   state: () => ({
@@ -8,6 +8,7 @@ export const useUserStore = defineStore("user", {
     token: null,
     permissions: null,
     roles: null,
+    orderList: [],
   }),
 
   getters: {
@@ -16,6 +17,7 @@ export const useUserStore = defineStore("user", {
     isAuthenticated: (state) => !!state.token,
     getRoles: (state) => state.roles || [],
     getPermissions: (state) => state.permissions || [],
+    getOrderList: (state) => state.orderList || [],
   },
 
   actions: {
@@ -52,6 +54,23 @@ export const useUserStore = defineStore("user", {
       this.token = null;
       this.roles = null;
       this.permissions = null;
+    },
+
+    async serverFetchOrderedItems() {
+      try {
+        const res = await productAPI.get("/api/v1/user/order/list");
+        console.log(res);
+        if (!res.data.status) return;
+        this.storeOrderList(res.data.data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    },
+
+    storeOrderList(payload) {
+      if (payload) {
+        this.orderList = payload;
+      }
     },
   },
 
