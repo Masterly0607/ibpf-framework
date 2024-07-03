@@ -2,7 +2,7 @@
 <template>
   <div class="ibf-container-1200">
     <!-- <div class="q-gutter-y-md" style="max-width: 600px"> -->
-    <div class="q-pa-md" style="max-width: 100%">
+    <div style="max-width: 100%">
       <q-card flat>
         <q-tabs
           v-model="tab"
@@ -23,23 +23,53 @@
           <!-- my account tab -->
           <q-tab-panel name="myAccount">
             <div class="q-py-md">
-              <q-card class="my-card">
+              <q-card>
                 <q-card-section>
                   <div class="q-gutter-md">
                     <div class="ibf-h8 text-weight-bold">Profile Picture</div>
                     <q-separator />
                     <div class="row q-gutter-sm">
                       <q-avatar
-                        size="130px"
-                        font-size="130px"
+                        size="150px"
+                        font-size="150px"
                         text-color="primary"
                         icon="account_circle"
                       />
-                      <div class="q-py-lg">
-                        <div class="ibf-h7 text-weight-bold">Da Lyna</div>
-                        <div class="text-subtitle2">Student in Finance</div>
-                        <div class="text-subtitle2">
-                          Email: ui.officer@ibfkh.org
+                      <div class="q-py-sm">
+                        <div class="ibf-h6 text-weight-bold">
+                          {{ userStore.user.name }}
+                        </div>
+                        <div class="text-subtitle2 text-grey-8 q-py-xs">
+                          Role :
+                          <span class="text-primary text-weight-bold">
+                            {{ userStore.roles[0] }}
+                          </span>
+                        </div>
+                        <div class="text-subtitle2 text-grey-8">
+                          Email :
+                          <span class="ibf-h11 text-weight-bold">{{
+                            userStore.user.email
+                          }}</span>
+                          (Personal)
+                        </div>
+                        <div class="text-subtitle2 text-grey-8">
+                          Email :
+                          <span class="ibf-h11 text-weight-bold">{{
+                            userStore.user.email
+                          }}</span>
+                          (Work)
+                        </div>
+                        <div class="text-subtitle2 text-grey-8">
+                          Address :
+                          <span class="ibf-h11 text-weight-bold">
+                            Phnom Penh
+                          </span>
+                        </div>
+                        <div class="text-subtitle2 text-grey-8">
+                          Phone Number :
+                          <span class="ibf-h11 text-weight-bold">
+                            091 23 45 678
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -81,7 +111,9 @@
                     <div class="q-gutter-y-md">
                       <div class="row q-col-gutter-md">
                         <div class="col-6">
-                          <div class="text-weight-bold">Industry</div>
+                          <div class="text-grey-6 text-weight-bold">
+                            BFI Name
+                          </div>
                           <q-field
                             color="grey-3"
                             label-color="teal"
@@ -93,18 +125,21 @@
                             </template>
                             <template v-slot:control>
                               <div
-                                class="self-center full-width no-outline"
+                                class="self-center full-width no-outline text-weight-medium"
                                 tabindex="0"
                               >
-                                <!-- {{ text }} -->
-                                Your Industry
+                                {{
+                                  userStore.user.bfi
+                                    ? userStore.user.bfi.name
+                                    : "N/A"
+                                }}
                               </div>
                             </template>
                           </q-field>
                         </div>
 
                         <div class="col-6">
-                          <div class="text-weight-bold">Role</div>
+                          <div class="text-weight-bold text-grey-6">Role</div>
                           <q-field
                             color="grey-3"
                             label-color="primary"
@@ -116,11 +151,10 @@
                             </template>
                             <template v-slot:control>
                               <div
-                                class="self-center full-width no-outline"
+                                class="self-center full-width no-outline text-weight-medium"
                                 tabindex="0"
                               >
-                                <!-- {{ text }} -->
-                                Your Role
+                                {{ userStore.roles[0] }}
                               </div>
                             </template>
                           </q-field>
@@ -129,7 +163,9 @@
 
                       <div class="row q-col-gutter-x-md">
                         <div class="col-6">
-                          <div class="text-weight-bold">Job Title</div>
+                          <div class="text-weight-bold text-grey-6">
+                            Job Title
+                          </div>
                           <q-field
                             color="grey-3"
                             label-color="teal"
@@ -141,10 +177,9 @@
                             </template>
                             <template v-slot:control>
                               <div
-                                class="self-center full-width no-outline"
+                                class="self-center full-width no-outline text-weight-medium"
                                 tabindex="0"
                               >
-                                <!-- {{ text }} -->
                                 Job Title
                               </div>
                             </template>
@@ -162,7 +197,9 @@
                         </div>
 
                         <div class="col-6">
-                          <div class="text-weight-bold">Company Name</div>
+                          <div class="text-weight-bold text-grey-6">
+                            Company Name
+                          </div>
                           <q-field
                             color="grey-3"
                             label-color="teal"
@@ -174,11 +211,14 @@
                             </template>
                             <template v-slot:control>
                               <div
-                                class="self-center full-width no-outline"
+                                class="self-center full-width no-outline text-weight-medium"
                                 tabindex="0"
                               >
-                                <!-- {{ text }} -->
-                                Company Name
+                                {{
+                                  userStore.user.bfi
+                                    ? userStore.user.bfi.name
+                                    : "N/A"
+                                }}
                               </div>
                             </template>
                           </q-field>
@@ -203,6 +243,7 @@
     </div>
 
     <!-- </div> -->
+    <preview-json :list="userStore"></preview-json>
   </div>
 </template>
 
@@ -210,10 +251,13 @@
 import { ref } from "vue";
 import NotificationPage from "./NotificationPage.vue";
 import { useRouter } from "vue-router";
+import { useUserStore } from "src/stores/user-store";
 // import { useUserProfileStore } from "src/stores/profile-store";
 // import { storeToRefs } from "pinia";
 
 const router = useRouter();
+const userStore = useUserStore();
+
 const tab = ref("myAccount");
 
 const email = defineModel("email");

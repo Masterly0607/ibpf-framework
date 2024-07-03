@@ -23,24 +23,25 @@
                   <div
                     class="q-pa-sm q-px-md ibf-h8 text-grey-4 text-weight-medium"
                   >
-                    Da Lyna
+                    {{ userStore.user.name }}
                   </div>
                 </div>
 
                 <q-card-section class="q-pa-md">
                   <!-- <div class="q-pa-sm ibf-h8">Da Lyna</div> -->
                   <div class="text-weight-medium q-py-md">
-                    <a href="#" class="text-primary">Student in Finance</a>
+                    <a href="#" class="text-primary"
+                      >Role: {{ userStore.roles[0] }}</a
+                    >
                   </div>
                   <div class="text-weight-medium">
                     <span class="text-weight-medium text-grey-7">Email : </span>
-                    anyalina@ibfkh.com
+                    {{ userStore.user.email }}
                   </div>
                   <div class="text-weight-medium">
-                    <span class="text-weight-medium text-grey-7"
-                      >Address :
-                    </span>
-                    Phnom Penh
+                    <span class="text-weight-medium text-grey-7">BFI : </span>
+                    <!-- {{ userStore.user.bfi.name ?? "N/A" }} -->
+                    {{ userStore.user.bfi ? userStore.user.bfi.name : "N/A" }}
                   </div>
                   <div class="text-weight-medium">
                     <span class="text-weight-medium text-grey-7"
@@ -100,6 +101,7 @@
               <div class="q-py-sm">
                 <RecommendedCourse></RecommendedCourse>
               </div>
+
               <!-- <div>
                     <q-card
                       square
@@ -134,6 +136,8 @@
         </q-tab-panel>
       </q-tab-panels>
     </div>
+
+    <preview-json :list="userStore"></preview-json>
   </q-page>
 </template>
 
@@ -144,8 +148,8 @@ import CapabilityModel from "./components/CapabilityModel.vue";
 import MyLearning from "./components/MyLearning.vue";
 import EventsCard from "./components/EventsCard.vue";
 import RecommendedCourse from "./components/RecommendedCourse.vue";
-import { useRouter } from "vue-router";
 import CourseList from "./components/CourseList.vue";
+import { useRouter } from "vue-router";
 import { useUserStore } from "src/stores/user-store";
 
 const userStore = useUserStore();
