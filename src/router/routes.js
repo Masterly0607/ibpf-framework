@@ -14,13 +14,18 @@ const routes = [
       },
       {
         path: "product-list",
-        name: "product-list-page",
-        component: () => import("pages/course/ProductListPage.vue"),
+
         children: [
           {
-            path: "product-detail/:productCode",
+            path: "",
+            name: "product-list-page",
+            component: () => import("pages/course/ProductListPage.vue"),
+          },
+          {
+            path: "product-detail/:id?/:productCode",
             name: "product-detail-page",
-            component: () => import("pages/course/ProductDetailPage.vue"),
+            component: () =>
+              import("src/pages/course/product-detail/ProductDetailPage.vue"),
           },
         ],
       },
@@ -84,7 +89,7 @@ const routes = [
       // ----------- edit profile ------------
       {
         path: "edit-profile",
-        component: () => import("layouts/EditLayout.vue"),
+        component: () => import("src/layouts/ReturnLayout.vue"),
         children: [
           {
             path: "",
@@ -101,17 +106,29 @@ const routes = [
       // ----------- e-commerce ------------
       {
         path: "/purchase",
-        component: () => import("layouts/AuthLayout.vue"),
+
         children: [
           {
-            path: "check-out",
-            name: "check-out-page",
-            component: () => import("pages/course/CheckOutPage.vue"),
+            path: "add-to-cart",
+            component: () => import("layouts/MainLayout.vue"),
+            children: [
+              {
+                path: "",
+                name: "cart-page",
+                component: () => import("src/pages/course/CartPage.vue"),
+              },
+            ],
           },
           {
-            path: "add-to-cart",
-            name: "cart-page",
-            component: () => import("src/pages/course/CartPage.vue"),
+            path: "check-out",
+            component: () => import("src/layouts/ReturnLayout.vue"),
+            children: [
+              {
+                path: "",
+                name: "check-out-page",
+                component: () => import("pages/course/CheckOutPage.vue"),
+              },
+            ],
           },
         ],
       },
@@ -125,7 +142,7 @@ const routes = [
   // Authenitications route
   {
     path: "/auth",
-    component: () => import("layouts/AuthLayout.vue"),
+    component: () => import("src/layouts/BlankLayout.vue"),
     children: [
       {
         path: "",

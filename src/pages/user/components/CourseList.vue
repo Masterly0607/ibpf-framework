@@ -1,6 +1,6 @@
 <template>
   <section id="course-list">
-    <q-card square bordered class="inset-shadow-down shadow-10">
+    <q-card flat square bordered>
       <q-card-section>
         <div class="ibf-h8 text-weight-medium">Popular Course</div>
       </q-card-section>
@@ -50,11 +50,11 @@
 </template>
 
 <script setup>
-import { useRouter } from "vue-router";
+import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
 const startLearning = () => {
-  router.push({ name: "product-list-page" });
+  router.push({ name: 'product-list-page' });
 };
 </script>

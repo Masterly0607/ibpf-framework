@@ -10,6 +10,7 @@ export const useProductStore = defineStore("product", {
   getters: {
     getProductList: (state) => state.productList,
     getOneProduct: (state) => state.oneProduct,
+    isOneProduct: (state) => (state.oneProduct.id ? true : false),
   },
 
   actions: {
@@ -56,6 +57,19 @@ export const useProductStore = defineStore("product", {
 
     storeOneProduct(payload) {
       this.oneProduct = payload;
+    },
+
+    async serverFetchOneProduct(product_id) {
+      try {
+        const response = await productAPI.get(
+          "/api/v1/user/product/show/" + product_id
+        );
+
+        if (!response.status) return;
+        return response.data.data;
+      } catch (error) {
+        console.log(error.message());
+      }
     },
   },
 });
