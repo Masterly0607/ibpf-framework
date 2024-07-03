@@ -2,7 +2,7 @@
   <div id="related-product">
     <div class="q-py-sm ibf-h8 text-weight-medium">Related Course</div>
 
-    <!-- <q-carousel
+    <q-carousel
       v-model="slide"
       animated
       control-color="teal"
@@ -23,7 +23,7 @@
           />
         </div>
       </q-carousel-slide>
-    </q-carousel> -->
+    </q-carousel>
 
     <!-- <div class="q-gutter-md row items-start">
       <q-img
