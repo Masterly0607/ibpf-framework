@@ -28,7 +28,7 @@
 
         <div>
           <div class="row justify-between items-center">
-            <div class="ibf-h8 text-weight-bold">New & Feature courses</div>
+            <div class="ibf-h8 text-weight-bold">New & Featured Courses</div>
             <div>
               <q-btn
                 flat

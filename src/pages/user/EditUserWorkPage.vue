@@ -62,7 +62,7 @@
                         Company Name
                         <q-input
                           name="company"
-                          v-model="company"
+                          v-model="userStore.user.bfi.name"
                           label="Your company name"
                           outlined
                           clearable
@@ -116,18 +116,22 @@
           </q-card-section>
         </q-card>
       </div>
+      <!-- <preview-json :list="userStore"></preview-json> -->
     </q-page-container>
   </q-page>
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue";
-import axios from "axios";
+// import axios from "axios";
+import { useUserStore } from "src/stores/user-store";
 
 const industry = ref("Digital");
 const role = ref("Student");
 const job = ref("Accountant");
 const company = ref("ABA Bank");
+
+const userStore = useUserStore();
 
 const submitResult = ref([]);
 const onReset = () => {
@@ -145,20 +149,18 @@ const onResult = (evt) => {
   submitResult.value = data;
 };
 
-const dataFromApi = ref("");
+// onMounted(async () => {
+//   await fetchDataFromApi();
+// });
 
-onMounted(async () => {
-  await fetchDataFromApi();
-});
-
-const fetchDataFromApi = async () => {
-  try {
-    const response = await axios.get("https://api.example.com/data");
-    dataFromApi.value = response.data;
-  } catch (error) {
-    console.error("Error fetching data from API:", error);
-  }
-};
+// const fetchDataFromApi = async () => {
+//   try {
+//     const response = await axios.get("https://api.example.com/data");
+//     dataFromApi.value = response.data;
+//   } catch (error) {
+//     console.error("Error fetching data from API:", error);
+//   }
+// };
 
 const options = ["Google", "Facebook", "Twitter", "Apple", "Oracle"];
 
