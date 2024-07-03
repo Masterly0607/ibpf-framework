@@ -136,7 +136,7 @@ const viewProductDetail = (product) => {
     productStore.storeOneProduct(item);
     router.push({
       name: "product-detail-page",
-      params: { productCode: product.product_code },
+      params: { productCode: product.product_code, id: product.id },
     });
   } else {
     $q.notify({

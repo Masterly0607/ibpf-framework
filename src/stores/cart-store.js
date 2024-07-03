@@ -6,8 +6,6 @@ export const useCartStore = defineStore("cart", {
     lastCartFetch: null,
     cart: {
       order_items: [],
-      //  total_items: 0,
-      //  total_price: 0,
     },
     cartItemsIds: [],
   }),
@@ -22,16 +20,6 @@ export const useCartStore = defineStore("cart", {
     async serverFetchCartItems() {
       const now = Date.now();
       const cacheDuration = 1000 * 60 * 15; // 15 minutes
-
-      //  try {
-      //    const res = await productAPI.get("/api/v1/user/product/get/cart-items");
-
-      //    if (!res.data.status) return;
-      //    this.storeCart(res.data.data);
-      //    this.lastCartFetch = now;
-      //  } catch (error) {
-      //    console.log(error.message);
-      //  }
 
       if (!this.lastCartFetch || now - this.lastCartFetch > cacheDuration) {
         try {

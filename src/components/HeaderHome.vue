@@ -31,9 +31,9 @@
               dense
               round
               color="black-10"
-              icon="account_circle"
-              aria-label="profile"
-              :to="{ name: 'dashboard-page' }"
+              icon="favorite_border"
+              counter
+              hint="4"
             />
 
             <!-- shopping cart btn -->
@@ -70,15 +70,14 @@
                 </q-badge>
               </q-btn>
             </div>
-
             <q-btn
               flat
               dense
               round
               color="black-10"
-              icon="favorite_border"
-              counter
-              hint="4"
+              icon="account_circle"
+              aria-label="profile"
+              :to="{ name: 'dashboard-page' }"
             />
           </div>
 
@@ -103,7 +102,7 @@
 
       <!-- Dropdown Menu for Mobile -->
       <div v-else>
-        <q-btn
+        <!--<q-btn
           flat
           dense
           round
@@ -112,7 +111,7 @@
           icon="account_circle"
           aria-label="profile"
           :to="{ name: 'dashboard-page' }"
-        />
+        />-->
         <q-btn flat round icon="menu" class="q-ml-auto" ref="dropdownMenu">
           <q-menu square fit anchor="top right" self="top right">
             <q-list>
@@ -135,7 +134,18 @@
               </div>
 
               <q-separator spaced />
-              <div class="row justify-center q-gutter-md">
+              <div
+                v-if="isAuth"
+                class="row justify-center items-center q-gutter-md q-mb-xs"
+              >
+                <q-btn
+                  flat
+                  dense
+                  round
+                  color="black-10"
+                  icon="favorite_border"
+                  aria-label="favourite"
+                />
                 <div>
                   <q-btn
                     v-if="countCartItems < 1"
@@ -162,35 +172,40 @@
                     </q-badge>
                   </q-btn>
                 </div>
+
                 <q-btn
                   flat
+                  dense
                   round
-                  color="primary"
-                  icon="favorite_border"
+                  color="black-10"
+                  icon="account_circle"
                   aria-label="profile"
+                  :to="{ name: 'dashboard-page' }"
                 />
               </div>
 
-              <div class="column q-gutter-y-sm q-pa-xs">
-                <q-btn
-                  outline
-                  square
-                  color="primary"
-                  icon="mdi-clipboard-account-outline"
-                  label="Sign up"
-                  style="width: 100%"
-                  :to="{ name: 'sign-up-page' }"
-                />
+              <div v-else>
+                <div class="column q-gutter-y-sm q-pa-xs">
+                  <q-btn
+                    outline
+                    square
+                    color="primary"
+                    icon="mdi-clipboard-account-outline"
+                    label="Sign up"
+                    style="width: 100%"
+                    :to="{ name: 'sign-up-page' }"
+                  />
 
-                <q-btn
-                  square
-                  unelevated
-                  style="width: 100%"
-                  color="primary"
-                  icon="mdi-login"
-                  label="Login"
-                  :to="{ name: 'login-page' }"
-                />
+                  <q-btn
+                    square
+                    unelevated
+                    style="width: 100%"
+                    color="primary"
+                    icon="mdi-login"
+                    label="Login"
+                    :to="{ name: 'login-page' }"
+                  />
+                </div>
               </div>
             </q-list>
           </q-menu>

@@ -15,14 +15,12 @@
           <div class="row q-col-gutter-lg">
             <!-- profile -->
             <div class="col-12 col-md-3">
-              <q-card bordered square class="inset-shadow-down shadow-10">
+              <q-card bordered square flat>
                 <div class="bg-primary row q-pa-sm">
                   <q-avatar>
                     <img src="https://cdn.quasar.dev/img/avatar2.jpg" />
                   </q-avatar>
-                  <div
-                    class="q-pa-sm q-px-md ibf-h8 text-grey-4 text-weight-medium"
-                  >
+                  <div class="q-pa-sm q-px-md ibf-h8 text-grey-4 text-weight-medium">
                     {{ userStore.user.name }}
                   </div>
                 </div>
@@ -30,23 +28,19 @@
                 <q-card-section class="q-pa-md">
                   <!-- <div class="q-pa-sm ibf-h8">Da Lyna</div> -->
                   <div class="text-weight-medium q-py-md">
-                    <a href="#" class="text-primary"
-                      >Role: {{ userStore.roles[0] }}</a
-                    >
+                    <a href="#" class="text-primary">Role: {{ roles[0] }}</a>
                   </div>
                   <div class="text-weight-medium">
                     <span class="text-weight-medium text-grey-7">Email : </span>
-                    {{ userStore.user.email }}
+                    {{ user.email }}
                   </div>
                   <div class="text-weight-medium">
                     <span class="text-weight-medium text-grey-7">BFI : </span>
                     <!-- {{ userStore.user.bfi.name ?? "N/A" }} -->
-                    {{ userStore.user.bfi ? userStore.user.bfi.name : "N/A" }}
+                    {{ user.bfi ? user.bfi.name : 'N/A' }}
                   </div>
                   <div class="text-weight-medium">
-                    <span class="text-weight-medium text-grey-7"
-                      >Phone Number :
-                    </span>
+                    <span class="text-weight-medium text-grey-7">Phone Number : </span>
                     091 23 45 678
                   </div>
                 </q-card-section>
@@ -101,26 +95,6 @@
               <div class="q-py-sm">
                 <RecommendedCourse></RecommendedCourse>
               </div>
-
-              <!-- <div>
-                    <q-card
-                      square
-                      flat
-                      bordered
-                      class="shadow-2 rounded-borders"
-                    >
-                      <q-card-section>
-                        <div class="text-h6 q-py-sm">
-                          Introduction of Individual
-                        </div>
-                      </q-card-section>
-                      <q-card bordered>
-                        <q-card-section>
-                          <div class="text-h6 q-py-sm">Individual Course</div>
-                        </q-card-section>
-                      </q-card>
-                    </q-card>
-                  </div> -->
             </div>
           </div>
         </q-tab-panel>
@@ -137,40 +111,44 @@
       </q-tab-panels>
     </div>
 
-    <preview-json :list="userStore"></preview-json>
+    <preview-json :list="user"></preview-json>
   </q-page>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import OrderDashboardPage from "./order/OrderDashboardPage.vue";
-import CapabilityModel from "./components/CapabilityModel.vue";
-import MyLearning from "./components/MyLearning.vue";
-import EventsCard from "./components/EventsCard.vue";
-import RecommendedCourse from "./components/RecommendedCourse.vue";
-import CourseList from "./components/CourseList.vue";
-import { useRouter } from "vue-router";
-import { useUserStore } from "src/stores/user-store";
+import { ref } from 'vue';
+import OrderDashboardPage from './order/OrderDashboardPage.vue';
+import CapabilityModel from './components/CapabilityModel.vue';
+import MyLearning from './components/MyLearning.vue';
+import EventsCard from './components/EventsCard.vue';
+import RecommendedCourse from './components/RecommendedCourse.vue';
+import CourseList from './components/CourseList.vue';
+import { useRouter } from 'vue-router';
+import { useUserStore } from 'src/stores/user-store';
+import { useCartStore } from 'src/stores/cart-store';
 
+const cartStore = useCartStore();
 const userStore = useUserStore();
-
+const user = userStore.getUser;
+const roles = userStore.getRoles;
 const router = useRouter();
-const tab = ref("TabOne");
+const tab = ref('TabOne');
 
 const viewMyAccount = () => {
-  router.push({ name: "profile-page" });
+  router.push({ name: 'profile-page' });
 };
 
 const logout = () => {
   userStore.logout();
+  cartStore.resetCart();
+  cartStore.resetLastCartFetch();
+
+  router.replace({ name: 'home-page' });
 };
 </script>
 
-<style lang="scss">
-.card-bg {
-  background-color: #f1f1f1;
-}
-.bg-primary {
-  background-color: #8c1925;
-}
+<style lang="scss" scoped>
+//.card-bg {
+//  background-color: #f1f1f1;
+//}
 </style>
