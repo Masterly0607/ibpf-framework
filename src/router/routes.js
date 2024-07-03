@@ -1,4 +1,7 @@
+import auth from "src/helpers/middlewares/auth";
+
 const routes = [
+  //---------- public routes ------------
   {
     path: "/",
     component: () => import("layouts/MainLayout.vue"),
@@ -13,6 +16,13 @@ const routes = [
         path: "product-list",
         name: "product-list-page",
         component: () => import("pages/course/ProductListPage.vue"),
+        children: [
+          {
+            path: "product-detail/:productCode",
+            name: "product-detail-page",
+            component: () => import("pages/course/ProductDetailPage.vue"),
+          },
+        ],
       },
       {
         path: "event",
@@ -29,94 +39,87 @@ const routes = [
         name: "about-page",
         component: () => import("pages/menu/AboutPage.vue"),
       },
-
-      //---------- user dashboard ------------
-      {
-        path: "dashboard",
-        name: "dashboard-page",
-        component: () => import("pages/user/DashboardPage.vue"),
-      },
-      {
-        path: "profile",
-        name: "profile-page",
-        component: () => import("pages/user/ProfilePage.vue"),
-      },
-      //  {
-      //    path: "notifications",
-      //    name: "notifications-page",
-      //    component: () => import("pages/user/NotificationsPage.vue"),
-      //  },
-
-      //------------- product ---------------
-      //  {
-      //    path: "view-product",
-      //    name: "view-product-page",
-      //    component: () => import("pages/course/ViewProductPage.vue"),
-      //  },
-      {
-        path: "grid-product",
-        name: "grid-product-page",
-        component: () => import("pages/course/GridProductListPage.vue"),
-      },
-      {
-        path: "product-detail/:productCode",
-        name: "product-detail-page",
-        component: () => import("pages/course/ProductDetailPage.vue"),
-      },
-
-      // ----------- add to cart ------------
-      {
-        path: "add-to-cart",
-        name: "cart-page",
-        component: () => import("src/pages/course/CartPage.vue"),
-      },
     ],
   },
 
+  // ----------- protected routes ------------
   {
     path: "/app",
-    component: () => import("layouts/SkillAssessLayout.vue"),
     children: [
+      // ----------- assessment ------------
       {
-        path: "skill-assess/:framework?/:subframework?",
-        name: "framework",
-        component: () => import("pages/frameworks/FrameworkPage.vue"),
+        path: "assessment",
+        component: () => import("layouts/SkillAssessLayout.vue"),
+        children: [
+          {
+            path: "skill-assess/:framework?/:subframework?",
+            name: "framework",
+            component: () => import("pages/frameworks/FrameworkPage.vue"),
+          },
+          {
+            path: "skill-assessment",
+            name: "skill-assessment",
+            component: () => import("pages/skills/SkillAssessmentPage.vue"),
+          },
+        ],
       },
       {
-        path: "skill-assessment",
-        name: "skill-assessment",
-        component: () => import("pages/skills/SkillAssessmentPage.vue"),
+        path: "user-dashboard",
+        component: () => import("layouts/MainLayout.vue"),
+        children: [
+          //---------- user dashboard ------------
+          {
+            path: "",
+            name: "dashboard-page",
+            component: () => import("pages/user/DashboardPage.vue"),
+          },
+          {
+            path: "profile",
+            name: "profile-page",
+            component: () => import("pages/user/ProfilePage.vue"),
+          },
+        ],
       },
-    ],
-  },
 
-  {
-    path: "/edit-profile",
-    component: () => import("layouts/EditLayout.vue"),
-    children: [
+      // ----------- edit profile ------------
       {
-        path: "",
-        name: "edit-user-profile",
-        component: () => import("pages/user/EditUserProfilePage.vue"),
+        path: "edit-profile",
+        component: () => import("layouts/EditLayout.vue"),
+        children: [
+          {
+            path: "",
+            name: "edit-user-profile",
+            component: () => import("pages/user/EditUserProfilePage.vue"),
+          },
+          {
+            path: "edit-user-work",
+            name: "edit-user-work",
+            component: () => import("pages/user/EditUserWorkPage.vue"),
+          },
+        ],
       },
+      // ----------- e-commerce ------------
       {
-        path: "edit-user-work",
-        name: "edit-user-work",
-        component: () => import("pages/user/EditUserWorkPage.vue"),
+        path: "/purchase",
+        component: () => import("layouts/AuthLayout.vue"),
+        children: [
+          {
+            path: "check-out",
+            name: "check-out-page",
+            component: () => import("pages/course/CheckOutPage.vue"),
+          },
+          {
+            path: "add-to-cart",
+            name: "cart-page",
+            component: () => import("src/pages/course/CartPage.vue"),
+          },
+        ],
       },
     ],
-  },
 
-  {
-    path: "/purchase",
-    component: () => import("layouts/AuthLayout.vue"),
-    children: [
-      {
-        path: "check-out",
-        name: "check-out-page",
-        component: () => import("pages/course/CheckOutPage.vue"),
-      },
-    ],
+    meta: {
+      middleware: [auth],
+    },
   },
 
   // Authenitications route

@@ -87,25 +87,21 @@
 
       <preview-json :list="orderedPaginate"></preview-json>
     </div>
-
-    <q-btn color="primary" icon="check" label="OK" @click="fetchOrderedItems" />
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { productAPI } from "src/boot/axios";
+import { computed, onMounted } from "vue";
 import { checkPaymentStatusColor, formatDate } from "src/helpers/utils";
-const orderedPaginate = ref([]);
+import { useUserStore } from "src/stores/user-store";
+const userStore = useUserStore();
+const orderedPaginate = computed(() => userStore.getOrderList);
 
 const fetchOrderedItems = async () => {
-  try {
-    const res = await productAPI.get("/api/v1/user/order/list");
-    console.log(res);
-    if (!res.data.status) return;
-    orderedPaginate.value = res.data.data;
-  } catch (error) {
-    console.log(error.message);
-  }
+  await userStore.serverFetchOrderedItems();
 };
+
+onMounted(() => {
+  fetchOrderedItems();
+});
 </script>
