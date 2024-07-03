@@ -3,7 +3,12 @@
     <div v-for="(product, index) in products" :key="index">
       <q-card square class="ibf-card-1">
         <q-card-section horizontal>
-          <div class="q-pa-sm">
+          <div
+            class="q-pa-sm"
+            id="clickable"
+            style="cursor: pointer"
+            @click="viewProductDetail(product)"
+          >
             <q-img
               :src="product.thumbnail"
               spinner-color="primary"
@@ -11,6 +16,13 @@
               width="200px"
               height="200px"
             />
+            <!-- <q-img
+              :src="product.thumbnail"
+              spinner-color="primary"
+              spinner-size="82px"
+              width="200px"
+              height="200px"
+            /> -->
           </div>
 
           <q-card-section>
@@ -105,6 +117,8 @@
 <script setup>
 import { useCartStore } from "src/stores/cart-store";
 import { computed } from "vue";
+import { useProductStore } from "src/stores/product-store";
+const productStore = useProductStore();
 
 const props = defineProps({
   products: {
@@ -112,6 +126,25 @@ const props = defineProps({
     required: true,
   },
 });
+
+const viewProductDetail = (product) => {
+  const item = productStore.findProduct({
+    id: product.id,
+    code: product.product_code,
+  });
+  if (item) {
+    productStore.storeOneProduct(item);
+    router.push({
+      name: "product-detail-page",
+      params: { productCode: product.product_code },
+    });
+  } else {
+    $q.notify({
+      type: "negative",
+      message: "Cannot find this item.",
+    });
+  }
+};
 
 const cartStore = useCartStore();
 const cartItemsIds = computed(() => cartStore.getCartItemsIds || []);
