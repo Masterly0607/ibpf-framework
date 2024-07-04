@@ -98,7 +98,6 @@
 
 <script setup>
 import { ref } from "vue";
-
 const eventData = ref([
   {
     id: 1,
