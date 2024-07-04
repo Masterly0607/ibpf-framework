@@ -10,7 +10,7 @@ const routes = [
       {
         path: "",
         name: "home-page",
-        component: () => import("pages/HomePage.vue"),
+        component: () => import("src/pages/home/HomePage.vue"),
       },
       {
         path: "product-list",
