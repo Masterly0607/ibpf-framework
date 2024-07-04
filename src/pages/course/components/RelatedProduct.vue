@@ -107,8 +107,10 @@ const fetchData = async () => {
       "/api/v1/user/product/show/" + props.productId
     );
     if (!response.data.status) return;
-    isLoading.value = false;
     relatedProducts.value = response.data.data.related_products;
+
+    if (relatedProducts.value.length < 1) return;
+    isLoading.value = false;
   } catch (err) {
     console.log(err.message());
   }

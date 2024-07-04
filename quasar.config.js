@@ -91,7 +91,7 @@ module.exports = configure(function (/* ctx */) {
       ],
 
       alias: {
-        "@": path.resolve(__dirname, "./src"),
+        "@": path.resolve(__dirname, "src"),
       },
     },
 

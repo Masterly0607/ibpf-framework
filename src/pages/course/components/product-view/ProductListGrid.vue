@@ -142,6 +142,8 @@ const viewProductDetail = (product) => {
   }
 };
 
+// check if the cart has the products using id
+
 const cartStore = useCartStore();
 const cartItemsIds = computed(() => cartStore.getCartItemsIds || []);
 

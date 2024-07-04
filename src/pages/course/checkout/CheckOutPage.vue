@@ -216,6 +216,7 @@
                                 :currency="item.course.currency"
                                 :price="item.course.after_discount"
                                 :isDecimals="false"
+                                text-size="ibf-h12"
                               ></price-original>
                             </q-item-label>
 
@@ -224,6 +225,7 @@
                                 :currency="item.course.currency"
                                 :price="item.course.price"
                                 :isDecimals="false"
+                                text-size="ibf-h12"
                               />
                             </q-item-label>
                           </div>
@@ -234,6 +236,8 @@
                                 :currency="item.course.currency"
                                 :price="item.course.price"
                                 :isDecimals="false"
+                                text-size="ibf-h11"
+                                color="text-grey"
                               ></price-original>
                             </q-item-label>
                           </div>
@@ -309,8 +313,8 @@
                           <price-original
                             currency="USD"
                             :price="grandTotal"
-                            textSize="ibf-h9"
-                            color="text-grey-9"
+                            textSize="ibf-h7"
+                            color="text-red"
                           />
                         </q-item-label>
                       </q-item-section>
@@ -399,13 +403,12 @@
 
 <script setup>
 import { CheckoutStatus } from "src/helpers/enums";
-import CheckOutTransition from "./components/CheckOutTransition.vue";
-import EmptyCheckOut from "./components/EmptyCheckOut.vue";
+import CheckOutTransition from "../components/CheckOutTransition.vue";
+import EmptyCheckOut from "../components/EmptyCheckOut.vue";
 import CheckOutSkeleton from "src/components/skeletons/CheckOutSkeleton.vue";
 import { useCartStore } from "src/stores/cart-store";
 import { usePurchaseStore } from "src/stores/purchase-store";
 import { computed, onMounted, provide, reactive, ref } from "vue";
-import { useRouter } from "vue-router";
 const selectedPaymentTypeOption = ref(1);
 const purchaseStore = usePurchaseStore();
 const checkOutItems = ref(purchaseStore.getCheckOutItems);

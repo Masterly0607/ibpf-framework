@@ -55,7 +55,7 @@
 
       <!-- skeleton list -->
       <section v-if="isLoading" class="row q-col-gutter-md q-py-md">
-        <div v-for="i in 8" :key="i" class="col-12 col-sm-6 col-md-3">
+        <div v-for="i in 4" :key="i" class="col-12 col-sm-6 col-md-3">
           <product-card-skeleton />
         </div>
       </section>
@@ -67,23 +67,24 @@
         <!-- list view -->
         <ProductListView v-else :products="searchProductData" />
 
-        <q-card flat square>
+        <q-card flat square class="q-my-lg">
           <q-btn
+            square
             v-if="canLoadMore"
             outline
             no-caps
             unelevated
             color="primary"
             style="width: 100%; height: 100%"
-            label="See more course"
+            label="See more courses"
             @click="loadMoreProducts"
           />
         </q-card>
       </section>
 
-      <section>
+      <!--<section>
         <preview-json :list="searchProductData"></preview-json>
-      </section>
+      </section>-->
     </div>
   </q-page>
 </template>
