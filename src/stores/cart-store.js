@@ -27,6 +27,8 @@ export const useCartStore = defineStore("cart", {
             "/api/v1/user/product/get/cart-items"
           );
 
+          console.log(res.data);
+
           if (!res.data.status) return;
           this.storeCart(res.data.data);
           this.lastCartFetch = now;
@@ -47,12 +49,10 @@ export const useCartStore = defineStore("cart", {
 
     storeCart(payload) {
       if (payload) {
-        this.cart.order_items = payload.data;
+        this.cart.order_items = payload;
 
-        // fill the cartItemsIds with the course_id to verify which is already in the cart
-        this.cartItemsIds = payload.data
-          ? payload.data.map((el) => el.course_id)
-          : [];
+        // fill the cartItemsIds with the id to verify which is already in the cart
+        this.cartItemsIds = payload ? payload.map((el) => el.course.id) : [];
       }
     },
     async serverAddToCart(id) {

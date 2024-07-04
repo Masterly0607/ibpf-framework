@@ -20,7 +20,9 @@
                   <q-avatar>
                     <img src="https://cdn.quasar.dev/img/avatar2.jpg" />
                   </q-avatar>
-                  <div class="q-pa-sm q-px-md ibf-h8 text-grey-4 text-weight-medium">
+                  <div
+                    class="q-pa-sm q-px-md ibf-h8 text-grey-4 text-weight-medium"
+                  >
                     {{ userStore.user.name }}
                   </div>
                 </div>
@@ -37,10 +39,12 @@
                   <div class="text-weight-medium">
                     <span class="text-weight-medium text-grey-7">BFI : </span>
                     <!-- {{ userStore.user.bfi.name ?? "N/A" }} -->
-                    {{ user.bfi ? user.bfi.name : 'N/A' }}
+                    {{ user.bfi ? user.bfi.name : "N/A" }}
                   </div>
                   <div class="text-weight-medium">
-                    <span class="text-weight-medium text-grey-7">Phone Number : </span>
+                    <span class="text-weight-medium text-grey-7"
+                      >Phone Number :
+                    </span>
                     091 23 45 678
                   </div>
                 </q-card-section>
@@ -111,31 +115,31 @@
       </q-tab-panels>
     </div>
 
-    <preview-json :list="user"></preview-json>
+    <!--<preview-json :list="user"></preview-json>-->
   </q-page>
 </template>
 
 <script setup>
-import { ref } from 'vue';
-import OrderDashboardPage from './order/OrderDashboardPage.vue';
-import CapabilityModel from './components/CapabilityModel.vue';
-import MyLearning from './components/MyLearning.vue';
-import EventsCard from './components/EventsCard.vue';
-import RecommendedCourse from './components/RecommendedCourse.vue';
-import CourseList from './components/CourseList.vue';
-import { useRouter } from 'vue-router';
-import { useUserStore } from 'src/stores/user-store';
-import { useCartStore } from 'src/stores/cart-store';
+import { ref } from "vue";
+import OrderDashboardPage from "./order/OrderDashboardPage.vue";
+import CapabilityModel from "./components/CapabilityModel.vue";
+import MyLearning from "./components/MyLearning.vue";
+import EventsCard from "./components/EventsCard.vue";
+import RecommendedCourse from "./components/RecommendedCourse.vue";
+import CourseList from "./components/CourseList.vue";
+import { useRouter } from "vue-router";
+import { useUserStore } from "src/stores/user-store";
+import { useCartStore } from "src/stores/cart-store";
 
 const cartStore = useCartStore();
 const userStore = useUserStore();
 const user = userStore.getUser;
 const roles = userStore.getRoles;
 const router = useRouter();
-const tab = ref('TabOne');
+const tab = ref("TabOne");
 
 const viewMyAccount = () => {
-  router.push({ name: 'profile-page' });
+  router.push({ name: "profile-page" });
 };
 
 const logout = () => {
@@ -143,7 +147,7 @@ const logout = () => {
   cartStore.resetCart();
   cartStore.resetLastCartFetch();
 
-  router.replace({ name: 'home-page' });
+  router.replace({ name: "home-page" });
 };
 </script>
 
