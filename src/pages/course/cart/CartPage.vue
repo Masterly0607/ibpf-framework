@@ -217,12 +217,13 @@
 </template>
 
 <script setup>
+import { computed, onMounted, ref } from "vue";
 import EmptyCart from "./components/EmptyCart.vue";
 import CartSkeleton from "src/components/skeletons/CartSkeleton.vue";
-import { formatCurrency } from "src/helpers/utils";
-import { useCartStore } from "src/stores/cart-store";
-import { usePurchaseStore } from "src/stores/purchase-store";
-import { computed, onMounted, ref } from "vue";
+import { formatCurrency } from "@/helpers/utils";
+import { useCartStore } from "@/stores/cart-store";
+import { usePurchaseStore } from "@/stores/purchase-store";
+
 import { useRouter } from "vue-router";
 const purchaseStore = usePurchaseStore();
 const router = useRouter();

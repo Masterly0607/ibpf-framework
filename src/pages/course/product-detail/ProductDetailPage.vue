@@ -25,7 +25,7 @@
                     </div>
 
                     <div class="row q-col-gutter-md q-mt-md">
-                      <div class="col-6 col-md-3">
+                      <div class="col-12 col-md-4 q-gutter-md">
                         <item-info
                           :title="product.product_type.title"
                           caption="Course Type"
@@ -39,7 +39,7 @@
                         />
                       </div>
 
-                      <div class="col-6 col-md-3">
+                      <div class="col-12 col-md-4 q-gutter-md">
                         <item-info
                           :title="product.duration_text"
                           caption="Duration"
@@ -75,13 +75,15 @@
       </div>
 
       <!-- IBF Container -->
-      <div class="ibf-container-1400 q-pa-md">
+      <div class="ibf-container-1400 q-pa-md q-gutter-y-lg">
         <div class="row q-col-gutter-lg">
           <!-- Price Option -->
           <div class="col-12 col-md-4 order-md-last">
             <PriceOption
-              :payload="product.price_options"
+              :priceOptionItems="product.price_options"
               :price="product.price"
+              :is-in-cart="checkInCart(product.id)"
+              :product-id="product.id"
             />
           </div>
           <!-- About This Course -->
@@ -97,13 +99,13 @@
         <PromotionProduct />
       </div>
 
-      <preview-json :list="product"></preview-json>
+      <!--<preview-json :list="product"></preview-json>-->
     </div>
   </q-page>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import ProductDetailSkeleton from "./components/ProductDetailSkeleton.vue";
 import AboutProduct from "../components/AboutProduct.vue";
 import RelatedProduct from "../components/RelatedProduct.vue";
@@ -112,12 +114,14 @@ import PromotionProduct from "../components/PromotionProduct.vue";
 import { useProductStore } from "src/stores/product-store";
 import { useRoute } from "vue-router";
 import { useQuasar } from "quasar";
+import { useCartStore } from "src/stores/cart-store";
 const productStore = useProductStore();
 const product = ref(null);
 const route = useRoute();
 const isLoading = ref(true);
 const $q = useQuasar();
 
+// check if the product is stored in product store. Otherwise, fetch it from server
 const checkProductAvailable = async () => {
   if (!productStore.isOneProduct) {
     const product_id = route.params.id;
@@ -131,6 +135,15 @@ const checkProductAvailable = async () => {
       isLoading.value = false;
     }, 2000);
   }
+};
+
+// check if the product is already in cart
+
+const cartStore = useCartStore();
+const cartItemsIds = computed(() => cartStore.getCartItemsIds || []);
+
+const checkInCart = (id) => {
+  return cartItemsIds.value.includes(id);
 };
 
 onMounted(() => {

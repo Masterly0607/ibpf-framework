@@ -88,7 +88,7 @@ const routes = [
       // ----------- edit profile ------------
       {
         path: "edit-profile",
-        component: () => import("src/layouts/ReturnLayout.vue"),
+        component: () => import("layouts/ReturnLayout.vue"),
         children: [
           {
             path: "",
@@ -114,18 +114,19 @@ const routes = [
               {
                 path: "",
                 name: "cart-page",
-                component: () => import("src/pages/course/CartPage.vue"),
+                component: () => import("pages/course/cart/CartPage.vue"),
               },
             ],
           },
           {
             path: "check-out",
-            component: () => import("src/layouts/ReturnLayout.vue"),
+            component: () => import("layouts/ReturnLayout.vue"),
             children: [
               {
                 path: "",
                 name: "check-out-page",
-                component: () => import("pages/course/CheckOutPage.vue"),
+                component: () =>
+                  import("pages/course/checkout/CheckOutPage.vue"),
               },
             ],
           },
