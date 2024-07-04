@@ -176,21 +176,21 @@
                           <q-item-label
                             class="ibf-h10 text-grey-9 text-weight-medium"
                           >
-                            {{ item.product.title }}
+                            {{ item.course.title }}
                           </q-item-label>
                           <q-item-label
                             caption
                             lines="2"
                             v-if="selectedPaymentTypeOption === 2"
                           >
-                            {{ item.product.description }}
+                            {{ item.course.description }}
                           </q-item-label>
 
                           <q-item-label caption v-else>
                             <div class="row q-gutter-md">
                               <div
                                 v-for="(priceOption, priceOptinIndex) in item
-                                  .product.price_options"
+                                  .course.price_options"
                                 :key="priceOptinIndex"
                               >
                                 {{ `${priceOption.title}:` }}
@@ -205,24 +205,24 @@
                           </q-item-label>
                         </q-item-section>
 
-                        <q-item-section side top v-if="item.product.is_free">
+                        <q-item-section side top v-if="item.course.is_free">
                           <q-item-label class="text-teal"> Free </q-item-label>
                         </q-item-section>
 
                         <q-item-section side top v-else>
-                          <div v-if="item.product.isDiscount">
+                          <div v-if="item.course.isDiscount">
                             <q-item-label caption>
                               <price-original
-                                :currency="item.product.currency"
-                                :price="item.product.after_discount"
+                                :currency="item.course.currency"
+                                :price="item.course.after_discount"
                                 :isDecimals="false"
                               ></price-original>
                             </q-item-label>
 
                             <q-item-label caption>
                               <price-discount
-                                :currency="item.product.currency"
-                                :price="item.product.price"
+                                :currency="item.course.currency"
+                                :price="item.course.price"
                                 :isDecimals="false"
                               />
                             </q-item-label>
@@ -231,8 +231,8 @@
                           <div v-else>
                             <q-item-label caption>
                               <price-original
-                                :currency="item.product.currency"
-                                :price="item.product.price"
+                                :currency="item.course.currency"
+                                :price="item.course.price"
                                 :isDecimals="false"
                               ></price-original>
                             </q-item-label>
@@ -441,11 +441,11 @@ const subTotalCost = computed(() => {
   return checkOutItems.value.reduce((acc, order) => {
     return (
       acc +
-      (order.product.is_free
+      (order.course.is_free
         ? 0
-        : order.product.isDiscount
-        ? order.product.after_discount
-        : order.product.price)
+        : order.course.isDiscount
+        ? order.course.after_discount
+        : order.course.price)
     );
   }, 0);
 });

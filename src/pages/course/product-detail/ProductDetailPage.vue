@@ -7,13 +7,19 @@
       <div>
         <div class="q-gutter-md">
           <div class="row justify-between">
-            <q-parallax :src="product.thumbnail" :height="450" :speed="0.5">
-              <div class="absolute-full">
+            <q-parallax
+              :src="product.thumbnail"
+              :height="$q.screen.gt.sm ? 420 : 340"
+              :speed="0.5"
+            >
+              <div
+                class="absolute-full q-px-lg q-py-lg"
+                style="background: rgba(134, 24, 39, 0.9)"
+              >
                 <div
-                  style="background: rgba(134, 24, 39, 0.9)"
-                  class="row justify-center items-start full-height"
+                  class="row justify-center items-start full-height ibf-container-1200"
                 >
-                  <div class="col-12 col-md-8 q-pa-xl">
+                  <div class="col-12 col-md-8">
                     <div class="ibf-h3 q-mb-md text-weight-medium text-white">
                       {{ product.title }}
                     </div>
@@ -50,7 +56,7 @@
                   </div>
 
                   <!-- course image & subtitle -->
-                  <div class="col-12 col-md-4 q-pa-xl">
+                  <div class="col-12 col-md-4" v-if="$q.screen.gt.sm">
                     <q-card-section align="center">
                       <q-img
                         :src="product.thumbnail"
@@ -84,11 +90,11 @@
           </div>
         </div>
 
+        <!-- Related Course -->
+        <RelatedProduct :product-id="product.id" />
+
         <!-- Promotion Bonner -->
         <PromotionProduct />
-
-        <!-- Related Course -->
-        <RelatedProduct />
       </div>
 
       <preview-json :list="product"></preview-json>
@@ -105,10 +111,12 @@ import PriceOption from "../components/PriceOption.vue";
 import PromotionProduct from "../components/PromotionProduct.vue";
 import { useProductStore } from "src/stores/product-store";
 import { useRoute } from "vue-router";
+import { useQuasar } from "quasar";
 const productStore = useProductStore();
 const product = ref(null);
 const route = useRoute();
 const isLoading = ref(true);
+const $q = useQuasar();
 
 const checkProductAvailable = async () => {
   if (!productStore.isOneProduct) {
