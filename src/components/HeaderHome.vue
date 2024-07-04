@@ -15,8 +15,9 @@
           <div v-for="(menuItem, index) in headerMenuItems" :key="index">
             <q-btn
               flat
+              :key="menuItem.router"
               square
-              @click="goTo(menuItem.router)"
+              :to="{ name: menuItem.router }"
               :label="menuItem.title"
             />
           </div>
@@ -301,3 +302,10 @@ function goTo(routeName) {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.active-link {
+  font-weight: bold;
+  color: #42b983;
+}
+</style>
