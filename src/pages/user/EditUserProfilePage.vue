@@ -251,7 +251,7 @@
       </div>
 
       <!--  -->
-      <!-- <preview-json :list="userStore"></preview-json> -->
+      <preview-json :list="user"></preview-json>
     </q-page-container>
   </q-page>
 </template>
@@ -283,10 +283,6 @@ const handleFileAdded = (files) => {
     reader.readAsDataURL(file);
   }
 };
-// app.use(QuasarPlugin, { config: {} });
-// app.mount("#q-app");
-
-// const url = ref("https://cdn.quasar.dev/img/mountains.jpg");
 
 // const refresh = () => {
 //   console.log("Refreshed");

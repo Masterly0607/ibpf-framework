@@ -1,7 +1,11 @@
 <template>
   <q-header bordered :class="[bgColor, textColor]">
     <q-toolbar>
-      <q-toolbar-title class="q-py-xs">
+      <q-toolbar-title
+        class="q-py-xs"
+        style="cursor: pointer"
+        @click="gotoHomepage"
+      >
         <img
           alt="Quasar logo"
           src="~assets/images/ibf-logo.svg"
@@ -251,6 +255,10 @@ const props = defineProps({
     default: "text-dark",
   },
 });
+
+const gotoHomepage = () => {
+  router.push({ name: "home-page" });
+};
 
 const headerMenuItems = ref([
   {
