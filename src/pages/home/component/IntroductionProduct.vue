@@ -2,7 +2,7 @@
   <div class="q-py-lg">
     <!-- ITB Title -->
     <div class="ibf-h3 text-weight-medium" align="center">
-      Instistute of Banking & Finance (IBF)
+      Institute of Banking & Finance (IBF)
       <q-separator
         size="5px"
         spaced="10px"
@@ -16,10 +16,16 @@
       your greatest asset.
     </div>
 
-    <div class="row q-col-gutter-sm q-pt-md">
+    <div class="row q-col-gutter-md q-pt-md">
       <!-- image -->
       <div class="col-12 col-md-4">
-        <q-img fit="fill" src="~assets/images/webinar.png" width="360px" />
+        <q-img
+          :ratio="1"
+          fit="fill"
+          src="~assets/images/webinar.png"
+          width="100%"
+          height="380px"
+        />
       </div>
       <div class="col-12 col-md-8">
         <div class="ibf-h10 text-grey-8">

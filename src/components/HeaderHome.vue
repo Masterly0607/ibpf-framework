@@ -14,16 +14,27 @@
       </q-toolbar-title>
 
       <!-- Desktop Menu -->
-      <div v-if="Screen.gt.sm" class="row q-gutter-md">
+      <div v-if="Screen.gt.sm" class="row q-gutter-md items-center">
         <div class="row q-gutter-x-md">
           <div v-for="(menuItem, index) in headerMenuItems" :key="index">
-            <q-btn
+            <q-item
+              clickable
+              active-class="q-item-active-class"
+              exact
+              :to="{ name: menuItem.router }"
+              class="text-grey-8"
+            >
+              <q-item-section>
+                <q-item-label>{{ menuItem.title }}</q-item-label>
+              </q-item-section>
+            </q-item>
+            <!--<q-btn
               flat
               :key="menuItem.router"
               square
               :to="{ name: menuItem.router }"
               :label="menuItem.title"
-            />
+            />-->
           </div>
         </div>
 
@@ -107,16 +118,6 @@
 
       <!-- Dropdown Menu for Mobile -->
       <div v-else>
-        <!--<q-btn
-          flat
-          dense
-          round
-          class="q-mr-auto"
-          color="primary"
-          icon="account_circle"
-          aria-label="profile"
-          :to="{ name: 'dashboard-page' }"
-        />-->
         <q-btn flat round icon="menu" class="q-ml-auto" ref="dropdownMenu">
           <q-menu square fit anchor="top right" self="top right">
             <q-list>
@@ -124,8 +125,11 @@
                 <q-item
                   v-if="menuItem.isActive"
                   clickable
+                  exact
+                  class="text-grey-7"
+                  active-class="q-item-active-mobile-class"
                   v-close-popup
-                  @click="goTo(menuItem.router)"
+                  :to="{ name: menuItem.router }"
                 >
                   <q-item-section side>
                     <q-icon :name="menuItem.icon" />
@@ -286,7 +290,7 @@ const headerMenuItems = ref([
     title: "Assessment",
     icon: "mdi-gauge",
     isActive: true,
-    router: "",
+    router: "skill-assessment",
   },
 
   {
@@ -315,5 +319,18 @@ function goTo(routeName) {
 .active-link {
   font-weight: bold;
   color: #42b983;
+}
+
+.q-item-active-class {
+  border-bottom: 3px solid $primary;
+  transition: 0.1s;
+  color: $primary !important;
+  font-weight: 600;
+}
+
+.q-item-active-mobile-class {
+  transition: 0.1s;
+  color: $primary !important;
+  font-weight: 600;
 }
 </style>

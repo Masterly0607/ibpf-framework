@@ -1,5 +1,7 @@
 import { defineStore } from "pinia";
 import { productAPI } from "src/boot/axios";
+import { useUserStore } from "./user-store";
+import { Notify } from "quasar";
 
 export const useCartStore = defineStore("cart", {
   state: () => ({
@@ -20,6 +22,16 @@ export const useCartStore = defineStore("cart", {
     async serverFetchCartItems() {
       const now = Date.now();
       const cacheDuration = 1000 * 60 * 15; // 15 minutes
+      const userStore = useUserStore();
+
+      if (!userStore.isAuthenticated) {
+        Notify.create({
+          message: "You must be logged in to perform this action",
+          color: "negative",
+          position: "top-right",
+        });
+        return;
+      }
 
       if (!this.lastCartFetch || now - this.lastCartFetch > cacheDuration) {
         try {
@@ -56,6 +68,16 @@ export const useCartStore = defineStore("cart", {
       }
     },
     async serverAddToCart(id) {
+      const userStore = useUserStore();
+
+      if (!userStore.isAuthenticated) {
+        Notify.create({
+          message: "You must be logged in to perform this action",
+          color: "negative",
+          position: "top-right",
+        });
+        return;
+      }
       try {
         const res = await productAPI.post(
           "/api/v1/user/product/add-to-cart/" + id
@@ -77,7 +99,16 @@ export const useCartStore = defineStore("cart", {
     },
 
     async serverRemoveItem(payload) {
-      console.log(payload);
+      const userStore = useUserStore();
+
+      if (!userStore.isAuthenticated) {
+        Notify.create({
+          message: "You must be logged in to perform this action",
+          color: "negative",
+          position: "top-right",
+        });
+        return;
+      }
       try {
         const res = await productAPI.delete(
           "/api/v1/user/delete/item-in-cart/" + payload.orderId
