@@ -5,6 +5,7 @@
         <q-card-section class="q-pa-none">
           <q-heading-1
             title="Cart"
+            subtitle="All items to checkout"
             icon="mdi-cart-variant"
             showLine="true"
           ></q-heading-1>
@@ -18,8 +19,7 @@
 
             <section v-else id="cart-item" class="column q-gutter-md q-mt-sm">
               <q-card
-                bordered
-                flat
+                class="ibf-card-2"
                 square
                 v-for="(cartItem, itemIndex) in cartItems"
                 :key="itemIndex"
@@ -34,12 +34,16 @@
                       />
                     </q-item-section>
                     <q-item-section>
-                      <div class="row q-gutter-x-sm">
-                        <div class="col-12 col-md-2">
+                      <div class="row q-gutter-sm">
+                        <div class="col-12 col-md-2 text-center">
                           <img
-                            style="height: 130px; width: 95%; object-fit: cover"
+                            style="
+                              height: 150px;
+                              width: 150px;
+                              object-fit: cover;
+                            "
                             class="rounded-borders"
-                            src="https://cdn.quasar.dev/img/parallax2.jpg"
+                            :src="cartItem.course.thumbnail"
                           />
                         </div>
 
@@ -47,42 +51,62 @@
                           <q-item-label
                             class="ibf-h9 text-weight-medium ellipsis-2-lines"
                           >
-                            {{ cartItem.product.title }}
+                            {{ cartItem.course.title }}
                           </q-item-label>
 
-                          <q-item-label caption lines="2">
-                            {{ cartItem.product.description }}
-                          </q-item-label>
+                          <div class="row q-gutter-x-md q-mt-md">
+                            <div class="row items-center">
+                              <q-icon
+                                color="grey-7"
+                                size="20px"
+                                name="mdi-earth"
+                              />
+                              <div
+                                class="q-ml-sm text-grey-8 ibf-h12 text-weight-light"
+                              >
+                                {{ cartItem.course.product_type.title }}
+                              </div>
+                            </div>
 
-                          <!--<div class="q-my-md row q-gutter-x-sm">
-                            <q-badge
-                              color="red"
-                              text-color="white"
-                              :label="cartItem.product.type_id"
-                            />
-                            <q-badge
-                              color="red"
-                              text-color="white"
-                              :label="cartItem.product.coreArea_id"
-                            />
-                          </div>-->
+                            <div class="row items-center">
+                              <q-icon
+                                color="grey-7"
+                                size="20px"
+                                name="mdi-checkbox-blank-badge-outline"
+                              />
+                              <div
+                                class="q-ml-sm text-grey-8 ibf-h12 text-weight-light"
+                              >
+                                {{ cartItem.course.core_area.title }}
+                              </div>
+                            </div>
+
+                            <div>
+                              <q-badge
+                                v-if="cartItem.course.is_free"
+                                color="secondary"
+                                text-color="white"
+                                label="Free"
+                              />
+                            </div>
+                          </div>
 
                           <div
-                            class="q-mt-md ibf-h9 text-teal"
-                            v-if="cartItem.product.is_free"
+                            class="q-mt-lg ibf-h9 text-teal"
+                            v-if="cartItem.course.is_free"
                           >
                             Free
                           </div>
 
-                          <div class="q-mt-md" v-else>
+                          <div class="q-mt-lg" v-else>
                             <price-original
-                              :currency="cartItem.product.currency"
-                              :price="cartItem.product.price"
+                              :currency="cartItem.course.currency"
+                              :price="cartItem.course.price"
                               :is-decimals="false"
                             />
 
                             <div
-                              v-if="cartItem.product.isDiscount"
+                              v-if="cartItem.course.isDiscount"
                               class="text-red text-weight-medium ibf-h11"
                             >
                               <span
@@ -91,8 +115,8 @@
                                 After discount:
                               </span>
                               {{
-                                `${cartItem.product.currency} ${formatCurrency(
-                                  cartItem.product.after_discount,
+                                `${cartItem.course.currency} ${formatCurrency(
+                                  cartItem.course.after_discount,
                                   false
                                 )}`
                               }}
@@ -102,10 +126,10 @@
                       </div>
                     </q-item-section>
                     <q-item-section side top>
-                      <q-badge outline color="grey-6" text-color="black">
+                      <div class="q-px-sm">
                         <q-icon name="close" size="14px" class="q-mr-xs" />
                         1
-                      </q-badge>
+                      </div>
 
                       <q-space />
 
@@ -186,17 +210,20 @@
           </q-card>
         </q-footer>
       </q-card>
+
+      <!--<preview-json :list="cartItems"></preview-json>-->
     </div>
   </q-page>
 </template>
 
 <script setup>
+import { computed, onMounted, ref } from "vue";
 import EmptyCart from "./components/EmptyCart.vue";
 import CartSkeleton from "src/components/skeletons/CartSkeleton.vue";
-import { formatCurrency } from "src/helpers/utils";
-import { useCartStore } from "src/stores/cart-store";
-import { usePurchaseStore } from "src/stores/purchase-store";
-import { computed, onMounted, ref } from "vue";
+import { formatCurrency } from "@/helpers/utils";
+import { useCartStore } from "@/stores/cart-store";
+import { usePurchaseStore } from "@/stores/purchase-store";
+
 import { useRouter } from "vue-router";
 const purchaseStore = usePurchaseStore();
 const router = useRouter();
@@ -226,11 +253,11 @@ const totalPrice = computed(() => {
   return selectedItems.value.reduce((acc, order) => {
     return (
       acc +
-      (order.product.is_free
+      (order.course.is_free
         ? 0
-        : order.product.isDiscount
-        ? order.product.after_discount
-        : order.product.price)
+        : order.course.isDiscount
+        ? order.course.after_discount
+        : order.course.price)
     );
   }, 0);
 });

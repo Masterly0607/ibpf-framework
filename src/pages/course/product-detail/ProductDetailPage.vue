@@ -7,19 +7,25 @@
       <div>
         <div class="q-gutter-md">
           <div class="row justify-between">
-            <q-parallax :src="product.thumbnail" :height="450" :speed="0.5">
-              <div class="absolute-full">
+            <q-parallax
+              :src="product.thumbnail"
+              :height="$q.screen.gt.sm ? 420 : 340"
+              :speed="0.5"
+            >
+              <div
+                class="absolute-full q-px-lg q-py-lg"
+                style="background: rgba(134, 24, 39, 0.9)"
+              >
                 <div
-                  style="background: rgba(134, 24, 39, 0.9)"
-                  class="row justify-center items-start full-height"
+                  class="row justify-center items-start full-height ibf-container-1200"
                 >
-                  <div class="col-12 col-md-8 q-pa-xl">
+                  <div class="col-12 col-md-8">
                     <div class="ibf-h3 q-mb-md text-weight-medium text-white">
                       {{ product.title }}
                     </div>
 
                     <div class="row q-col-gutter-md q-mt-md">
-                      <div class="col-6 col-md-3">
+                      <div class="col-12 col-md-4 q-gutter-md">
                         <item-info
                           :title="product.product_type.title"
                           caption="Course Type"
@@ -33,7 +39,7 @@
                         />
                       </div>
 
-                      <div class="col-6 col-md-3">
+                      <div class="col-12 col-md-4 q-gutter-md">
                         <item-info
                           :title="product.duration_text"
                           caption="Duration"
@@ -50,7 +56,7 @@
                   </div>
 
                   <!-- course image & subtitle -->
-                  <div class="col-12 col-md-4 q-pa-xl">
+                  <div class="col-12 col-md-4" v-if="$q.screen.gt.sm">
                     <q-card-section align="center">
                       <q-img
                         :src="product.thumbnail"
@@ -69,13 +75,15 @@
       </div>
 
       <!-- IBF Container -->
-      <div class="ibf-container-1400 q-pa-md">
+      <div class="ibf-container-1400 q-pa-md q-gutter-y-lg">
         <div class="row q-col-gutter-lg">
           <!-- Price Option -->
           <div class="col-12 col-md-4 order-md-last">
             <PriceOption
-              :payload="product.price_options"
+              :priceOptionItems="product.price_options"
               :price="product.price"
+              :is-in-cart="checkInCart(product.id)"
+              :product-id="product.id"
             />
           </div>
           <!-- About This Course -->
@@ -84,20 +92,20 @@
           </div>
         </div>
 
+        <!-- Related Course -->
+        <RelatedProduct :product-id="product.id" />
+
         <!-- Promotion Bonner -->
         <PromotionProduct />
-
-        <!-- Related Course -->
-        <RelatedProduct />
       </div>
 
-      <preview-json :list="product"></preview-json>
+      <!--<preview-json :list="product"></preview-json>-->
     </div>
   </q-page>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import ProductDetailSkeleton from "./components/ProductDetailSkeleton.vue";
 import AboutProduct from "../components/AboutProduct.vue";
 import RelatedProduct from "../components/RelatedProduct.vue";
@@ -105,11 +113,15 @@ import PriceOption from "../components/PriceOption.vue";
 import PromotionProduct from "../components/PromotionProduct.vue";
 import { useProductStore } from "src/stores/product-store";
 import { useRoute } from "vue-router";
+import { useQuasar } from "quasar";
+import { useCartStore } from "src/stores/cart-store";
 const productStore = useProductStore();
 const product = ref(null);
 const route = useRoute();
 const isLoading = ref(true);
+const $q = useQuasar();
 
+// check if the product is stored in product store. Otherwise, fetch it from server
 const checkProductAvailable = async () => {
   if (!productStore.isOneProduct) {
     const product_id = route.params.id;
@@ -123,6 +135,15 @@ const checkProductAvailable = async () => {
       isLoading.value = false;
     }, 2000);
   }
+};
+
+// check if the product is already in cart
+
+const cartStore = useCartStore();
+const cartItemsIds = computed(() => cartStore.getCartItemsIds || []);
+
+const checkInCart = (id) => {
+  return cartItemsIds.value.includes(id);
 };
 
 onMounted(() => {

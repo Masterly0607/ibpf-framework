@@ -1,97 +1,129 @@
 <template>
-  <div id="related-product">
-    <div class="q-py-sm ibf-h8 text-weight-medium">Related Course</div>
+  <transition name="q-transition--scale">
+    <div id="related-product" class="q-mt-md" v-if="!isLoading">
+      <div class="ibf-h7 text-weight-medium">You may also like</div>
 
-    <div>
-      <q-carousel
-        v-model="slide"
-        transition-prev="slide-right"
-        transition-next="slide-left"
-        animated
-        control-color="teal"
-        navigation
-        arrows
-        height="350px"
-        class="bg-grey-5 shadow-2 rounded-borders q-pa-sm q-py-xl"
-      >
-        <q-carousel-slide
-          :name="index + 1"
-          v-for="(slide, index) in slides"
-          :key="index"
-          class="no-wrap"
+      <q-separator spaced />
+
+      <div class="q-mt-md">
+        <q-carousel
+          ref="carousel"
+          v-model="slide"
+          transition-prev="slide-right"
+          transition-next="slide-left"
+          animated
+          arrows
+          swipeable
+          navigation
+          padding
+          control-type="outline"
+          infinite
+          control-color="primary"
+          height="auto"
+          class="bg-grey-1"
         >
-          <div class="row fit justify-start q-gutter-md q-col-gutter no-wrap">
-            <q-img
-              v-for="(image, imgIndex) in slide.images"
-              :key="imgIndex"
-              :src="image.src"
-              spinner-color="white"
-              style="height: 200px; max-width: 300px"
-              img-class="my-custom-image"
-              class="rounded-borders col-3 full-height"
-            >
-              <div class="absolute-bottom text-subtitle1 text-center">
-                Caption
-              </div>
-            </q-img>
-          </div>
-        </q-carousel-slide>
-      </q-carousel>
-    </div>
+          <q-carousel-slide
+            v-for="(chunk, index) in chunkedProducts"
+            :name="index + 1"
+            :key="index"
+            class="no-wrap"
+          >
+            <div class="row fit justify-around q-gutter-md no-wrap q-mb-md">
+              <q-card
+                v-for="product in chunk"
+                :key="product.id"
+                style="width: 320px; height: 400px"
+                square
+                class="ibf-card-2"
+              >
+                <q-card-section class="q-pa-none">
+                  <q-img
+                    :ratio="1"
+                    :src="product.thumbnail"
+                    :alt="product.title"
+                  />
+                </q-card-section>
+                <q-card-section>
+                  <div class="ibf-h10 text-weight-medium ellipsis-2-lines">
+                    {{ product.title }}
+                  </div>
+                </q-card-section>
+              </q-card>
+            </div>
+          </q-carousel-slide>
 
-    <!-- <preview-json :list="searchProductData"></preview-json> -->
-  </div>
+          <template v-slot:navigation-icon="{ active, btnProps, onClick }">
+            <q-btn
+              v-if="active"
+              size="12px"
+              :icon="btnProps.icon"
+              color="primary"
+              flat
+              round
+              dense
+              @click="onClick"
+            />
+            <q-btn
+              v-else
+              size="12px"
+              icon="radio_button_unchecked"
+              color="grey"
+              flat
+              round
+              dense
+              @click="onClick"
+            />
+          </template>
+        </q-carousel>
+      </div>
+
+      <!-- <preview-json :list="searchProductData"></preview-json> -->
+    </div>
+  </transition>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { productAPI } from "src/boot/axios";
+import { useQuasar } from "quasar";
+const $q = useQuasar();
 
-const data = ref(null);
-const loading = ref(false);
-const error = ref(null);
+const props = defineProps({
+  productId: {
+    type: [Number, String],
+    default: null,
+  },
+});
+const relatedProducts = ref([]);
+const isLoading = ref(true);
 const slide = ref(1);
+const carousel = ref(null);
 
 const fetchData = async () => {
-  loading.value = true;
-  error.value = null;
+  if (props.productId === null) return;
+
   try {
-    const response = await productAPI.get("/api/v1/user/product/show/" + 30);
-    data.value = response.data;
-    console.log(data.value);
+    const response = await productAPI.get(
+      "/api/v1/user/product/show/" + props.productId
+    );
+    if (!response.data.status) return;
+    relatedProducts.value = response.data.data.related_products;
+
+    if (relatedProducts.value.length < 1) return;
+    isLoading.value = false;
   } catch (err) {
-    error.value = err;
-  } finally {
-    loading.value = false;
+    console.log(err.message());
   }
 };
 
+const chunkedProducts = computed(() => {
+  const chunkSize = $q.screen.gt.md ? 4 : $q.screen.gt.sm ? 3 : 1; // Number of cards to show per slide
+  const chunks = [];
+  for (let i = 0; i < relatedProducts.value.length; i += chunkSize) {
+    chunks.push(relatedProducts.value.slice(i, i + chunkSize));
+  }
+  return chunks;
+});
+
 onMounted(fetchData);
-
-const slides = [
-  {
-    images: [
-      { src: "https://cdn.quasar.dev/img/parallax2.jpg" },
-      { src: "https://cdn.quasar.dev/img/parallax2.jpg" },
-      { src: "https://cdn.quasar.dev/img/parallax1.jpg" },
-      { src: "https://cdn.quasar.dev/img/parallax1.jpg" },
-    ],
-  },
-  {
-    images: [
-      { src: "https://cdn.quasar.dev/img/parallax2.jpg" },
-      { src: "https://cdn.quasar.dev/img/parallax2.jpg" },
-      { src: "https://cdn.quasar.dev/img/parallax1.jpg" },
-      { src: "https://cdn.quasar.dev/img/parallax1.jpg" },
-    ],
-  },
-];
-
-// const searchProductData = computed(() => productStore.getProductList);
-// const fitModes = ["cover", "cover", "cover", "none"];
 </script>
-
-<style lang="sass" scoped>
-.my-custom-image
-  filter: blur(1px) sepia()
-</style>

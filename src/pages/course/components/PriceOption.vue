@@ -13,10 +13,10 @@
           Price Options
         </div>
 
-        <div v-for="(item, index) in payload" :key="index">
+        <div v-for="(item, index) in priceOptionItems" :key="index">
           <q-item class="q-px-none">
             <q-item-section side top>
-              <q-icon size="md" color="primary" name="mdi-library" />
+              <q-icon size="md" color="primary" name="mdi-wallet-bifold" />
             </q-item-section>
             <q-item-section>
               <q-item-label>
@@ -26,7 +26,7 @@
               <q-item-label caption lines="2">
                 {{ item.title }} Member
               </q-item-label>
-              <q-separator spaced v-if="index < payload.length - 1" />
+              <q-separator spaced v-if="index < priceOptionItems.length - 1" />
             </q-item-section>
           </q-item>
         </div>
@@ -38,6 +38,18 @@
         <div class="row">
           <div class="col">
             <q-btn
+              v-if="isInCart"
+              no-caps
+              square
+              size="lg"
+              icon="mdi-cart-check"
+              style="width: 98%"
+              color="primary"
+              label="Checkout"
+              :to="{ name: 'cart-page' }"
+            />
+            <q-btn
+              v-else
               no-caps
               square
               size="lg"
@@ -45,6 +57,7 @@
               style="width: 98%"
               color="primary"
               label="Add to cart"
+              @click="addToCarts(productId)"
             />
           </div>
 
@@ -72,8 +85,10 @@
 </template>
 
 <script setup>
+import { useCartStore } from "src/stores/cart-store";
+
 const props = defineProps({
-  payload: {
+  priceOptionItems: {
     type: [Array, null],
   },
 
@@ -81,5 +96,18 @@ const props = defineProps({
     type: Number,
     default: 0,
   },
+  isInCart: {
+    type: Boolean,
+    default: false,
+  },
+  productId: {
+    type: [Number, String, null],
+    default: null,
+  },
 });
+const cartStore = useCartStore();
+
+const addToCarts = async (id) => {
+  await cartStore.serverAddToCart(id);
+};
 </script>
