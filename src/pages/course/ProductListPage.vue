@@ -29,11 +29,11 @@
         <div>
           <div class="row justify-between items-center">
             <div class="ibf-h8 text-weight-bold">New & Featured Courses</div>
-            <div>
+            <div class="q-gutter-x-xs">
               <q-btn
                 flat
                 dense
-                :color="isGrid ? 'primary' : 'grey-7'"
+                :color="isGrid ? 'primary' : 'grey-6'"
                 icon="grid_view"
                 aria-label="Grid"
                 @click="onChangeView"
@@ -41,7 +41,7 @@
               <q-btn
                 flat
                 dense
-                :color="isGrid ? 'grey-7' : 'primary'"
+                :color="isGrid ? 'grey-6' : 'primary'"
                 icon="view_list"
                 aria-label="List"
                 @click="onChangeView"
@@ -50,6 +50,22 @@
           </div>
 
           <q-separator spaced />
+
+          <div class="flex justify-end items-center">
+            <q-select
+              label="Sort By"
+              transition-show="jump-up"
+              transition-hide="jump-up"
+              dense
+              borderless
+              v-model="sortKey"
+              @update:model-value="searchProduct()"
+              :options="sortKeyOptions"
+              map-options
+              emit-value
+              style="width: 150px"
+            />
+          </div>
         </div>
       </div>
 
@@ -96,8 +112,7 @@ import ProductCardSkeleton from "src/components/skeletons/ProductCardSkeleton.vu
 import FilterProduct from "./components/FilterProduct.vue";
 import { ref, onMounted, computed } from "vue";
 import { useProductStore } from "src/stores/product-store";
-import { useRouter } from "vue-router";
-const router = useRouter();
+
 const productStore = useProductStore();
 const isLoading = ref(true);
 const submitResult = ref([]);
@@ -108,6 +123,27 @@ const searchMeta = ref({
   current_page: 1,
   total_pages: null,
 });
+
+const sortKey = ref("newest");
+const sortKeyOptions = ref([
+  {
+    label: "Newest",
+    value: "newest",
+  },
+
+  {
+    label: "Oldest",
+    value: "oldest",
+  },
+  {
+    label: "Lowest Price",
+    value: "lowest_price",
+  },
+  {
+    label: "Highest Price",
+    value: "highest_price",
+  },
+]);
 
 const isGrid = ref(true);
 
@@ -137,6 +173,7 @@ const searchProduct = async (filter) => {
       core_area_id: filter ? filter.core_area_id : [],
       rowsPerPage: searchMeta.value.per_page,
       page: 1,
+      sort: sortKey.value,
     });
 
     console.log(response.data);

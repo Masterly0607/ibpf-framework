@@ -1,19 +1,19 @@
 <template>
   <q-page>
-    <div class="row justify-between">
+    <div>
       <!-- background image for home page -->
-      <q-parallax
+      <home-carousel />
+      <!--<q-parallax
         src="~assets/images/ibf-certificate.png"
-        height="500"
-        :ratio="1"
-        speed="0.5"
+        :height="500"
+        :speed="0.5"
       >
         <div class="absolute-full">
           <div
             style="background: rgba(134, 24, 40, 0.4)"
             class="row justify-center items-start full-height"
           >
-            <!-- subtitle -->
+           
             <div class="col-12 col-md-8 q-pa-xl">
               <div class="ibf-h3 q-mb-md text-weight-medium text-white">
                 Welcome to IBF
@@ -21,15 +21,7 @@
             </div>
           </div>
         </div>
-      </q-parallax>
-
-      <!-- <img
-        alt="IBF logo"
-        src="https://cdn.quasar.dev/img/mountains.jpg"
-        width="100%"
-        :height="450"
-        :speed="0.5"
-      /> -->
+      </q-parallax>-->
     </div>
     <!-- IBF Container -->
     <div class="ibf-container-1200 q-pa-md">
@@ -116,11 +108,9 @@
 </template>
 
 <script setup>
+import HomeCarousel from "./component/HomeCarousel.vue";
 import { useRouter } from "vue-router";
-import { useProductStore } from "src/stores/product-store";
 import IntroductionProduct from "./component/IntroductionProduct.vue";
-
-const productStore = useProductStore();
 const router = useRouter();
 
 const url = "https://www.ibfkh.org/images/alter-ibf-image.jpg";

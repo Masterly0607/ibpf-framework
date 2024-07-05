@@ -25,6 +25,7 @@ export const useProductStore = defineStore("product", {
               core_area_id: payload.core_area_id,
               rowsPerPage: payload.rowsPerPage,
               page: payload.page,
+              sort: payload.sort,
             },
           }
         );
@@ -57,6 +58,10 @@ export const useProductStore = defineStore("product", {
 
     storeOneProduct(payload) {
       this.oneProduct = payload;
+    },
+
+    resetOneProduct() {
+      this.oneProduct = {};
     },
 
     async serverFetchOneProduct(product_id) {

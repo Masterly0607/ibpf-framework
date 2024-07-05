@@ -32,9 +32,10 @@
               <q-card
                 v-for="product in chunk"
                 :key="product.id"
-                style="width: 320px; height: 400px"
+                style="width: 320px; height: 400px; cursor: pointer"
                 square
                 class="ibf-card-2"
+                @click="viewProductDetail(product)"
               >
                 <q-card-section class="q-pa-none">
                   <q-img
@@ -86,8 +87,11 @@
 import { ref, onMounted, computed } from "vue";
 import { productAPI } from "src/boot/axios";
 import { useQuasar } from "quasar";
+import { useRouter } from "vue-router";
+import { useProductStore } from "src/stores/product-store";
+const productStore = useProductStore();
 const $q = useQuasar();
-
+const router = useRouter();
 const props = defineProps({
   productId: {
     type: [Number, String],
@@ -124,6 +128,16 @@ const chunkedProducts = computed(() => {
   }
   return chunks;
 });
+
+const viewProductDetail = (product) => {
+  //  console.log(product);
+  //  productStore.storeOneProduct(product);
+  productStore.resetOneProduct();
+  router.push({
+    name: "product-detail-page",
+    params: { productCode: product.product_code, id: product.id },
+  });
+};
 
 onMounted(fetchData);
 </script>

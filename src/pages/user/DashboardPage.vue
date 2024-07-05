@@ -9,7 +9,7 @@
     <q-separator />
 
     <div class="q-py-sm">
-      <q-tab-panels animated v-model="tab">
+      <q-tab-panels animated v-model="tab" class="bg-transparent">
         <!-- tab one -->
         <q-tab-panel name="TabOne">
           <div class="row q-col-gutter-lg">

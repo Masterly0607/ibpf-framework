@@ -105,7 +105,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from "vue";
+import { ref, computed, watchEffect } from "vue";
 import ProductDetailSkeleton from "./components/ProductDetailSkeleton.vue";
 import AboutProduct from "../components/AboutProduct.vue";
 import RelatedProduct from "../components/RelatedProduct.vue";
@@ -123,6 +123,7 @@ const $q = useQuasar();
 
 // check if the product is stored in product store. Otherwise, fetch it from server
 const checkProductAvailable = async () => {
+  isLoading.value = true;
   if (!productStore.isOneProduct) {
     const product_id = route.params.id;
     product.value = await productStore.serverFetchOneProduct(product_id);
@@ -146,7 +147,7 @@ const checkInCart = (id) => {
   return cartItemsIds.value.includes(id);
 };
 
-onMounted(() => {
+watchEffect(() => {
   checkProductAvailable();
 });
 </script>
