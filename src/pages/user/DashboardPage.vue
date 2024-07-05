@@ -23,7 +23,7 @@
                   <div
                     class="q-pa-sm q-px-md ibf-h8 text-grey-4 text-weight-medium"
                   >
-                    {{ userStore.user.name }}
+                    {{ user.name }}
                   </div>
                 </div>
 
@@ -115,7 +115,7 @@
       </q-tab-panels>
     </div>
 
-    <!--<preview-json :list="user"></preview-json>-->
+    <preview-json :list="user"></preview-json>
   </q-page>
 </template>
 
