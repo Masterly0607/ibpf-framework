@@ -6,7 +6,7 @@
       :key="product.id"
     >
       <q-intersection :key="product.id" once transition="scale">
-        <q-card square class="ibf-card-2 full-height">
+        <q-card class="ibf-card-3 full-height">
           <div class="full-height">
             <div
               id="clickable"

@@ -2,7 +2,7 @@
   <div class="ibf-container-1400">
     <div class="column q-gutter-md">
       <q-card
-        class="ibf-card-1"
+        class="ibf-card-3"
         v-for="(orderItem, orderItemIndex) in orderedPaginate.data"
         :key="orderItemIndex"
       >
@@ -23,7 +23,7 @@
             </q-item-section>
             <q-item-section>
               <q-item-label class="row justify-between items-center">
-                <div class="ibf-h12 text-grey-7">
+                <div class="ibf-h12 text-grey-6">
                   {{ orderItem.total_item }} Item(s)
                 </div>
 
@@ -43,30 +43,23 @@
                     </div>
                   </q-chip>
                 </div>
-
-                <!--<div
-                  :class="[
-                    'ibf-h10 text-weight-bold text-capitalize',
-                    checkPaymentStatusColor(orderItem.payment_status),
-                  ]"
-                >
-                  {{ orderItem.payment_status }}
-                </div>-->
               </q-item-label>
 
-              <q-separator spaced />
+              <q-separator />
 
-              <div
-                v-for="(item, itemIndex) in orderItem.order_items"
-                :key="itemIndex"
-                class="q-my-xs"
-              >
-                <div class="ibf-h12 text-grey-8">
-                  {{ item.course.title }}
+              <div class="q-my-sm">
+                <div
+                  v-for="(item, itemIndex) in orderItem.order_items"
+                  :key="itemIndex"
+                  class="q-my-sm"
+                >
+                  <div class="ibf-h12 text-grey-8 text-italic">
+                    {{ item.course.title }}
+                  </div>
                 </div>
               </div>
 
-              <q-separator spaced />
+              <q-separator />
 
               <div class="row justify-between">
                 <span caption>Total: </span>

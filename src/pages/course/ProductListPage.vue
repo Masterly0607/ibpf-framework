@@ -96,15 +96,14 @@ import ProductCardSkeleton from "src/components/skeletons/ProductCardSkeleton.vu
 import FilterProduct from "./components/FilterProduct.vue";
 import { ref, onMounted, computed } from "vue";
 import { useProductStore } from "src/stores/product-store";
-import { useRouter } from "vue-router";
-const router = useRouter();
+
 const productStore = useProductStore();
 const isLoading = ref(true);
 const submitResult = ref([]);
 const keyword = ref("");
 const searchProductData = computed(() => productStore.getProductList);
 const searchMeta = ref({
-  per_page: 8,
+  per_page: 4,
   current_page: 1,
   total_pages: null,
 });

@@ -1,14 +1,9 @@
 <template>
   <div class="q-gutter-y-lg q-py-md">
     <div v-for="(product, index) in products" :key="index">
-      <q-card square class="ibf-card-1">
+      <q-card square class="ibf-card-3">
         <q-card-section horizontal>
-          <div
-            class="q-pa-sm"
-            id="clickable"
-            style="cursor: pointer"
-            @click="viewProductDetail(product)"
-          >
+          <div class="q-pa-sm" id="clickable">
             <q-img
               :src="product.thumbnail"
               spinner-color="primary"
@@ -16,16 +11,12 @@
               width="200px"
               height="200px"
             />
-            <!-- <q-img
-              :src="product.thumbnail"
-              spinner-color="primary"
-              spinner-size="82px"
-              width="200px"
-              height="200px"
-            /> -->
           </div>
 
-          <q-card-section>
+          <q-card-section
+            style="cursor: pointer; width: 100%"
+            @click="viewProductDetail(product)"
+          >
             <div
               class="ibf-h8 text-grey-8 ellipsis-2-lines text-weight-bold q-mb-sm"
             >
@@ -74,7 +65,7 @@
 
           <q-space />
 
-          <q-card-section class="col-2">
+          <q-card-section class="col-2 flex items-end justify-end">
             <div class="row items-center justify-between no-wrap">
               <div>
                 <q-badge
@@ -86,7 +77,7 @@
 
                 <q-space v-else />
               </div>
-              <div>
+              <div class="q-gutter-sm">
                 <q-btn
                   v-if="checkInCart(product.id)"
                   flat
@@ -118,7 +109,9 @@
 import { useCartStore } from "src/stores/cart-store";
 import { computed } from "vue";
 import { useProductStore } from "src/stores/product-store";
+import { useRouter } from "vue-router";
 const productStore = useProductStore();
+const router = useRouter();
 
 const props = defineProps({
   products: {
