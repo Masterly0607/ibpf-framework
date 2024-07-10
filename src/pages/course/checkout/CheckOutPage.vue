@@ -176,38 +176,43 @@
                           >
                             {{ item.course.title }}
                           </q-item-label>
-                          <q-item-label
+                          <!--<q-item-label
                             caption
                             lines="2"
                             v-if="selectedPaymentTypeOption === 2"
                           >
                             {{ item.course.description }}
-                          </q-item-label>
+                          </q-item-label>-->
 
-                          <q-item-label caption v-else>
-                            <div class="row q-gutter-md">
+                          <q-item-label
+                            caption
+                            v-if="selectedPaymentTypeOption !== 2"
+                          >
+                            <div class="row q-gutter-sm q-my-xs">
                               <div
                                 v-for="(priceOption, priceOptinIndex) in item
                                   .course.price_options"
                                 :key="priceOptinIndex"
                               >
-                                {{ `${priceOption.title}:` }}
+                                <span class="text-secondary text-weight-medium">
+                                  {{ `${priceOption.title}: ` }}
+                                </span>
                                 <price-original
                                   :price="priceOption.price"
                                   :currency="priceOption.currency"
-                                  color="secondary"
-                                  textSize="ibf-h12"
+                                  color="text-grey-6"
+                                  textSize="ibf-h12 text-weight-regular"
                                 />
                               </div>
                             </div>
                           </q-item-label>
                         </q-item-section>
 
-                        <q-item-section side top v-if="item.course.is_free">
+                        <q-item-section side v-if="item.course.is_free">
                           <q-item-label class="text-teal"> Free </q-item-label>
                         </q-item-section>
 
-                        <q-item-section side top v-else>
+                        <q-item-section side v-else>
                           <div v-if="item.course.isDiscount">
                             <q-item-label caption>
                               <price-original

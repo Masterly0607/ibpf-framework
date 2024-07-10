@@ -35,13 +35,14 @@
             </q-card-section>
 
             <q-card-section>
-              <q-form class="q-gutter-md">
+              <q-form ref="authFormRef" class="q-gutter-md">
                 <q-input
                   square
                   outlined
                   v-model="user.email"
                   type="text"
-                  label="Username"
+                  label="Registered email"
+                  :rules="[isRequired]"
                 />
                 <q-input
                   square
@@ -49,6 +50,7 @@
                   v-model="user.password"
                   :type="isPwd ? 'password' : 'text'"
                   label="Password"
+                  :rules="[isRequired]"
                 >
                   <template v-slot:append>
                     <q-icon
@@ -73,7 +75,7 @@
                   style="width: 100%"
                   label="Login"
                   color="primary"
-                  @click="login"
+                  @click="validate()"
                 />
               </div>
 
@@ -139,11 +141,12 @@
 </template>
 
 <script setup>
-import { Screen } from "quasar";
+import { Screen, useQuasar } from "quasar";
 import TextTwoLines from "components/tools/TextTwoLines.vue";
 import { ref } from "vue";
 import { useUserStore } from "src/stores/user-store";
 import { useRouter } from "vue-router";
+import { isRequired } from "src/helpers/validationRules";
 const router = useRouter();
 const userStore = useUserStore();
 const isPwd = ref(true);
@@ -152,6 +155,23 @@ const user = ref({
   password: "",
   isRemembered: false,
 });
+
+const authFormRef = ref(null);
+const $q = useQuasar();
+
+const validate = () => {
+  authFormRef.value.validate().then((success) => {
+    if (success) {
+      login();
+    } else {
+      $q.notify({
+        message: "Check the username and password again",
+        position: "top-right",
+        type: "negative",
+      });
+    }
+  });
+};
 
 const login = async () => {
   const res = await userStore.login(user.value);
