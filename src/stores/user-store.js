@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { Notify } from "quasar";
 import { authAPI, productAPI } from "src/boot/axios";
 
 export const useUserStore = defineStore("user", {
@@ -28,13 +29,22 @@ export const useUserStore = defineStore("user", {
           password: payload.password,
         });
 
-        if (!response.status === true) {
+        if (!response.data.status) {
           this.resetUser();
+          Notify.create({
+            message: `${response.data.message}`,
+            color: "negative",
+            position: "top-right",
+          });
         }
 
         return response.data.data;
       } catch (error) {
-        console.log(error);
+        Notify.create({
+          message: `${error.message}`,
+          color: "negative",
+          position: "top-right",
+        });
       }
     },
 
