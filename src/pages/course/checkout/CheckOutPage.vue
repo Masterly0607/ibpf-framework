@@ -1,7 +1,7 @@
 <template>
   <q-page class="q-pa-md">
     <div class="ibf-container-1200 prevent-select">
-      <q-card square flat>
+      <q-card square flat class="bg-transparent">
         <q-card-section>
           <q-heading-1
             title="Checkout"
@@ -19,9 +19,9 @@
           <div class="row q-col-gutter-xl" v-else>
             <div class="col-12 col-md-6">
               <div class="column q-gutter-lg">
-                <q-card flat bordered square>
+                <q-card class="ibf-card-2">
                   <q-card-section>
-                    <div class="ibf-h9 text-weight-medium">Payment Options</div>
+                    <div class="ibf-h9 text-weight-medium">Payment Types</div>
 
                     <q-separator spaced />
 
@@ -52,9 +52,7 @@
                 </q-card>
 
                 <q-card
-                  flat
-                  bordered
-                  square
+                  class="ibf-card-2"
                   v-if="selectedPaymentTypeOption === 2"
                 >
                   <q-card-section>
@@ -89,7 +87,7 @@
                   </q-card-section>
                 </q-card>
 
-                <q-card flat bordered v-else>
+                <q-card class="ibf-card-2" v-else>
                   <q-card-section>
                     <div class="ibf-h9 text-weight-medium">
                       HR's information
@@ -137,7 +135,7 @@
 
             <div class="col-12 col-md-6">
               <div class="q-gutter-lg">
-                <q-card>
+                <q-card class="ibf-card-3">
                   <q-card-section>
                     <q-item class="q-pa-none">
                       <q-item-section>
@@ -385,10 +383,10 @@
                     </q-card-section>
                   </div>
 
-                  <q-card-section>
+                  <!--<q-card-section>
                     <preview-json :list="checkOutItems" title="Check out items">
                     </preview-json>
-                  </q-card-section>
+                  </q-card-section>-->
                 </q-card>
               </div>
             </div>

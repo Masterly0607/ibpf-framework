@@ -79,6 +79,13 @@
       </q-card>
 
       <preview-json :list="orderedPaginate"></preview-json>
+
+      <q-btn
+        color="primary"
+        icon="check"
+        label="OK"
+        @click="fetchOrderedItems"
+      />
     </div>
   </div>
 </template>
