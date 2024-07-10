@@ -43,7 +43,7 @@ export const useUserStore = defineStore("user", {
     },
 
     storeUser(payload) {
-      this.user = payload.user;
+      this.user = payload.customer;
       this.token = payload.token;
       this.roles = payload.roles;
       this.permissions = payload.permissions;
@@ -54,6 +54,7 @@ export const useUserStore = defineStore("user", {
       this.token = null;
       this.roles = null;
       this.permissions = null;
+      this.orderList = [];
     },
 
     async serverFetchOrderedItems() {
