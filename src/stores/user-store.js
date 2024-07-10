@@ -23,7 +23,7 @@ export const useUserStore = defineStore("user", {
   actions: {
     async login(payload) {
       try {
-        const response = await authAPI.post("/api/v1/auth/login", {
+        const response = await authAPI.post("/api/v1/auth/customer/login", {
           email: payload.email,
           password: payload.password,
         });
