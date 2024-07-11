@@ -35,3 +35,5 @@ yarn-error.log*
 *.json
 package-lock.json
 .vscode/settings.json
+package-lock.json
+.vscode/settings.json
