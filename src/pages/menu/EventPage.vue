@@ -1,7 +1,6 @@
 <template>
   <q-page padding>
     <div class="ibf-container-1200 ">
-
       <div class="q-gutter-md">
         <!-- background image -->
         <div>
@@ -44,6 +43,9 @@
               <q-card class="ibf-card-1">
                 <q-card-section>
                   <div>
+                    <img :src="url" alt="">
+                    <q-avatar size="100px" font-size="52px" color="teal" text-color="white">
+                    </q-avatar>
                     <!-- <img src="https://cdn.quasar.dev/img/mountains.jpg" :ratio="1" width="100%" height="250px"> -->
                   </div>
                   <div class="text-subtitle2">by John Doe</div>
