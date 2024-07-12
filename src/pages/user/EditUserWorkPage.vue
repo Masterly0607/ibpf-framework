@@ -11,34 +11,21 @@
                 Edit Work
               </div>
               <div class="q-pa-md">
-                <q-form
-                  @submit="onResult"
-                  @reset="onReset"
-                  class="q-gutter-y-md"
-                >
+                <q-form @submit="onResult" @reset="onReset" class="q-gutter-y-md">
                   <div class="row q-col-gutter-md">
                     <div class="col-6">
                       <div class="ibf-h10 text-weight-bold">
                         Industry
-                        <q-select
-                          outlined
-                          name="industry"
-                          label="Your industry"
-                          v-model="industry"
-                          :options="options"
-                        />
+                        <q-select outlined name="industry" label="Your industry" v-model="getBfiName"
+                          :options="options" />
                       </div>
                     </div>
                     <div class="col-6">
                       <div class="ibf-h10 text-weight-bold">
                         Role
-                        <q-select
-                          disabled
-                          outlined
-                          name="role"
-                          label="Your role"
-                          v-model="role"
-                        />
+                        <q-select class="text-weight-bold text-primary" disabled outlined name="role" label="Your role"
+                          v-model="roles[0]">
+                        </q-select>
                       </div>
                     </div>
                   </div>
@@ -47,46 +34,21 @@
                     <div class="col-6">
                       <div class="ibf-h10 text-weight-bold">
                         Job Title
-                        <q-input
-                          name="job"
-                          v-model="job"
-                          label="Your job title"
-                          outlined
-                          clearable
-                        />
+                        <q-input name="job" v-model="job" label="Your job title" outlined clearable />
                       </div>
                     </div>
 
                     <div class="col-6">
                       <div class="ibf-h10 text-weight-bold">
                         Company Name
-                        <q-input
-                          name="company"
-                          v-model="userStore.user.bfi.name"
-                          label="Your company name"
-                          outlined
-                          clearable
-                        />
+                        <q-input name="company" label="Your company name" v-model="user.bfi" outlined clearable />
                       </div>
                     </div>
                   </div>
 
                   <div align="right">
-                    <q-btn
-                      label="Cancel"
-                      type="reset"
-                      v-model="onReset"
-                      color="grey"
-                      flat
-                      class="q-ml-sm"
-                    />
-                    <q-btn
-                      flat
-                      label="Save"
-                      v-model="onResult"
-                      type="submit"
-                      color="primary"
-                    />
+                    <q-btn label="Cancel" type="reset" v-model="onReset" color="grey" flat class="q-ml-sm" />
+                    <q-btn flat label="Save" v-model="onResult" type="submit" color="primary" />
                   </div>
                 </q-form>
 
@@ -111,19 +73,20 @@
                   </div>
                 </q-card-section>
               </q-card> -->
+
               </div>
             </div>
           </q-card-section>
         </q-card>
+
+        <preview-json :list="user"></preview-json>
       </div>
-      <!-- <preview-json :list="userStore"></preview-json> -->
     </q-page-container>
   </q-page>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
-// import axios from "axios";
+import { ref, onMounted, computed } from "vue";
 import { useUserStore } from "src/stores/user-store";
 
 const industry = ref("Digital");
@@ -132,6 +95,8 @@ const job = ref("Accountant");
 const company = ref("ABA Bank");
 
 const userStore = useUserStore();
+const user = userStore.getUser;
+const roles = userStore.getRoles;
 
 const submitResult = ref([]);
 const onReset = () => {
@@ -148,6 +113,17 @@ const onResult = (evt) => {
   }
   submitResult.value = data;
 };
+
+const getBfiName = computed({
+  get() {
+    return user.bfi ? user.bfi.name : 'N/A';
+  },
+  set(value) {
+    if (user.bfi) {
+      user.bfi.name = value;
+    }
+  }
+});
 
 // onMounted(async () => {
 //   await fetchDataFromApi();
