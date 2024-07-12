@@ -20,9 +20,7 @@
                   <q-avatar>
                     <img src="https://cdn.quasar.dev/img/avatar2.jpg" />
                   </q-avatar>
-                  <div
-                    class="q-pa-sm q-px-md ibf-h8 text-grey-4 text-weight-medium"
-                  >
+                  <div class="q-pa-sm q-px-md ibf-h8 text-grey-4 text-weight-medium">
                     {{ user.name }}
                   </div>
                 </div>
@@ -42,8 +40,7 @@
                     {{ user.bfi ? user.bfi.name : "N/A" }}
                   </div>
                   <div class="text-weight-medium">
-                    <span class="text-weight-medium text-grey-7"
-                      >Phone Number :
+                    <span class="text-weight-medium text-grey-7">Phone Number :
                     </span>
                     091 23 45 678
                   </div>
@@ -51,23 +48,9 @@
 
                 <q-separator />
                 <q-card-actions class="card-bg" align="between">
-                  <q-btn
-                    color="primary"
-                    flat
-                    no-caps
-                    label="My Account"
-                    @click="viewMyAccount"
-                  />
+                  <q-btn color="primary" flat no-caps label="My Account" @click="viewMyAccount" />
 
-                  <q-btn
-                    outline
-                    square
-                    color="grey-7"
-                    icon="mdi-logout"
-                    label="Logout"
-                    no-caps
-                    @click="logout"
-                  />
+                  <q-btn outline square color="grey-7" icon="mdi-logout" label="Logout" no-caps @click="logout" />
                 </q-card-actions>
               </q-card>
             </div>

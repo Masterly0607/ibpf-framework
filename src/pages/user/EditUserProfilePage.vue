@@ -14,18 +14,9 @@
                   <div class="col-12 col-md-4">
                     <q-card v-if="editImage">
                       <q-card-section>
-                        <q-uploader
-                          square
-                          flat
-                          style="max-width: 500px"
-                          ref="uploader"
-                          :url="uploadUrl"
-                          :headers="headers"
-                          :hide-upload-btn="true"
-                          :hide-image="true"
-                          :auto-upload="false"
-                          @added="handleFileAdded"
-                        >
+                        <q-uploader square flat style="max-width: 500px" ref="uploader" :url="uploadUrl"
+                          :headers="headers" :hide-upload-btn="true" :hide-image="true" :auto-upload="false"
+                          @added="handleFileAdded">
                         </q-uploader>
                         <!-- <q-field
                           ref="fieldRef"
@@ -49,35 +40,17 @@
                       </q-card-section>
 
                       <q-card-actions align="right">
-                        <q-btn
-                          outline
-                          size="sm"
-                          color="grey-6"
-                          square
-                          label="Cancel"
-                          @click="editImage = !editImage"
-                        />
+                        <q-btn outline size="sm" color="grey-6" square label="Cancel" @click="editImage = !editImage" />
                       </q-card-actions>
                     </q-card>
                     <q-card v-else>
                       <q-card-section class="q-pa-none">
-                        <q-img
-                          :src="url"
-                          fit="cover"
-                          spinner-color="primary"
-                          spinner-size="82px"
-                        />
+                        <q-img :src="url" fit="cover" spinner-color="primary" spinner-size="82px" />
                       </q-card-section>
 
                       <q-card-actions align="right">
-                        <q-btn
-                          outline
-                          size="sm"
-                          color="secondary"
-                          square
-                          label="Change image"
-                          @click="editImage = !editImage"
-                        />
+                        <q-btn outline size="sm" color="secondary" square label="Change image"
+                          @click="editImage = !editImage" />
                       </q-card-actions>
                     </q-card>
                   </div>
@@ -132,113 +105,62 @@
                       Edit Profile
                     </div> -->
                     <div class="text-h4 q-pa-sm">
-                      <q-form
-                        @submit="onSubmit"
-                        @reset="onReset"
-                        class="q-gutter-md"
-                      >
+                      <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
                         <div class="ibf-h10 text-weight-bold text-grey-7">
                           Full Name
-                          <q-input
-                            filled
-                            class="ibf-h10"
-                            v-model="userStore.user.name"
-                            label="Enter your name"
-                            hint="Name and surname"
-                            lazy-rules
-                            :rules="[
+                          <q-input filled class="ibf-h10" v-model="user.name" label="Enter your name"
+                            hint="Name and surname" lazy-rules :rules="[
                               (val) =>
                                 (val && val.length > 0) ||
                                 'Please type something',
-                            ]"
-                          />
+                            ]" />
                         </div>
 
                         <div class="ibf-h10 text-weight-bold text-grey-7">
                           Address
-                          <q-input
-                            filled
-                            class="ibf-h10"
-                            v-model="address"
-                            label="Enter your name"
-                            hint="Your address"
-                            lazy-rules
-                            :rules="[
+                          <q-input filled class="ibf-h10" v-model="address" label="Enter your name" hint="Your address"
+                            lazy-rules :rules="[
                               (val) =>
                                 (val && val.length > 0) ||
                                 'Please type something',
-                            ]"
-                          />
+                            ]" />
                         </div>
 
                         <div class="ibf-h10 text-weight-bold text-grey-7">
                           Phone Number
-                          <q-input
-                            filled
-                            class="ibf-h10"
-                            v-model="phoneNumber"
-                            label="Enter your name"
-                            hint="Name and surname"
-                            lazy-rules
-                            :rules="[
+                          <q-input filled class="ibf-h10" v-model="phoneNumber" label="Enter your name"
+                            hint="Name and surname" lazy-rules :rules="[
                               (val) =>
                                 (val && val.length > 0) ||
                                 'Please type something',
-                            ]"
-                          />
+                            ]" />
                         </div>
 
                         <div class="ibf-h10 text-weight-bold text-grey-7">
                           User Position
-                          <q-input
-                            filled
-                            class="ibf-h10"
-                            v-model="userStore.roles[0]"
-                            label="Enter your position"
-                            hint="Your position"
-                            lazy-rules
-                            disable
-                            :rules="[
+                          <q-input filled class="ibf-h10" v-model="roles[0]" label="Enter your position"
+                            hint="Your position" lazy-rules disable :rules="[
                               (val) =>
                                 (val && val.length > 0) ||
                                 'Please type something',
-                            ]"
-                          />
+                            ]" />
                         </div>
 
                         <div class="ibf-h10 text-weight-bold text-grey-7">
                           Email
-                          <q-input
-                            filled
-                            v-model="userStore.user.email"
-                            label="Your email"
-                            class="ibf-h10"
-                            hint="Your email has been stored in the system"
-                            lazy-rules
-                            disable
-                            :rules="[
+                          <q-input filled v-model="user.email" label="Your email" class="ibf-h10"
+                            hint="Your email has been stored in the system" lazy-rules disable :rules="[
                               (val) =>
                                 (val && val.length > 0) ||
                                 'Please type something',
-                            ]"
-                          />
+                            ]" />
                           <!-- <EditProfilePage v-model:email="email" /> -->
                         </div>
 
                         <!-- button submit or reset -->
                         <div align="right">
-                          <q-btn
-                            label="Cancel"
-                            type="reset"
-                            color="grey"
-                            flat
-                          />
-                          <q-btn
-                            flat
-                            label="Save"
-                            type="submit"
-                            color="primary"
-                          />
+                          <q-btn label="Cancel" type="reset" color="grey" flat />
+                          <q-btn flat label="Save" type="submit" color="primary" />
                         </div>
                       </q-form>
                     </div>
@@ -261,11 +183,14 @@ import { ref } from "vue";
 // import ImageUploadPreview from "./ImageUploadPreview.vue";
 import { useUserStore } from "src/stores/user-store";
 
-const dialog = ref(false);
+// const dialog = ref(false);
 const fileName = ref("");
 const imagePreview = ref(null);
 const uploadUrl = "https://YOUR_S3_BUCKET_URL"; // Set your S3 upload URL
 const userStore = useUserStore();
+const user = userStore.getUser;
+const roles = userStore.getRoles;
+
 const editImage = ref(true);
 const emit = defineEmits(["file-uploaded"]);
 

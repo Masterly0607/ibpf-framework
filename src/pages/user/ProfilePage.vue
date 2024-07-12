@@ -4,15 +4,8 @@
     <!-- <div class="q-gutter-y-md" style="max-width: 600px"> -->
     <div style="max-width: 100%">
       <q-card flat>
-        <q-tabs
-          v-model="tab"
-          dense
-          class="text-grey"
-          active-color="primary"
-          indicator-color="primary"
-          align="left"
-          narrow-indicator
-        >
+        <q-tabs v-model="tab" dense class="text-grey" active-color="primary" indicator-color="primary" align="left"
+          narrow-indicator>
           <q-tab name="myAccount" label="My Account" no-caps />
           <q-tab name="notification" label="Notification" no-caps />
         </q-tabs>
@@ -29,33 +22,28 @@
                     <div class="ibf-h8 text-weight-bold">Profile Picture</div>
                     <q-separator />
                     <div class="row q-gutter-sm">
-                      <q-avatar
-                        size="150px"
-                        font-size="150px"
-                        text-color="primary"
-                        icon="account_circle"
-                      />
+                      <q-avatar size="150px" font-size="150px" text-color="primary" icon="account_circle" />
                       <div class="q-py-sm">
                         <div class="ibf-h6 text-weight-bold">
-                          {{ userStore.user.name }}
+                          {{ user.name }}
                         </div>
                         <div class="text-subtitle2 text-grey-8 q-py-xs">
                           Role :
                           <span class="text-primary text-weight-bold">
-                            {{ userStore.roles[0] }}
+                            {{ roles[0] }}
                           </span>
                         </div>
                         <div class="text-subtitle2 text-grey-8">
                           Email :
                           <span class="ibf-h11 text-weight-bold">{{
-                            userStore.user.email
+                            user.email
                           }}</span>
                           (Personal)
                         </div>
                         <div class="text-subtitle2 text-grey-8">
                           Email :
                           <span class="ibf-h11 text-weight-bold">{{
-                            userStore.user.email
+                            user.email
                           }}</span>
                           (Work)
                         </div>
@@ -76,13 +64,7 @@
                   </div>
                 </q-card-section>
                 <div class="card-bg q-pa-sm" align="right">
-                  <q-btn
-                    flat
-                    no-caps
-                    label="Edit Profile"
-                    color="primary"
-                    @click="editUserProfile"
-                  />
+                  <q-btn flat no-caps label="Edit Profile" color="primary" @click="editUserProfile" />
                 </div>
               </q-card>
             </div>
@@ -95,14 +77,7 @@
                       <div class="ibf-h8 text-weight-bold">Work</div>
                       <q-space />
                       <div class="edit-bg">
-                        <q-btn
-                          flat
-                          no-caps
-                          icon="edit"
-                          label="Edit"
-                          color="primary"
-                          @click="editUserWork"
-                        />
+                        <q-btn flat no-caps icon="edit" label="Edit" color="primary" @click="editUserWork" />
                       </div>
                     </div>
 
@@ -114,24 +89,16 @@
                           <div class="text-grey-6 text-weight-bold">
                             BFI Name
                           </div>
-                          <q-field
-                            color="grey-3"
-                            label-color="teal"
-                            outlined
-                            stack-label
-                          >
+                          <q-field color="grey-3" label-color="teal" outlined stack-label>
                             <template v-slot:append>
                               <q-icon name="domain" color="primary" />
                             </template>
                             <template v-slot:control>
-                              <div
-                                class="self-center full-width no-outline text-weight-medium"
-                                tabindex="0"
-                              >
+                              <div class="self-center full-width no-outline text-weight-medium" tabindex="0">
                                 {{
-                                  userStore.user.bfi
-                                    ? userStore.user.bfi.name
-                                    : "N/A"
+                                  user.bfi
+                                  ? user.bfi.name
+                                  : "N/A"
                                 }}
                               </div>
                             </template>
@@ -140,21 +107,13 @@
 
                         <div class="col-6">
                           <div class="text-weight-bold text-grey-6">Role</div>
-                          <q-field
-                            color="grey-3"
-                            label-color="primary"
-                            outlined
-                            stack-label
-                          >
+                          <q-field color="grey-3" label-color="primary" outlined stack-label>
                             <template v-slot:append>
                               <q-icon name="group" color="primary" />
                             </template>
                             <template v-slot:control>
-                              <div
-                                class="self-center full-width no-outline text-weight-medium"
-                                tabindex="0"
-                              >
-                                {{ userStore.roles[0] }}
+                              <div class="self-center full-width no-outline text-weight-medium" tabindex="0">
+                                {{ roles[0] }}
                               </div>
                             </template>
                           </q-field>
@@ -166,59 +125,36 @@
                           <div class="text-weight-bold text-grey-6">
                             Job Title
                           </div>
-                          <q-field
-                            color="grey-3"
-                            label-color="teal"
-                            outlined
-                            stack-label
-                          >
+                          <q-field color="grey-3" label-color="teal" outlined stack-label>
                             <template v-slot:append>
                               <q-icon name="domain_add" color="primary" />
                             </template>
                             <template v-slot:control>
-                              <div
-                                class="self-center full-width no-outline text-weight-medium"
-                                tabindex="0"
-                              >
+                              <div class="self-center full-width no-outline text-weight-medium" tabindex="0">
                                 Job Title
                               </div>
                             </template>
                           </q-field>
-                          <!-- <div class="ibf-h10 text-weight-bold">
-                            Job Title
-                            <q-input
-                              name="job"
-                              v-model="job"
-                              label="Your job title"
-                              outlined
-                              clearable
-                            />
-                          </div> -->
                         </div>
 
                         <div class="col-6">
                           <div class="text-weight-bold text-grey-6">
                             Company Name
                           </div>
-                          <q-field
-                            color="grey-3"
-                            label-color="teal"
-                            outlined
-                            stack-label
-                          >
+                          <q-field color="grey-3" label-color="teal" outlined stack-label>
                             <template v-slot:append>
                               <q-icon name="compost" color="primary" />
                             </template>
                             <template v-slot:control>
-                              <div
-                                class="self-center full-width no-outline text-weight-medium"
-                                tabindex="0"
-                              >
+                              <div class="self-center full-width no-outline text-weight-medium" tabindex="0">
                                 {{
-                                  userStore.user.bfi
-                                    ? userStore.user.bfi.name
-                                    : "N/A"
+                                  user.bfi
                                 }}
+                                <!-- 
+                                 user.bfi
+                                 ? user.bfi.name
+                                  : "N/A" 
+                                  -->
                               </div>
                             </template>
                           </q-field>
@@ -243,7 +179,7 @@
     </div>
 
     <!-- </div> -->
-    <preview-json :list="userStore"></preview-json>
+    <preview-json :list="user"></preview-json>
   </div>
 </template>
 
@@ -257,9 +193,10 @@ import { useUserStore } from "src/stores/user-store";
 
 const router = useRouter();
 const userStore = useUserStore();
+const user = userStore.getUser;
+const roles = userStore.getRoles;
 
 const tab = ref("myAccount");
-
 const email = defineModel("email");
 
 const editUserProfile = () => {
@@ -274,6 +211,7 @@ const editUserWork = () => {
 .card-bg {
   background-color: #f1f1f1;
 }
+
 .edit-bg {
   background-color: #fcf2f2;
 }
