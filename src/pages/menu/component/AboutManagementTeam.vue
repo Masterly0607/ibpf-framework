@@ -1,0 +1,111 @@
+<template>
+  <div>
+    <!-- Title -->
+    <div></div>
+    <!-- Subtittle -->
+    <div></div>
+
+    <!-- Management team -->
+    <div class="row q-gutter-md q-px-sm">
+      <div class="q-gutter-md" align="center">
+        <q-avatar size="200px" font-size="200px" color="teal" text-color="white">
+          <q-img square src="https://cdn.quasar.dev/img/mountains.jpg" :ratio="1" spinner-color="primary"
+            spinner-size="82px" />
+        </q-avatar>
+
+        <div>
+          <span class="ibf-h9 text-weight-bold">Mr. SOU Visal</span>
+          <br>
+          <span class="ibf-h11 text-grey-7">Chief Executive Officer</span>
+        </div>
+
+        <q-card class="q-py-sm" bordered flat style="max-width: 70%">
+          <a href="#" class="text-weight-bold ibf-h11 text-primary">
+            See More
+            <q-icon name="arrow_forward" />
+          </a>
+        </q-card>
+      </div>
+
+      <div class="q-gutter-md" align="center">
+        <q-avatar size="200px" font-size="200px" color="teal" text-color="white">
+          <q-img square src="https://cdn.quasar.dev/img/mountains.jpg" :ratio="1" spinner-color="primary"
+            spinner-size="82px" />
+        </q-avatar>
+
+        <div>
+          <span class="ibf-h9 text-weight-bold">Mr. Horn Piseth</span>
+          <br>
+          <span class="ibf-h11 text-grey-7">Head of Education</span>
+        </div>
+
+        <q-card class="q-py-sm" bordered flat style="max-width: 70%">
+          <a href="#" class="text-weight-bold ibf-h11 text-primary">
+            See More
+            <q-icon name="arrow_forward" />
+          </a>
+        </q-card>
+      </div>
+
+      <div class="q-gutter-md" align="center">
+        <q-avatar size="200px" font-size="200px" color="teal" text-color="white">
+          <q-img square src="https://cdn.quasar.dev/img/mountains.jpg" :ratio="1" spinner-color="primary"
+            spinner-size="82px" />
+        </q-avatar>
+
+        <div>
+          <span class="ibf-h9 text-weight-bold">Ms. Visal Kalyan</span>
+          <br>
+          <span class="ibf-h11 text-grey-7">Head of Finance</span>
+        </div>
+
+        <q-card class="q-py-sm" bordered flat style="max-width: 70%">
+          <a href="#" class="text-weight-bold ibf-h11 text-primary">
+            See More
+            <q-icon name="arrow_forward" />
+          </a>
+        </q-card>
+      </div>
+
+      <div class="q-gutter-md" align="center">
+        <q-avatar size="200px" font-size="200px" color="teal" text-color="white">
+          <q-img square src="https://cdn.quasar.dev/img/mountains.jpg" :ratio="1" spinner-color="primary"
+            spinner-size="82px" />
+        </q-avatar>
+
+        <div>
+          <span class="ibf-h9 text-weight-bold">Mr. Nov Panha</span>
+          <br>
+          <span class="ibf-h11 text-grey-7">Digital Manager</span>
+        </div>
+
+        <q-card class="q-py-sm" bordered flat style="max-width: 70%">
+          <a href="#" class="text-weight-bold ibf-h11 text-primary">
+            See More
+            <q-icon name="arrow_forward" />
+          </a>
+        </q-card>
+      </div>
+
+      <div class="q-gutter-md" align="center">
+        <q-avatar size="200px" font-size="200px" color="teal" text-color="white">
+          <q-img square src="https://cdn.quasar.dev/img/mountains.jpg" :ratio="1" spinner-color="primary"
+            spinner-size="82px" />
+        </q-avatar>
+
+        <div>
+          <span class="ibf-h9 text-weight-bold">Mr. Saroeun Piseth</span>
+          <br>
+          <span class="ibf-h11 text-grey-7">Student Admin Manager</span>
+        </div>
+
+        <q-card class="q-py-sm" bordered flat style="max-width: 70%">
+          <a href="#" class="text-weight-bold ibf-h11 text-primary">
+            See More
+            <q-icon name="arrow_forward" />
+          </a>
+        </q-card>
+      </div>
+    </div>
+  </div>
+</template>
