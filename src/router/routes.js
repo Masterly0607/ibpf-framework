@@ -82,6 +82,12 @@ const routes = [
             name: "profile-page",
             component: () => import("pages/user/ProfilePage.vue"),
           },
+
+          {
+            path: "my-learning",
+            name: "my-learning-page",
+            component: () => import("pages/user/learning/MyLearningPage.vue"),
+          },
         ],
       },
 
