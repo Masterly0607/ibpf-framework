@@ -1,7 +1,7 @@
 <template>
   <div>
     <q-item>
-      <q-item-section side>
+      <q-item-section side top>
         <q-icon :size="iconSize" color="primary" :name="icon" />
       </q-item-section>
       <q-item-section>

@@ -1,9 +1,29 @@
 <template>
   <section id="my-learning">
-    <q-card square flat bordered>
-      <q-card-section class="q-px-lg q-pb-none">
-        <div class="ibf-h7 text-weight-medium">My Learning Portfolio</div>
+    <q-card square class="ibf-card-3">
+      <q-card-section class="q-py-xs">
+        <div class="flex justify-between">
+          <q-heading-4>
+            <template #icon>
+              <q-icon color="primary" name="mdi-school-outline" />
+            </template>
+            <template #title> My Learning </template>
+          </q-heading-4>
+
+          <q-btn
+            flat
+            text-color="primary"
+            no-caps
+            dense
+            square
+            icon-right="mdi-arrow-right-thin"
+            label="More"
+            :to="{ name: 'my-learning-page' }"
+          />
+        </div>
       </q-card-section>
+
+      <q-separator />
 
       <q-card-section class="q-px-lg">
         <div class="row q-col-gutter-lg q-pb-sm">
