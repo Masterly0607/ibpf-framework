@@ -2,14 +2,23 @@
   <section id="events-card">
     <q-card square bordered flat>
       <!-- View product list -->
-      <div class="col-12 q-pa-lg q-pt-none">
-        <q-card-section class="q-pb-md q-pa-none">
-          <div class="ibf-h7 text-weight-medium">Events</div>
-        </q-card-section>
 
+      <q-card-section class="q-py-xs">
+        <q-heading-4>
+          <template #icon>
+            <q-icon color="primary" name="mdi-calendar" />
+          </template>
+          <template #title> Events </template>
+        </q-heading-4>
+      </q-card-section>
+
+      <q-separator />
+
+      <q-card-section>
         <div class="column q-gutter-y-lg">
           <q-card
-            class="ibf-card-2"
+            square
+            class="ibf-card-3"
             v-for="(itemEvent, index) in eventData"
             :key="index"
           >
@@ -54,7 +63,7 @@
             </q-card-actions>
           </q-card>
         </div>
-      </div>
+      </q-card-section>
 
       <!-- <q-card-section>
         <q-card flat square bordered>

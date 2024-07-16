@@ -78,7 +78,7 @@
         </q-card-actions>
       </q-card>
 
-      <preview-json :list="orderedPaginate"></preview-json>
+      <!--<preview-json :list="orderedPaginate"></preview-json>-->
 
       <q-btn
         color="primary"
