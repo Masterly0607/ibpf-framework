@@ -26,7 +26,7 @@
                     <!-- profile image -->
                     <div class="col-12 col-md-2">
                       <q-avatar size="180px" class="q-pa-sm">
-                        <q-img src="https://cdn.quasar.dev/img/mountains.jpg" :ratio="1" />
+                        <q-img src="https://cdn.quasar.dev/img/boy-avatar.png" :ratio="1" />
                       </q-avatar>
                     </div>
 
@@ -57,14 +57,14 @@
                         Email :
                         <span class="ibf-h11 text-weight-bold">{{
                           user.email
-                          }}</span>
+                        }}</span>
                         (Personal)
                       </div>
                       <div class="text-subtitle2 text-grey-8">
                         Email :
                         <span class="ibf-h11 text-weight-bold">{{
                           user.email
-                          }}</span>
+                        }}</span>
                         (Work)
                       </div>
                       <div class="text-subtitle2 text-grey-8">

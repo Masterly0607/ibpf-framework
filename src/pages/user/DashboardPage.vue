@@ -18,7 +18,7 @@
               <q-card bordered square flat>
                 <div class="bg-primary row q-pa-sm">
                   <q-avatar>
-                    <img src="https://cdn.quasar.dev/img/avatar2.jpg" />
+                    <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
                   </q-avatar>
                   <div class="q-pa-sm q-px-md ibf-h8 text-grey-4 text-weight-medium">
                     {{ user.name }}

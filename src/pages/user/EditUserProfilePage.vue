@@ -62,7 +62,7 @@
                 <q-card>
                   <q-card-section>
                     <div class="text-h4 q-pa-sm">
-                      <q-form @submit="onSave" @reset="onReset" class="q-gutter-md">
+                      <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
                         <div class="ibf-h10 text-weight-bold text-grey-7">
                           Full Name
                           <q-input filled class="ibf-h10" v-model="user.name" label="Enter your name"
@@ -120,7 +120,7 @@
                         <!-- button submit or reset -->
                         <div align="right">
                           <q-btn label="Cancel" type="reset" color="grey" flat />
-                          <q-btn flat label="Save" type="submit" color="primary" />
+                          <q-btn flat label="Save" @click="onSubmit()" type="submit" color="primary" />
                         </div>
                       </q-form>
                     </div>
@@ -133,7 +133,6 @@
       </div>
 
       <preview-json :list="user"></preview-json>
-
     </q-page-container>
   </q-page>
 </template>
@@ -155,7 +154,12 @@ const editImage = ref(true);
 const emit = defineEmits(["file-uploaded"]);
 const $q = useQuasar();
 const address = ref("Phnom Penh");
-const gender = ref(user.gender)
+
+onMounted(user.gender, (newGender) => {
+  if (newGender !== user.gender.value) {
+    user.dispatch('updateUserEmail', newGender)
+  }
+})
 
 const handleFileAdded = (files) => {
   if (files.length > 0) {
@@ -171,47 +175,33 @@ const handleFileAdded = (files) => {
 };
 
 const url = ref("https://picsum.photos/500/300");
-// const refresh = () => {
-//   url.value = "https://picsum.photos/500/300?t=" + Math.random();
-// };
 
-// const onSubmit = () => {
-//   if (user.value !== true) {
-//     $q.notify({
-//       color: 'teal-5',
-//       textColor: 'white',
-//       icon: 'success',
-//       message: 'Submitted'
-//     })
-//   } else {
-//     $q.notify({
-//       color: 'green-4',
-//       textColor: 'white',
-//       icon: 'cloud_done',
-//       message: 'Submitted'
-//     })
-//   }
-// }
-
-const onSave = () => {
-  // Dispatch the action to update the email in the store
-  user.dispatch('updateUserEmail', user.gender.value)
-  user.log('Form submitted with email:', user.gender.value)
-}
-onMounted(user.gender, (newGender) => {
-  if (newGender !== user.gender.value) {
-    user.dispatch('updateUserEmail', newGender)
+const onSubmit = () => {
+  if (user.value !== true) {
+    $q.notify({
+      color: 'red-5',
+      textColor: 'white',
+      icon: 'wearning',
+      message: 'Failed to submit'
+    })
+  } else {
+    $q.notify({
+      color: 'green-4',
+      textColor: 'white',
+      icon: 'cloud_done',
+      message: 'Submitted'
+    })
+    console.log('Form submitted with email:', user.value)
   }
-})
+}
+
 const onReset = () => {
+  // Reset the form fields
+  // user.value.name = ''
   user.value = ''
+  user.value.dob = ''
+  user.value.phone_number = ''
 }
-
-onMounted(user, (newUser) => {
-  if (newUser.value !== user.value) {
-    onReset()
-  }
-}, { deep: true })
 
 // const onSubmit = () => {
 //   console.log("Submited");
