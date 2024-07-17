@@ -26,12 +26,7 @@
               </q-card-section>
               <q-separator />
               <q-card-actions align="right">
-                <q-btn
-                  color="primary"
-                  flat
-                  no-caps
-                  label="Begin the assessment"
-                />
+                <q-btn color="primary" flat no-caps label="Begin the assessment" />
               </q-card-actions>
             </q-card>
           </div>
@@ -46,7 +41,7 @@
                 </div>
               </q-card-section>
               <q-separator />
-              <q-card-actions class="card-bg" align="right">
+              <q-card-actions align="right">
                 <q-btn color="primary" flat no-caps label="Begin the TNA" />
               </q-card-actions>
             </q-card>

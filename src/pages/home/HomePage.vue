@@ -13,7 +13,7 @@
             style="background: rgba(134, 24, 40, 0.4)"
             class="row justify-center items-start full-height"
           >
-           
+
             <div class="col-12 col-md-8 q-pa-xl">
               <div class="ibf-h3 q-mb-md text-weight-medium text-white">
                 Welcome to IBF
@@ -83,11 +83,7 @@
 
       <!-- Why choose IBF -->
       <div class="q-py-md" align="center">
-        <q-btn
-          color="primary"
-          label="Get Started"
-          @click="router.push({ name: 'login-page' })"
-        />
+        <q-btn color="primary" label="Get Started" @click="router.push({ name: 'login-page' })" />
       </div>
     </div>
 
@@ -104,11 +100,13 @@
         />
       </div>
     </div> -->
+    <FooterComponent />
   </q-page>
 </template>
 
 <script setup>
 import HomeCarousel from "./component/HomeCarousel.vue";
+import FooterComponent from "../../components/FooterComponent.vue";
 import { useRouter } from "vue-router";
 import IntroductionProduct from "./component/IntroductionProduct.vue";
 const router = useRouter();

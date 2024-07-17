@@ -5,26 +5,28 @@
         <q-card bordered>
           <q-card-section>
             <div square bordered class="col-12 col-sm-8 col-md-8">
-              <!-- <q-card>
-              <q-card-section> -->
               <div class="ibf-h7 text-weight-bold q-pa-md" align="center">
                 Edit Work
               </div>
+
               <div class="q-pa-md">
-                <q-form @submit="onResult" @reset="onReset" class="q-gutter-y-md">
+                <q-form @submit="onSave" @reset="onReset" class="q-gutter-y-md">
                   <div class="row q-col-gutter-md">
                     <div class="col-6">
                       <div class="ibf-h10 text-weight-bold">
-                        Industry
-                        <q-select outlined name="industry" label="Your industry" v-model="getBfiName"
+                        BFI Name
+                        <q-select class="ibf-h10" outlined name="BFIs" label="Your bfis" v-model="user.bfis[0].name"
                           :options="options" />
+                        <!-- <q-select outlined name="BFIs" label="Your bfis"
+                          :v-model="user.bfis ? user.bfis[0].name : 'N/A'" :options="options"
+                          /> -->
                       </div>
                     </div>
                     <div class="col-6">
                       <div class="ibf-h10 text-weight-bold">
                         Role
-                        <q-select class="text-weight-bold text-primary" disabled outlined name="role" label="Your role"
-                          v-model="roles[0]">
+                        <q-select class="text-weight-bold text-primary ibf-h10" disabled outlined name="role"
+                          label="Your role" v-model="roles[0]">
                         </q-select>
                       </div>
                     </div>
@@ -33,22 +35,30 @@
                   <div class="row q-col-gutter-x-md">
                     <div class="col-6">
                       <div class="ibf-h10 text-weight-bold">
-                        Job Title
-                        <q-input name="job" v-model="job" label="Your job title" outlined clearable />
+                        Position
+                        <q-input class="ibf-h10" name="job" v-model="position" label="Your position" outlined
+                          clearable />
                       </div>
                     </div>
 
                     <div class="col-6">
                       <div class="ibf-h10 text-weight-bold">
-                        Company Name
-                        <q-input name="company" label="Your company name" v-model="user.bfi" outlined clearable />
+                        Email Address (Work)
+                        <q-input class="ibf-h10" disable name="email" label="Your company name" v-model="user.email"
+                          outlined clearable />
                       </div>
                     </div>
                   </div>
 
-                  <div align="right">
+                  <!-- <div align="right">
                     <q-btn label="Cancel" type="reset" v-model="onReset" color="grey" flat class="q-ml-sm" />
                     <q-btn flat label="Save" v-model="onResult" type="submit" color="primary" />
+                  </div> -->
+
+                  <!-- button submit or reset -->
+                  <div align="right">
+                    <q-btn label="Cancel" type="reset" color="grey" flat />
+                    <q-btn flat label="Save" v-model="onSave" type="submit" color="primary" />
                   </div>
                 </q-form>
 
@@ -88,42 +98,56 @@
 <script setup>
 import { ref, onMounted, computed } from "vue";
 import { useUserStore } from "src/stores/user-store";
+import { useQuasar } from "quasar";
 
 const industry = ref("Digital");
 const role = ref("Student");
-const job = ref("Accountant");
+const position = ref("Accountant");
 const company = ref("ABA Bank");
 
 const userStore = useUserStore();
 const user = userStore.getUser;
 const roles = userStore.getRoles;
 
+const $q = useQuasar();
 const submitResult = ref([]);
 const onReset = () => {
   console.log("Reseted");
 };
-const onResult = (evt) => {
-  const formData = new FormData(evt.target);
-  const data = [];
-  for (const [name, value] of formData.entries()) {
-    data.push({
-      name,
-      value,
-    });
-  }
-  submitResult.value = data;
-};
 
-const getBfiName = computed({
-  get() {
-    return user.bfi ? user.bfi.name : 'N/A';
-  },
-  set(value) {
-    if (user.bfi) {
-      user.bfi.name = value;
-    }
+// const getBfiName = computed({
+//   get() {
+//     return user.bfis ? user.bfis[0].name : "N/A";
+//   },
+//   set(value) {
+//     if (user.bfis) {
+//       user.bfis[0].name = value;
+//     }
+//   }
+// });
+
+const options = [
+  "ACLEDA", "ABA", "Vattanak", "Institut of Banking & Finance"
+];
+
+const onSave = () => {
+  console.log('Form submitted successfully', user.value)
+  if (user.value !== true) {
+    $q.notify({
+      color: 'red-5',
+      textColor: 'white',
+      icon: 'wearning',
+      message: 'Failed to submit'
+    })
+  } else {
+    $q.notify({
+      color: 'green-4',
+      textColor: 'white',
+      icon: 'cloud_done',
+      message: 'Submitted'
+    })
   }
-});
+}
 
 // onMounted(async () => {
 //   await fetchDataFromApi();
@@ -137,8 +161,6 @@ const getBfiName = computed({
 //     console.error("Error fetching data from API:", error);
 //   }
 // };
-
-const options = ["Google", "Facebook", "Twitter", "Apple", "Oracle"];
 
 const options2 = [
   "Software Engineer",
