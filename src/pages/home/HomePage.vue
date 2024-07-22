@@ -13,7 +13,7 @@
             style="background: rgba(134, 24, 40, 0.4)"
             class="row justify-center items-start full-height"
           >
-           
+
             <div class="col-12 col-md-8 q-pa-xl">
               <div class="ibf-h3 q-mb-md text-weight-medium text-white">
                 Welcome to IBF
@@ -24,10 +24,10 @@
       </q-parallax>-->
     </div>
     <!-- IBF Container -->
-    <div class="ibf-container-1200 q-pa-md">
+    <div class="ibf-container-1200 ">
       <div>
         <!-- Title & subtitle -->
-        <div class="ibf-h6 text-weight-bold">Course Type</div>
+        <div class="ibf-h6 text-weight-bold q-py-sm">Course Type</div>
         <span class="ibf-h10 text-weight-regular text-grey-7">
           IBF offers both local certifications and international standard <br />
           ones at a locally affordable scheme for professional bankers <br />
@@ -83,11 +83,7 @@
 
       <!-- Why choose IBF -->
       <div class="q-py-md" align="center">
-        <q-btn
-          color="primary"
-          label="Get Started"
-          @click="router.push({ name: 'login-page' })"
-        />
+        <q-btn color="primary" label="Get Started" @click="router.push({ name: 'login-page' })" />
       </div>
     </div>
 

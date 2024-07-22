@@ -9,8 +9,7 @@
     <div class="row q-gutter-md q-px-sm">
       <div class="q-gutter-md" align="center">
         <q-avatar size="200px" font-size="200px" color="teal" text-color="white">
-          <q-img square src="https://cdn.quasar.dev/img/mountains.jpg" :ratio="1" spinner-color="primary"
-            spinner-size="82px" />
+          <q-img square src="~assets/images/photo-01.png" :ratio="1" spinner-color="primary" spinner-size="82px" />
         </q-avatar>
 
         <div>
@@ -29,8 +28,7 @@
 
       <div class="q-gutter-md" align="center">
         <q-avatar size="200px" font-size="200px" color="teal" text-color="white">
-          <q-img square src="https://cdn.quasar.dev/img/mountains.jpg" :ratio="1" spinner-color="primary"
-            spinner-size="82px" />
+          <q-img square src="~assets/images/photo-02.png" :ratio="1" spinner-color="primary" spinner-size="82px" />
         </q-avatar>
 
         <div>
@@ -49,8 +47,7 @@
 
       <div class="q-gutter-md" align="center">
         <q-avatar size="200px" font-size="200px" color="teal" text-color="white">
-          <q-img square src="https://cdn.quasar.dev/img/mountains.jpg" :ratio="1" spinner-color="primary"
-            spinner-size="82px" />
+          <q-img square src="~assets/images/photo-03.png" :ratio="1" spinner-color="primary" spinner-size="82px" />
         </q-avatar>
 
         <div>
@@ -69,8 +66,7 @@
 
       <div class="q-gutter-md" align="center">
         <q-avatar size="200px" font-size="200px" color="teal" text-color="white">
-          <q-img square src="https://cdn.quasar.dev/img/mountains.jpg" :ratio="1" spinner-color="primary"
-            spinner-size="82px" />
+          <q-img square src="~assets/images/photo-04.png" :ratio="1" spinner-color="primary" spinner-size="82px" />
         </q-avatar>
 
         <div>
@@ -89,8 +85,7 @@
 
       <div class="q-gutter-md" align="center">
         <q-avatar size="200px" font-size="200px" color="teal" text-color="white">
-          <q-img square src="https://cdn.quasar.dev/img/mountains.jpg" :ratio="1" spinner-color="primary"
-            spinner-size="82px" />
+          <q-img square src="~assets/images/photo-05.png" :ratio="1" spinner-color="primary" spinner-size="82px" />
         </q-avatar>
 
         <div>
