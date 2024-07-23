@@ -3,7 +3,7 @@
     <div class="row q-col-gutter-lg">
       <!-- Image -->
       <div class="col-12 col-md-5">
-        <q-img src="https://cdn.quasar.dev/img/mountains.jpg" :ratio="16 / 9" spinner-color="primary"
+        <q-img src="https://www.ibfkh.org/images/illustration/about-us-2.png" :ratio="16 / 9" spinner-color="primary"
           spinner-size="82px" />
       </div>
 
@@ -66,7 +66,6 @@ const toggleExpand = () => {
 </script>
 
 <style scoped>
-/* Add any additional styles if needed */
 .text-primary {
   cursor: pointer;
   text-decoration: underline;

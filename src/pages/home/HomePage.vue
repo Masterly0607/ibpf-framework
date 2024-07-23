@@ -24,7 +24,7 @@
       </q-parallax>-->
     </div>
     <!-- IBF Container -->
-    <div class="ibf-container-1200 ">
+    <div class="ibf-container-1200 q-pa-sm">
       <div>
         <!-- Title & subtitle -->
         <div class="ibf-h6 text-weight-bold q-py-sm">Course Type</div>
@@ -59,7 +59,7 @@
               <q-card class="ibf-card-1">
                 <img :src="url" width="100%" height="auto" />
                 <q-card-section class="q-py-lg q-pa-none" align="center">
-                  <div class="text-h6 q-pa-sm">Short Courses</div>
+                  <div class="text-h6 q-pa-sm">webinar</div>
                 </q-card-section>
               </q-card>
             </div>
@@ -86,27 +86,11 @@
         <q-btn color="primary" label="Get Started" @click="router.push({ name: 'login-page' })" />
       </div>
     </div>
-
-    <!-- <div class="ibf-container-1200">
-      <div class="ibf-h8 text-weight-bold">Course Type</div>
-      <div class="ibf-h10 text-weight-medium">
-        Your gateway to lifelong learning
-      </div>
-      <div class="q-py-md">
-        <q-btn
-          color="primary"
-          label="Get Started"
-          @click="router.push({ name: 'login-page' })"
-        />
-      </div>
-    </div> -->
-    <FooterComponent />
   </q-page>
 </template>
 
 <script setup>
 import HomeCarousel from "./component/HomeCarousel.vue";
-import FooterComponent from "../../components/FooterComponent.vue";
 import { useRouter } from "vue-router";
 import IntroductionProduct from "./component/IntroductionProduct.vue";
 const router = useRouter();

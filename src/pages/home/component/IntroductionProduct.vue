@@ -14,8 +14,9 @@
     <div class="row q-col-gutter-md q-pt-md">
       <!-- image -->
       <div class="col-12 col-md-4">
-        <q-img :ratio="1" fit="fill" src="~assets/images/webinar.png" width="100%" height="380px" />
+        <q-img :ratio="1" fit="fill" src="~assets/images/webinar.png" width="100%" height="365px" />
       </div>
+
       <div class="col-12 col-md-8">
         <div class="ibf-h10 text-grey-8">
           Post-pandemic is observed to be the challenging time for the banking
@@ -32,26 +33,62 @@
           future, by showcasing success stories from exemplary leaders who have
           gone through journeys of changes and innovations.
         </div>
-
-        <div class="q-py-lg">
+        <!-- <div class="q-py-lg">
           <a href="#" class="text-weight-bold ibf-h10 text-primary">
             LEARN MORE
             <q-icon name="arrow_forward" />
           </a>
+        </div> -->
+        <div class="q-py-lg">
+          <p class="ibf-h10 text-grey-8">
+            <span v-if="!isExpanded">
+              The webinar discusses the global and regional trends that affect the banking industry, and how the BFls
+              can prepare themselves for the future, by showcasing success stories from exemplary ...
+              <br>
+              <span @click="toggleExpand" class="text-weight-medium ibf-h11 text-primary">
+                See more
+                <q-icon name="arrow_forward" />
+              </span>
+            </span>
+            <span v-else>
+              The webinar discusses the global and regional trends that affect the banking industry, and how the BFIs
+              can prepare themselves for the future, by showcasing success stories from exemplary leaders who have gone
+              through journeys of changes and innovations.
+              <br>
+              <span @click="toggleExpand" class="text-weight-medium ibf-h11 text-primary" style="cursor: pointer;">
+                See less
+                <q-icon name="arrow_back" />
+              </span>
+            </span>
+          </p>
         </div>
       </div>
+
     </div>
+
     <!-- <q-separator spaced /> -->
     <q-separator size="2px" spaced="25px" />
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref } from 'vue';
+
+const isExpanded = ref(false);
+
+const toggleExpand = () => {
+  isExpanded.value = !isExpanded.value;
+};
+</script>
 
 <style lang="scss" scoped>
-.background {
-  background-image: url("~assets/images/webinar.png");
-  background-size: fill;
-  background-repeat: no-repeat;
+// .background {
+//   background-image: url("~assets/images/webinar.png");
+//   background-size: fill;
+//   background-repeat: no-repeat;
+// }
+.text-primary {
+  cursor: pointer;
+  text-decoration: underline;
 }
 </style>
