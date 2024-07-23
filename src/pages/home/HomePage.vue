@@ -24,10 +24,10 @@
       </q-parallax>-->
     </div>
     <!-- IBF Container -->
-    <div class="ibf-container-1200 q-pa-md">
+    <div class="ibf-container-1200 ">
       <div>
         <!-- Title & subtitle -->
-        <div class="ibf-h6 text-weight-bold">Course Type</div>
+        <div class="ibf-h6 text-weight-bold q-py-sm">Course Type</div>
         <span class="ibf-h10 text-weight-regular text-grey-7">
           IBF offers both local certifications and international standard <br />
           ones at a locally affordable scheme for professional bankers <br />

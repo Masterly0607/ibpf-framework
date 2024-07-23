@@ -1,14 +1,9 @@
 <template>
   <div class="q-py-lg">
-    <!-- ITB Title -->
+    <!-- IBF Title -->
     <div class="ibf-h3 text-weight-medium" align="center">
       Institute of Banking & Finance (IBF)
-      <q-separator
-        size="5px"
-        spaced="10px"
-        style="width: 400px"
-        color="primary"
-      />
+      <q-separator size="5px" spaced="10px" style="width: 400px" color="primary" />
     </div>
     <!-- Subtitle -->
     <div class="ibf-h10 text-weight-regular text-grey-6 q-py-lg" align="center">
@@ -19,13 +14,7 @@
     <div class="row q-col-gutter-md q-pt-md">
       <!-- image -->
       <div class="col-12 col-md-4">
-        <q-img
-          :ratio="1"
-          fit="fill"
-          src="~assets/images/webinar.png"
-          width="100%"
-          height="380px"
-        />
+        <q-img :ratio="1" fit="fill" src="~assets/images/webinar.png" width="100%" height="380px" />
       </div>
       <div class="col-12 col-md-8">
         <div class="ibf-h10 text-grey-8">

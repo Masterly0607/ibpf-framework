@@ -2,11 +2,11 @@
   <div class="row q-col-gutter-md q-pa-lg">
     <div class="col-12 col-md-6">
       <!-- Title -->
-      <div class="text-weight-bold ibf-h6 justify-center flex">
+      <div class="text-weight-medium ibf-h5 justify-center flex">
         Institute of Banking & Finance
       </div>
       <!-- Subtittle -->
-      <div class="ibf-h11 q-py-md">
+      <div class="ibf-h11 text-grey-7 q-py-md">
         The Institute of Banking & Finance Cambodia (formely know as CIB) has
         been set up by The Association of Banks in Cambodia (ABC), with the
         assistance from the Mekong Private Sector Development Facility (MPDF),
@@ -27,14 +27,8 @@
 
     <!-- Image -->
     <div class="col-12 col-md-6">
-      <q-img
-        src="https://cdn.quasar.dev/img/mountains.jpg"
-        :ratio="16 / 9"
-        spinner-color="primary"
-        spinner-size="82px"
-        width="100%"
-        height="100%"
-      />
+      <q-img src="~assets/images/ibf_event.png" :ratio="16 / 9" spinner-color="primary" spinner-size="82px" width="100%"
+        height="100%" />
     </div>
   </div>
 </template>
