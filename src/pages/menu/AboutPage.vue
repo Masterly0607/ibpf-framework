@@ -1,6 +1,6 @@
 <template>
-  <q-page padding>
-    <div class="ibf-container-1200 q-gutter-lg">
+  <q-page>
+    <div class="ibf-container-1200 q-gutter-lg" padding>
       <!-- Title -->
       <div class="ibf-h3 text-weight-bold justify-center" align="center">
         About Us
@@ -25,7 +25,8 @@
 
       <!-- image -->
       <div>
-        <img src="~assets/images/our-team.png" width="100%" height="fill" :ratio="1" />
+        <img src="~assets/images/our-team.png" width="100%" height="fill" :ratio="16 / 9" spinner-color="primary"
+          spinner-size="82px" />
       </div>
 
       <!-- Contact us button -->
@@ -55,25 +56,25 @@
       <!-- Our Vission & Our Mission -->
       <div class="row background q-col-gutter-md">
         <div class="col-12 col-md-6 q-px-xl q-py-lg">
-          <div class="q-py-sm q-px-xl text-weight-bold ibf-h8">Our Vision</div>
+          <div class="q-py-sm text-weight-bold ibf-h8">Our Vision</div>
           <div class="q-py-sm">
             Build sustainable finance through <br />
             capacity building
           </div>
           <a href="#" class="text-weight-medium ibf-h11 text-primary">
-            LEARN MORE
+            Learn More
             <q-icon name="arrow_forward" />
           </a>
         </div>
 
         <div class="col-12 col-md-6 q-px-xl q-py-lg">
-          <div class="q-py-sm q-px-xl text-weight-bold ibf-h8">Our Mission</div>
+          <div class="q-py-sm text-weight-bold ibf-h8">Our Mission</div>
           <div class="q-py-sm">
             <li>Improve corporate governance</li>
             <li>Elevate local practices toward international best practices</li>
           </div>
           <a href="#" class="text-weight-medium ibf-h11 text-primary">
-            LEARN MORE
+            Learn More
             <q-icon name="arrow_forward" />
           </a>
         </div>

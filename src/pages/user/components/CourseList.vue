@@ -42,7 +42,7 @@
       </q-card-actions>
 
       <q-separator />
-      <div class="q-pa-sm card-bg text-primary" bordered align="right">
+      <div class="q-pa-sm text-primary" bordered align="right">
         <q-btn flat no-caps label="Start Learning" @click="startLearning" />
       </div>
     </q-card>

@@ -36,7 +36,7 @@
                               />
                             </div>
                           </template>
-                        </q-field> -->
+</q-field> -->
                       </q-card-section>
 
                       <q-card-actions align="right">
@@ -54,56 +54,13 @@
                       </q-card-actions>
                     </q-card>
                   </div>
-
-                  <!-- <q-img :src="url" style="height: 140px; max-width: 150px">
-                    <template v-slot:loading>
-                      <div class="text-yellow">
-                        <q-spinner-ios />
-                        <div class="q-mt-md">Loading...</div>
-                      </div>
-                    </template>
-                  </q-img>
-                  <q-btn
-                    push
-                    color="teal"
-                    label="Change image"
-                    @click="refresh"
-                    class="q-mb-md"
-                  /> -->
                 </div>
-
-                <!-- <q-avatar
-                  size="200px"
-                  font-size="180px"
-                  text-color="primary"
-                  icon="account_circle"
-                  :src="url"
-                /> -->
-
-                <!-- <q-avatar size="150px" font-size="100px">
-                  <q-img :src="url" style="max-width: 300px" />
-                </q-avatar>
-
-              <div class="ibf-h7 text-weight-bold">Da Lyna</div>
-                <div class="ibf-h10 text-weight-bold q-py-sm" id="q-app">
-                  <q-btn
-                    push
-                    color="primary"
-                    label="Change image"
-                    @click="refresh"
-                  />
-                </div> -->
-
-                <br />
               </div>
 
-              <!-- edit profile -->
+              <!-- edit profile information-->
               <div square bordered class="col-12 col-sm-8 col-md-8">
                 <q-card>
                   <q-card-section>
-                    <!-- <div class="ibf-h7 text-weight-bold q-pa-sm" align="center">
-                      Edit Profile
-                    </div> -->
                     <div class="text-h4 q-pa-sm">
                       <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-md">
                         <div class="ibf-h10 text-weight-bold text-grey-7">
@@ -116,6 +73,20 @@
                             ]" />
                         </div>
 
+                        <div class="q-gutter-xs background q-pa-sm">
+                          <q-radio class=" ibf-h10 text-grey-8" v-model="user.gender" val="male" label="male" />
+                          <q-radio class=" ibf-h10 text-grey-8" v-model="user.gender" val="female" label="female" />
+                        </div>
+
+                        <div class="ibf-h10 text-weight-bold text-grey-7">
+                          Date of Birth
+                          <q-input filled class="ibf-h10" v-model="user.dob" label="Enter your name"
+                            hint="Your date of birth" lazy-rules :rules="[
+                              (val) =>
+                                (val && val.length > 0) ||
+                                'Please type something',
+                            ]" />
+                        </div>
                         <div class="ibf-h10 text-weight-bold text-grey-7">
                           Address
                           <q-input filled class="ibf-h10" v-model="address" label="Enter your name" hint="Your address"
@@ -125,11 +96,10 @@
                                 'Please type something',
                             ]" />
                         </div>
-
                         <div class="ibf-h10 text-weight-bold text-grey-7">
                           Phone Number
-                          <q-input filled class="ibf-h10" v-model="phoneNumber" label="Enter your name"
-                            hint="Name and surname" lazy-rules :rules="[
+                          <q-input filled class="ibf-h10" v-model="user.phone_number" label="Enter your name"
+                            hint="Your phone number" lazy-rules :rules="[
                               (val) =>
                                 (val && val.length > 0) ||
                                 'Please type something',
@@ -137,17 +107,7 @@
                         </div>
 
                         <div class="ibf-h10 text-weight-bold text-grey-7">
-                          User Position
-                          <q-input filled class="ibf-h10" v-model="roles[0]" label="Enter your position"
-                            hint="Your position" lazy-rules disable :rules="[
-                              (val) =>
-                                (val && val.length > 0) ||
-                                'Please type something',
-                            ]" />
-                        </div>
-
-                        <div class="ibf-h10 text-weight-bold text-grey-7">
-                          Email
+                          Email (Personal)
                           <q-input filled v-model="user.email" label="Your email" class="ibf-h10"
                             hint="Your email has been stored in the system" lazy-rules disable :rules="[
                               (val) =>
@@ -160,7 +120,7 @@
                         <!-- button submit or reset -->
                         <div align="right">
                           <q-btn label="Cancel" type="reset" color="grey" flat />
-                          <q-btn flat label="Save" type="submit" color="primary" />
+                          <q-btn flat label="Save" @click="onSubmit()" type="submit" color="primary" />
                         </div>
                       </q-form>
                     </div>
@@ -172,18 +132,17 @@
         </q-card>
       </div>
 
-      <!--  -->
       <preview-json :list="user"></preview-json>
     </q-page-container>
   </q-page>
 </template>
 
 <script setup>
-import { ref } from "vue";
-// import ImageUploadPreview from "./ImageUploadPreview.vue";
+import { onMounted, ref } from "vue";
+import { useQuasar } from "quasar";
 import { useUserStore } from "src/stores/user-store";
 
-// const dialog = ref(false);
+
 const fileName = ref("");
 const imagePreview = ref(null);
 const uploadUrl = "https://YOUR_S3_BUCKET_URL"; // Set your S3 upload URL
@@ -193,9 +152,15 @@ const roles = userStore.getRoles;
 
 const editImage = ref(true);
 const emit = defineEmits(["file-uploaded"]);
-
+const $q = useQuasar();
 const address = ref("Phnom Penh");
-const phoneNumber = ref("0123456789");
+
+onMounted(user.gender, (newGender) => {
+  if (newGender !== user.gender.value) {
+    user.dispatch('updateUserEmail', newGender)
+  }
+})
+
 const handleFileAdded = (files) => {
   if (files.length > 0) {
     const file = files[0];
@@ -209,31 +174,40 @@ const handleFileAdded = (files) => {
   }
 };
 
-// const refresh = () => {
-//   console.log("Refreshed");
-// };
-
 const url = ref("https://picsum.photos/500/300");
 
-const refresh = () => {
-  url.value = "https://picsum.photos/500/300?t=" + Math.random();
-};
-
-const name = ref(["Da Lyna"]);
-const email = ref("uiofficer.ibfkh.org");
-const position = ref(["Software Engineer"]);
-
 const onSubmit = () => {
-  console.log("Submited");
-};
-const onReset = () => {
-  console.log("Canceled");
-};
+  if (user.value !== true) {
+    $q.notify({
+      color: 'red-5',
+      textColor: 'white',
+      icon: 'wearning',
+      message: 'Failed to submit'
+    })
+  } else {
+    $q.notify({
+      color: 'green-4',
+      textColor: 'white',
+      icon: 'cloud_done',
+      message: 'Submitted'
+    })
+    console.log('Form submitted with email:', user.value)
+  }
+}
 
-// const onRejected = (rejectedEntries) => {
-//   $url.notify({
-//     type: "negative",
-//     message: `${rejectedEntries.length} file(s) did not pass validation constraints`,
-//   });
+const onReset = () => {
+  // Reset the form fields
+  // user.value.name = ''
+  user.value = ''
+  user.value.dob = ''
+  user.value.phone_number = ''
+}
+
+// const onSubmit = () => {
+//   console.log("Submited");
 // };
+// const onReset = () => {
+//   console.log("Canceled");
+// };
+
 </script>

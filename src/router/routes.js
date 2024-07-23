@@ -34,9 +34,9 @@ const routes = [
         component: () => import("pages/menu/EventPage.vue"),
       },
       {
-        path: "enrol",
-        name: "enrol-page",
-        component: () => import("pages/menu/EnrolPage.vue"),
+        path: "contact",
+        name: "contact-page",
+        component: () => import("src/pages/menu/ContactUsPage.vue"),
       },
       {
         path: "about",

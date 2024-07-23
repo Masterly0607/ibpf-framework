@@ -18,7 +18,7 @@
               <q-card bordered square flat>
                 <div class="bg-primary row q-pa-sm">
                   <q-avatar>
-                    <img src="https://cdn.quasar.dev/img/avatar2.jpg" />
+                    <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
                   </q-avatar>
                   <div class="q-pa-sm q-px-md ibf-h8 text-grey-4 text-weight-medium">
                     {{ user.name }}
@@ -26,28 +26,35 @@
                 </div>
 
                 <q-card-section class="q-pa-md">
-                  <!-- <div class="q-pa-sm ibf-h8">Da Lyna</div> -->
-                  <div class="text-weight-medium q-py-md">
+                  <div class="text-weight-medium q-py-sm">
                     <a href="#" class="text-primary">Role: {{ roles[0] }}</a>
                   </div>
+
+                  <div class="text-weight-medium">
+                    <span class="text-weight-medium text-grey-7">Gender : </span>
+                    {{ user.gender }}
+                  </div>
+
+                  <div class="text-weight-medium">
+                    <span class="text-weight-medium text-grey-7">BFI : </span>
+                    <!-- {{ userStore.user.bfi.name ?? "N/A" }} -->
+                    {{ user.bfis ? user.bfis[0].name : "N/A" }}
+                  </div>
+
                   <div class="text-weight-medium">
                     <span class="text-weight-medium text-grey-7">Email : </span>
                     {{ user.email }}
                   </div>
+
                   <div class="text-weight-medium">
-                    <span class="text-weight-medium text-grey-7">BFI : </span>
-                    <!-- {{ userStore.user.bfi.name ?? "N/A" }} -->
-                    {{ user.bfi ? user.bfi.name : "N/A" }}
-                  </div>
-                  <div class="text-weight-medium">
-                    <span class="text-weight-medium text-grey-7">Phone Number :
+                    <span class="text- -medium text-grey-7">Phone Number :
                     </span>
-                    091 23 45 678
+                    {{ user.phone_number }}
                   </div>
                 </q-card-section>
 
                 <q-separator />
-                <q-card-actions class="card-bg" align="between">
+                <q-card-actions align="between">
                   <q-btn color="primary" flat no-caps label="My Account" @click="viewMyAccount" />
 
                   <q-btn outline square color="grey-7" icon="mdi-logout" label="Logout" no-caps @click="logout" />
@@ -103,7 +110,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import OrderDashboardPage from "./order/OrderDashboardPage.vue";
 import CapabilityModel from "./components/CapabilityModel.vue";
 import MyLearning from "./components/MyLearning.vue";
@@ -132,10 +139,10 @@ const logout = () => {
 
   router.replace({ name: "home-page" });
 };
+
 </script>
 
-<style lang="scss" scoped>
+<!-- <style lang="scss" scoped>
 //.card-bg {
 //  background-color: #f1f1f1;
-//}
-</style>
+//}</style> -->
