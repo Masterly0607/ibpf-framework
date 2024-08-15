@@ -1,5 +1,5 @@
 <template>
-  <div class="q-py-lg">
+  <div class="q-py-md">
     <!-- IBF Title -->
     <div class="ibf-h3 text-weight-medium" align="center">
       Institute of Banking & Finance (IBF)
@@ -33,12 +33,7 @@
           future, by showcasing success stories from exemplary leaders who have
           gone through journeys of changes and innovations.
         </div>
-        <!-- <div class="q-py-lg">
-          <a href="#" class="text-weight-bold ibf-h10 text-primary">
-            LEARN MORE
-            <q-icon name="arrow_forward" />
-          </a>
-        </div> -->
+
         <div class="q-py-lg">
           <p class="ibf-h10 text-grey-8">
             <span v-if="!isExpanded">

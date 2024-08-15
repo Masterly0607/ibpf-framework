@@ -23,6 +23,7 @@
         </div>
       </q-parallax>-->
     </div>
+
     <!-- IBF Container -->
     <div class="ibf-container-1200 q-pa-sm">
       <div>
@@ -78,22 +79,69 @@
 
       <!-- what is IBF -->
       <div>
-        <IntroductionProduct />
+        <InformationIBF />
       </div>
 
       <!-- Why choose IBF -->
-      <div class="q-py-md" align="center">
-        <q-btn color="primary" label="Get Started" @click="router.push({ name: 'login-page' })" />
+      <div class="row q-col-gutter-lg">
+        <div v-for="(data, index) in dataInfo" :key="index" class="col-6">
+          <div class="row q-gutter-x-sm items-center q-py-sm">
+            <q-icon color="primary" size="50px" :name="data.icon" />
+            <div class="text-grey-8 ibf-h9 text-weight-bold">
+              {{ data.title }}
+            </div>
+          </div>
+          <div class="ibf-h11 text-weight-regular text-grey-7">
+            {{ data.content }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Get started -->
+      <div class="q-py-lg" align="center">
+        <q-btn class="ibf-card-1" color="primary" label="Get Started" @click="router.push({ name: 'login-page' })" />
       </div>
     </div>
   </q-page>
 </template>
 
 <script setup>
+import { ref } from "vue";
 import HomeCarousel from "./component/HomeCarousel.vue";
 import { useRouter } from "vue-router";
-import IntroductionProduct from "./component/IntroductionProduct.vue";
+import InformationIBF from "./component/InformationIBF.vue";
 const router = useRouter();
 
 const url = "https://www.ibfkh.org/images/alter-ibf-image.jpg";
+
+const dataInfo = ref([
+  {
+    id: 1,
+    icon: "mdi-certificate",
+    title: "Graduate with a certificate",
+    content:
+      "Graduate with a verified certificate from Impact Hub Phnom Penh when you finish all the course content to share with your network"
+  },
+  {
+    id: 2,
+    icon: "mdi-account-group",
+    title: "Online Community",
+    content:
+      "Meet other changemakers across the country in our online Facebook group. You can access more resources, ask questions, get support from our experts, build your network, and join virtual events and peer coaching circles."
+  },
+  {
+    id: 3,
+    icon: "mdi-translate",
+    title: "Learn in Your Language",
+    content:
+      "We teach in Khmer language, but blend English terms in where necessary (e.g. when a direct translation is difficult) to ensure you have the best learning experience and help you learn specific business terms. No more confusing translations!"
+  },
+  {
+    id: 4,
+    icon: "mdi-comment-question",
+    title: "What is IBF?",
+    content:
+      "The Institute of Banking and Finance (IBF) is a professional institute that provides training and certification for banking professionals in Cambodia. The institute offers a wide range of courses, including international certifications, local certifications, webinars, and short courses. "
+  }
+])
 </script>
