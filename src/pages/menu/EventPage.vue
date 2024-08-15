@@ -8,21 +8,18 @@
             weidth="100%" height="400px" />
         </div> -->
 
-        <div class="ibf-h5 text-weight-bold justify-center" align="center">
-          Schedule all types of events
-          <q-separator size="4px" spaced="3px" style="width: 400px" color="grey-6" />
-        </div>
-
-        <EventType /> <!-- component -->
-
         <!-- Event List -->
         <EventList />
 
-        <!-- Event Type -->
 
+        <div class="ibf-h5 text-weight-bold" align="center">
+          Schedule all types of events
+          <q-separator size="4px" spaced="3px" style="width: 400px" color="grey-6" />
+        </div>
+        <!-- Event Type -->
+        <EventType />
 
         <!-- Our customer says -->
-
         <q-separator size="2px" />
         <div class="ibf-h6 text-weight-bold text-primary" align="center">Our Customer Says</div>
 
@@ -71,5 +68,4 @@
 <script setup>
 import EventList from "./component-event/EventList.vue";
 import EventType from "./component-event/EventType.vue";
-
 </script>
