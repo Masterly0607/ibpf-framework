@@ -1,10 +1,26 @@
 <template>
   <q-page>
-    <div class="ibf-container-1200 q-gutter-lg" padding>
+    <div class="ibf-container-1200 q-gutter-lg">
       <!-- Title -->
       <div class="ibf-h3 text-weight-bold justify-center" align="center">
         About Us
         <q-separator size="4px" spaced="3px" style="width: 150px" color="primary" />
+      </div>
+
+      <!-- image and text -->
+      <div class="row" style="background: rgba(134, 24, 39, 0.9)">
+        <div class="col-9">
+          <q-img src="~assets/images/our-team.png" width="100%" />
+        </div>
+        <div class="col-3 q-mt-xl" align="center">
+          <br>
+          <div class="ibf-h5 text-weight-medium text-white"> Institute <br> of <br> Banking <br> and <br> Finance </div>
+
+          <div class="text-grey-4 ibf-h10 q-py-xl">
+            <q-icon name="people" size="20px" />
+            Our members
+          </div>
+        </div>
       </div>
 
       <!-- Subtittle -->
@@ -21,12 +37,6 @@
         Chartered Compliance Officers (ICCO), Singapore, the International Cyber Threat Task Force (ICTTF), Moody’s
         Analytics, USA, HRCI (USA), Chartered Banker Institute (CBI), UK, the London Institute of Banking and Finance
         (LIBF), UK, and the Fintech Academy Singapore (FTA).
-      </div>
-
-      <!-- image -->
-      <div>
-        <img src="~assets/images/our-team.png" width="100%" height="fill" :ratio="16 / 9" spinner-color="primary"
-          spinner-size="82px" />
       </div>
 
       <!-- Contact us button -->
@@ -92,11 +102,22 @@
 import AboutIBF from "./component-about/AboutIBF.vue";
 import AboutHistoryIBF from "./component-about/AboutHistoryIBF.vue";
 import AboutManagementTeam from "./component-about/AboutManagementTeam.vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const contactUs = () => {
+  router.push({ name: "contact-page" });
+};
 </script>
 
 <style lang="scss" scoped>
 .cart-bacground {
   background-color: #8c1925;
+}
+
+.background1 {
+  background-color: #f2f2f2;
 }
 
 .background {
