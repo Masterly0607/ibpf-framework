@@ -1,7 +1,7 @@
 <template>
-  <div class="row q-col-gutter-lg q-py-sm">
+  <div class="row q-col-gutter-lg ">
     <div class="col-12 col-md-7 ">
-      <div>
+      <div class="ibf-h11 text-grey-8">
         Feel free to get in touch with us via email or phone
         <q-separator size="2px" spaced="10px" style="width: 350px" color="grey-6" />
       </div>
@@ -14,34 +14,42 @@
           </div>
           <div class="col-12 col-md-11 q-gutter-sm">
             <div class="text-weight-bold ibf-h10 text-grey-8"> {{ data.title }}</div>
-            <div class="text-weight-medium ibf-h11"> {{ data.description }}</div>
+            <div class="text-weight-medium ibf-h11 text-grey-8"> {{ data.description }}</div>
           </div>
         </div>
       </div>
     </div>
 
+    <!-- form contact -->
     <div class="col-12 col-md-5">
-      <q-card class="ibf-card-1 q-pb-md">
-        <div class="q-pa-lg q-gutter-md">
-          <div class="text-weight-bold ibf-h9" align="center">
-            Get in Touch
+      <q-card class="ibf-card-1">
+        <q-card-section>
+          <div class="text-h4 q-pa-md">
+            <q-form @submit="submit" @reset="onReset">
+              <div class="text-weight-bold ibf-h9 " align="center">
+                Get in Touch
+              </div>
+              <div>
+                <span class="ibf-h11 text-weight-medium text-grey-7">Full Name</span>
+                <q-input v-model="name" label="Enter your name" hint="Surname or Username "
+                  :rules="[val => !!val || 'Name is required']" outlined />
+
+                <span class="ibf-h11 text-weight-medium text-grey-7">Email address</span>
+                <q-input v-model="email" label="Enter your email" hint="Email address"
+                  :rules="[val => !!val || 'Name is required']" outlined />
+              </div>
+              <div class="ibf-h11 text-weight-medium text-grey-7">
+                Message
+                <q-input outlined v-model="message" label="Message" type="textarea" />
+              </div>
+              <!-- button submit and cancel -->
+              <div class="q-py-sm" align="right">
+                <q-btn label="Cancel" type="reset" color="grey-8" flat class="q-ml-sm" />
+                <q-btn outline label="Submit" type="submit" color="primary" />
+              </div>
+            </q-form>
           </div>
-          <!-- from -->
-          <q-form @submit="submit" class="q-gutter-md">
-            <!-- <span class="ibf-h11 text-weight-medium">Name</span> -->
-            <q-input filled v-model="name" label="Your name *" lazy-rules
-              :rules="[val => val && val.length > 0 || 'Please type something']" />
-            <q-input filled v-model="name" label="Your email *" lazy-rules
-              :rules="[val => val && val.length > 0 || 'Please type something']" />
-            <q-input filled v-model="name" label="Your email *" lazy-rules
-              :rules="[val => val && val.length > 0 || 'Please type something']" />
-            <!-- <span class="ibf-h11 text-weight-medium q-mt-lg">Message</span> -->
-            <q-input filled v-model="message" label="Message" type="textarea" />
-            <div align="right">
-              <q-btn class="ibf-card-2" type="submit" label="Submit" color="primary" style="width: 100px" />
-            </div>
-          </q-form>
-        </div>
+        </q-card-section>
       </q-card>
     </div>
   </div>
@@ -53,11 +61,10 @@ import { ref } from "vue";
 
 const name = ref("");
 const email = ref("");
-const phone = ref("");
 const message = ref("");
 
 const submit = () => {
-  console.log(name.value, email.value, phone.value, message.value);
+  console.log(name.value, email.value, message.value);
 };
 
 const optionData = ref([
@@ -87,3 +94,9 @@ const optionData = ref([
   // }
 ])
 </script>
+
+<style scoped lang="scss">
+.custom-label {
+  font-size: 18px;
+}
+</style>

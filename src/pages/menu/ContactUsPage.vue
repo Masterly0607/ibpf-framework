@@ -2,17 +2,17 @@
   <q-page padding>
     <div class="ibf-container-1200 q-gutter-md">
       <!-- Title -->
-      <div class="ibf-h3 text-weight-bold justify-center">
+      <div class="ibf-h3 text-weight-bold">
         Contact Us
       </div>
-      <div>
+      <div class="ibf-h11 text-grey-8">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet
         odio mattis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
         Curabitur tempus urna at turpis condimentum lobortis.
       </div>
 
-      <!-- Contact Form -->
-      <div class="q-py-xl">
+      <div class="q-py-lg">
+        <!-- Contact Form -->
         <GetInTouch />
 
         <!-- Our location -->

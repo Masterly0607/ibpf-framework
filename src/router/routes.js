@@ -30,8 +30,18 @@ const routes = [
       },
       {
         path: "event",
-        name: "event-page",
-        component: () => import("pages/menu/EventPage.vue"),
+        children: [
+          {
+            path: "",
+            name: "event-page",
+            component: () => import("pages/menu/EventPage.vue"),
+          },
+          {
+            path: "",
+            name: "event-detail-page",
+            component: () => import("pages/menu/ViewEventDetailPage.vue"),
+          },
+        ],
       },
       {
         path: "contact",
