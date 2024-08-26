@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { productAPI } from "src/boot/axios";
+import { shouldFetchData } from "src/helpers/apiCache";
 
 export const useCategoryStore = defineStore("category", {
   state: () => ({
@@ -15,12 +16,14 @@ export const useCategoryStore = defineStore("category", {
   actions: {
     async fetchProductTypes() {
       const now = Date.now();
-      const cacheDuration = 1000 * 60 * 30; // 5 minutes
+      const cacheDuration = 1000 * 60 * 10; // 2o minutes
+      const apiStatus = shouldFetchData(
+        this.productTypes,
+        this.lastProductTypeFetch,
+        cacheDuration
+      );
 
-      if (
-        !this.lastProductTypeFetch ||
-        now - this.lastProductTypeFetch > cacheDuration
-      ) {
+      if (apiStatus) {
         try {
           const res = await productAPI.get("/api/v1/user/list-product-type");
           console.log(res);
@@ -41,19 +44,20 @@ export const useCategoryStore = defineStore("category", {
     },
     async fetchCoreAreas() {
       const now = Date.now();
-      const cacheDuration = 1000 * 60 * 30; // 5 minutes
+      const cacheDuration = 1000 * 60 * 10; // 5 minutes
+      const apiStatus = shouldFetchData(
+        this.coreAreas,
+        this.lastCoreAreaFetch,
+        cacheDuration
+      );
 
-      if (
-        !this.lastCoreAreaFetch ||
-        now - this.lastCoreAreaFetch > cacheDuration
-      ) {
+      if (apiStatus) {
         try {
           const res = await productAPI.get("/api/v1/user/list-core-area");
 
           if (!res.data.status) return;
           this.storeCoreAreas(res.data.data);
           this.lastCoreAreaFetch = now;
-          console.log(res);
         } catch (error) {
           console.log(error.message);
         }

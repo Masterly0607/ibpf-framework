@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import { productAPI } from "src/boot/axios";
 import { useUserStore } from "./user-store";
 import { Notify } from "quasar";
+import { shouldFetchData } from "src/helpers/apiCache";
 
 export const useCartStore = defineStore("cart", {
   state: () => ({
@@ -20,9 +21,14 @@ export const useCartStore = defineStore("cart", {
 
   actions: {
     async serverFetchCartItems() {
-      const now = Date.now();
-      const cacheDuration = 1000 * 60 * 15; // 15 minutes
       const userStore = useUserStore();
+      const now = Date.now();
+      const cacheDuration = 1000 * 60 * 10; // 15 minutes
+      const apiStatus = shouldFetchData(
+        this.cart.order_items,
+        this.lastCartFetch,
+        cacheDuration
+      );
 
       if (!userStore.isAuthenticated) {
         Notify.create({
@@ -33,13 +39,11 @@ export const useCartStore = defineStore("cart", {
         return;
       }
 
-      if (!this.lastCartFetch || now - this.lastCartFetch > cacheDuration) {
+      if (apiStatus) {
         try {
           const res = await productAPI.get(
             "/api/v1/user/product/get/cart-items"
           );
-
-          console.log(res.data);
 
           if (!res.data.status) return;
           this.storeCart(res.data.data);
