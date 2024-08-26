@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-pa-md">
+  <q-page padding>
     <div class="ibf-container-1200 prevent-select">
       <q-card square flat class="bg-transparent">
         <q-card-section>
@@ -14,7 +14,7 @@
 
         <check-out-skeleton v-if="isLoading"></check-out-skeleton>
 
-        <q-card-section v-else>
+        <q-card-section v-else class="q-pa-sm">
           <empty-check-out v-if="isItemsEmpty" />
           <div class="row q-col-gutter-lg" v-else>
             <div class="col-12 col-md-5">
@@ -416,7 +416,7 @@
           </div>
         </q-card-section>
       </q-card>
-      <section>
+      <section class="q-my-md">
         <preview-json :list="checkOutItems" />
       </section>
     </div>
@@ -432,7 +432,7 @@ import EmptyCheckOut from "../components/EmptyCheckOut.vue";
 import CheckOutSkeleton from "src/components/skeletons/CheckOutSkeleton.vue";
 import { useCartStore } from "src/stores/cart-store";
 import { usePurchaseStore } from "src/stores/purchase-store";
-import { computed, onMounted, provide, reactive, ref } from "vue";
+import { computed, onMounted, provide, ref } from "vue";
 import { useUserStore } from "src/stores/user-store";
 
 const checkOutProvide = ref({
@@ -453,6 +453,7 @@ const HRInfo = ref({
   phone: "",
   email: "",
 });
+const globalPaymentOption = ref(null);
 
 const checkCurrentBFI = () => {
   if (selectedPaymentTypeOption.value === 2) return;
@@ -473,13 +474,12 @@ const startCheckOut = () => {
     checkout_status: CheckoutStatus.PENDING,
   };
 };
-const globalPaymentOption = ref(1);
+
 const paymentOptions = computed(() => {
   const options = [
     {
       value: 1,
       label: "NDF",
-      disable: false, // default
     },
     {
       value: 2,
@@ -503,7 +503,11 @@ const updateAllPaymentOptions = () => {
     const selectedOption = item.course.price_options.find(
       (option) => option.id === globalPaymentOption.value
     );
+    // save the selected option to payment_option
     item.payment_option = selectedOption;
+
+    //save the latest price_option from each course -- prevent wrong calculation with discount
+    item.price_options = item.course.price_options;
 
     const calPrice = selectedOption.isDiscount
       ? selectedOption.afterDiscount
@@ -519,14 +523,15 @@ const VAT = ref(0);
 
 const isItemsEmpty = computed(() => checkOutItems.value.length < 1);
 
+// helper for selected price option following the globalPaymentOption
 const selectedPrice = (item) => {
   return item.course.price_options.find(
-    (option) => option.id === item.payment_option.id
+    (option) => option.id === globalPaymentOption.value
   );
 };
 
 const subTotalCost = computed(() => {
-  if (checkOutItems.value.length < 1) return 0;
+  if (isItemsEmpty.value) return 0;
 
   // prevent user from selecting the payment option if personal
   if (selectedPaymentTypeOption.value == 2) {
@@ -552,6 +557,9 @@ const subTotalCost = computed(() => {
 });
 
 const findLowestPriceOption = () => {
+  // prevent errors when the checkoutItems is empty
+  if (isItemsEmpty.value) return;
+
   const result = findLowestPriceBasedOnSubscription(
     HRInfo.value,
     checkOutItems.value
@@ -582,7 +590,7 @@ const findLowestPriceBasedOnSubscription = (HRInfo, orderItems) => {
     HRInfo.membership.forEach((subscription) => {
       // Find the matching price_option within the course object based on title
       const matchingPriceOption = orderItem.course.price_options.find(
-        (option) => option.title === subscription.title
+        (option) => option.id === subscription.id
       );
 
       if (matchingPriceOption && matchingPriceOption.price < lowestPrice) {
