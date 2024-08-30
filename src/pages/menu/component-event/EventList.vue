@@ -1,6 +1,5 @@
 <template>
   <div>
-    <div class="q-py-md text-weight-bold ibf-h6">Events & Updates</div>
     <!-- tab Event -->
     <q-tabs v-model="tab" class="text-primary" align="left">
       <q-tab label="All" name="TabOne" no-caps />
@@ -93,9 +92,8 @@
 
       <!-- tab three -->
       <!-- <q-tab-panel name="TabThree">
-                <div class="row">Welcome to tab two</div>
-            </q-tab-panel> -->
-
+          <div class="row">Welcome to tab two</div>
+      </q-tab-panel> -->
     </q-tab-panels>
   </div>
 </template>

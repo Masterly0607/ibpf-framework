@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <div class="ibf-container-1200 ">
+    <div class="ibf-container-1200">
       <div class="q-gutter-md">
         <!-- background image -->
         <!-- <div>
@@ -8,20 +8,32 @@
             weidth="100%" height="400px" />
         </div> -->
 
-        <!-- Event List -->
-        <EventList />
+        <div class="q-py-md text-weight-bold ibf-h6 q-gutter-y-md">
+          Events & Updates
 
+          <!-- Event List -->
+          <EventList />
 
-        <div class="ibf-h5 text-weight-bold" align="center">
-          Schedule all types of events
-          <q-separator size="4px" spaced="3px" style="width: 400px" color="grey-6" />
+          <q-separator size="2px" />
+
+          <!-- Event Type -->
+          <div class="ibf-h8 text-weight-bold">
+            Event Type
+            <EventType />
+          </div>
         </div>
-        <!-- Event Type -->
-        <EventType />
 
         <!-- Our customer says -->
-        <q-separator size="2px" />
-        <div class="ibf-h6 text-weight-bold text-primary" align="center">Our Customer Says</div>
+
+        <div class="ibf-h8 text-weight-bold text-primary" align="center">
+          Our Customer Says
+          <q-separator
+            size="3px"
+            spaced="3px"
+            style="width: 220px"
+            color="primary-10"
+          />
+        </div>
 
         <div class="q-py-md">
           <div class="row q-col-gutter-lg">
@@ -45,8 +57,21 @@
               <q-card class="ibf-card-1">
                 <q-card-section>
                   <div>
-                    <img :src="url" alt="">
-                    <q-avatar size="100px" font-size="52px" color="teal" text-color="white">
+                    <img :src="url" alt="" />
+                    <q-avatar
+                      size="100px"
+                      font-size="52px"
+                      color="teal"
+                      text-color="white"
+                    >
+                      <q-img
+                        src="https://cdn.quasar.dev/img/mountains.jpg"
+                        :ratio="1"
+                        spinner-color="primary"
+                        spinner-size="82px"
+                        width="100%"
+                        height="250px"
+                      />
                     </q-avatar>
                     <!-- <img src="https://cdn.quasar.dev/img/mountains.jpg" :ratio="1" width="100%" height="250px"> -->
                   </div>
@@ -59,7 +84,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </q-page>
