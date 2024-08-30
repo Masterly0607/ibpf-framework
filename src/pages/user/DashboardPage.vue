@@ -74,13 +74,15 @@
               <CourseList></CourseList>
             </div>
 
-            <div class="col-12 col-md-9">
+            <div class="col-12 col-md-9 q-gutter-y-lg">
               <!-- My Learning -->
-              <div>
-                <my-learning></my-learning>
-              </div>
+              <my-learning></my-learning>
+
+              <!-- Join Course -->
+              <join-course></join-course>
+
               <!-- Events -->
-              <div class="q-py-lg">
+              <div>
                 <events-card></events-card>
               </div>
 
@@ -114,6 +116,7 @@ import { ref, watch } from "vue";
 import OrderDashboardPage from "./order/OrderDashboardPage.vue";
 import CapabilityModel from "./components/CapabilityModel.vue";
 import MyLearning from "./components/MyLearning.vue";
+import JoinCourse from "./components/JoinCourse.vue";
 import EventsCard from "./components/EventsCard.vue";
 import RecommendedCourse from "./components/RecommendedCourse.vue";
 import CourseList from "./components/CourseList.vue";
