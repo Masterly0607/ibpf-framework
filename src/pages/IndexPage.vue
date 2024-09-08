@@ -2,7 +2,7 @@
   <q-page class="flex flex-center">
     <img
       alt="IBF logo"
-      src="~assets/images/ibf-logo.svg"
+      src="/images/ibf-logo.svg"
       style="width: 800px; height: auto"
     />
   </q-page>

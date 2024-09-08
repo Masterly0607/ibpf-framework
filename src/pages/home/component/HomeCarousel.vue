@@ -77,7 +77,6 @@ import { useQuasar } from "quasar";
 import { computed, ref } from "vue";
 
 const slide = ref(1);
-const carousel = ref(null);
 const $q = useQuasar();
 
 const autoHeightCarousel = computed(() => {
@@ -90,22 +89,22 @@ const autoHeightCarousel = computed(() => {
 
 const imageUrl = ref([
   {
-    img: "/src/assets/images/home_introduction.jpg",
+    img: "images/home_introduction.jpg",
     title: "The Institute of Banking and Finance",
     caption: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
   },
   {
-    img: "/src/assets/images/ibf-book-list.png",
+    img: "images/ibf-book-list.png",
     title: "Our courses list",
     caption: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
   },
   {
-    img: "/src/assets/images/international-partner.png",
+    img: "images/international-partner.png",
     title: "International Partners",
     caption: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
   },
   {
-    img: "/src/assets/images/home_webinar_event.jpg",
+    img: "images/home_webinar_event.jpg",
     title: "Webinar Event",
     caption: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
   },
