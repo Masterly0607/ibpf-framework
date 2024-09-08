@@ -27,8 +27,14 @@
 
     <!-- Image -->
     <div class="col-12 col-md-6">
-      <q-img src="~assets/images/ibf_event.png" :ratio="16 / 9" spinner-color="primary" spinner-size="82px" width="100%"
-        height="100%" />
+      <q-img
+        src="/images/ibf_event.png"
+        :ratio="16 / 9"
+        spinner-color="primary"
+        spinner-size="82px"
+        width="100%"
+        height="100%"
+      />
     </div>
   </div>
 </template>

@@ -1,7 +1,11 @@
 <template>
   <div class="q-py-md">
     <div class="row q-col-gutter-lg">
-      <div v-for="(eventType, index) in eventTypeData" :key="index" class="col-12 col-md-4">
+      <div
+        v-for="(eventType, index) in eventTypeData"
+        :key="index"
+        class="col-12 col-md-4"
+      >
         <q-card class="q-pa-md ibf-card-2">
           <q-img fit="cover" :src="eventType.url" width="100%" height="350px" />
 
@@ -14,7 +18,11 @@
               </div>
             </div>
             <div class="q-mt-sm row q-gutter-x-sm items-center">
-              <q-icon color="primary" size="20px" name="mdi-map-marker-outline" />
+              <q-icon
+                color="primary"
+                size="20px"
+                name="mdi-map-marker-outline"
+              />
               <div class="text-grey-8 ibf-h12 text-weight-medium">
                 {{ eventType.description }}
               </div>
@@ -44,35 +52,34 @@
 <script setup>
 import { ref } from "vue";
 
-
 const eventTypeData = ref([
   {
     id: 1,
     title: "Webinar Event",
     subtitle: "19-July-2024",
     description: "At Techno university",
-    url: "src/assets/images/event_webinar_2.png"
+    url: "images/event_webinar_2.png",
   },
   {
     id: 2,
     title: "Graduate Event",
     subtitle: "23th-July-2024",
     description: "At Techno university",
-    url: "src/assets/images/international-partner.png"
+    url: "images/international-partner.png",
   },
   {
     id: 3,
     title: "Course Briefs Event",
     subtitle: "12th June 2021",
     description: "At Techno university",
-    url: "src/assets/images/learning_pharagrah.png"
+    url: "images/learning_pharagrah.png",
   },
   // {
   //   id: 4,
   //   title: "Authentic Leadership",
   //   subtitle: "by John Doe",
   //   description: "At Techno university",
-  //   url: "src/assets/images/learning_pharagrah.png"
+  //   url: "images/learning_pharagrah.png"
   // },
 ]);
 </script>
