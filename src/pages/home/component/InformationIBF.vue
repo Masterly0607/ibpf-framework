@@ -3,7 +3,12 @@
     <!-- IBF Title -->
     <div class="ibf-h3 text-weight-medium" align="center">
       Institute of Banking & Finance (IBF)
-      <q-separator size="5px" spaced="10px" style="width: 400px" color="primary" />
+      <q-separator
+        size="5px"
+        spaced="10px"
+        style="width: 400px"
+        color="primary"
+      />
     </div>
     <!-- Subtitle -->
     <div class="ibf-h10 text-weight-regular text-grey-6 q-py-lg" align="center">
@@ -14,7 +19,13 @@
     <div class="row q-col-gutter-md q-pt-md">
       <!-- image -->
       <div class="col-12 col-md-4">
-        <q-img :ratio="1" fit="fill" src="~assets/images/webinar.png" width="100%" height="365px" />
+        <q-img
+          :ratio="1"
+          fit="fill"
+          src="images/webinar.png"
+          width="100%"
+          height="365px"
+        />
       </div>
 
       <div class="col-12 col-md-8">
@@ -37,20 +48,29 @@
         <div class="q-py-lg">
           <p class="ibf-h10 text-grey-8">
             <span v-if="!isExpanded">
-              The webinar discusses the global and regional trends that affect the banking industry, and how the BFls
-              can prepare themselves for the future, by showcasing success stories from exemplary ...
-              <br>
-              <span @click="toggleExpand" class="text-weight-medium ibf-h11 text-primary">
+              The webinar discusses the global and regional trends that affect
+              the banking industry, and how the BFls can prepare themselves for
+              the future, by showcasing success stories from exemplary ...
+              <br />
+              <span
+                @click="toggleExpand"
+                class="text-weight-medium ibf-h11 text-primary"
+              >
                 See more
                 <q-icon name="arrow_forward" />
               </span>
             </span>
             <span v-else>
-              The webinar discusses the global and regional trends that affect the banking industry, and how the BFIs
-              can prepare themselves for the future, by showcasing success stories from exemplary leaders who have gone
-              through journeys of changes and innovations.
-              <br>
-              <span @click="toggleExpand" class="text-weight-medium ibf-h11 text-primary" style="cursor: pointer;">
+              The webinar discusses the global and regional trends that affect
+              the banking industry, and how the BFIs can prepare themselves for
+              the future, by showcasing success stories from exemplary leaders
+              who have gone through journeys of changes and innovations.
+              <br />
+              <span
+                @click="toggleExpand"
+                class="text-weight-medium ibf-h11 text-primary"
+                style="cursor: pointer"
+              >
                 See less
                 <q-icon name="arrow_back" />
               </span>
@@ -58,7 +78,6 @@
           </p>
         </div>
       </div>
-
     </div>
 
     <!-- <q-separator spaced /> -->
@@ -67,7 +86,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref } from "vue";
 
 const isExpanded = ref(false);
 
