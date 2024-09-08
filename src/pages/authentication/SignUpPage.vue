@@ -19,7 +19,7 @@
       <div class="row q-col-gutter-x-md">
         <div class="col-12 col-md-8" v-if="Screen.gt.sm">
           <q-card flat square class="full-height">
-            <q-img fit="fill" src="~assets/images/learning_pharagrah.png" />
+            <q-img fit="fill" src="/images/learning_pharagrah.png" />
           </q-card>
         </div>
         <div class="col-12 col-md-4">
@@ -149,7 +149,7 @@ const user = ref({
 
 <style lang="scss" scoped>
 .background {
-  background-image: url("~assets/images/learning_pharagrah.png");
+  background-image: url("/images/learning_pharagrah.png");
   background-size: cover;
   background-repeat: no-repeat;
 }

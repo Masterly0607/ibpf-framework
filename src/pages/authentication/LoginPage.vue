@@ -132,7 +132,7 @@
 
         <div class="col-12 col-md-8" v-if="Screen.gt.sm">
           <q-card flat square class="full-height">
-            <q-img fit="fill" src="~assets/images/learning_pharagrah.png" />
+            <q-img fit="fill" src="/images/learning_pharagrah.png" />
           </q-card>
         </div>
       </div>
@@ -185,7 +185,7 @@ const login = async () => {
 
 <style lang="scss" scoped>
 .background {
-  background-image: url("~assets/images/learning_pharagrah.png");
+  background-image: url("/images/learning_pharagrah.png");
   background-size: fill;
   background-repeat: no-repeat;
 }

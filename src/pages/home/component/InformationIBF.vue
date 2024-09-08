@@ -97,7 +97,7 @@ const toggleExpand = () => {
 
 <style lang="scss" scoped>
 // .background {
-//   background-image: url("~assets/images/webinar.png");
+//   background-image: url("/images/webinar.png");
 //   background-size: fill;
 //   background-repeat: no-repeat;
 // }
