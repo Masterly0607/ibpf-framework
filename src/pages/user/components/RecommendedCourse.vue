@@ -9,6 +9,7 @@
           clickable
           tag="a"
           :href="skill.href"
+          class="col-6 col-md-4"
         >
           <q-item-section avatar>
             <q-chip class="job-seeker-skills__count">{{ index + 1 }}</q-chip>
@@ -17,7 +18,7 @@
             <q-item-label>{{ skill.name }}</q-item-label>
           </q-item-section>
           <q-item-section side>
-            <q-btn flat dense>{{ skill.action }}</q-btn>
+            <!-- <q-btn flat dense>{{ skill.action }}</q-btn> -->
           </q-item-section>
         </q-item>
       </q-list>

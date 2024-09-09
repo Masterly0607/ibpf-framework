@@ -286,12 +286,12 @@ const headerMenuItems = ref([
     router: "event-page",
   },
 
-  {
-    title: "Assessment",
-    icon: "mdi-gauge",
-    isActive: true,
-    router: "skill-assessment",
-  },
+  // {
+  //   title: "Assessment",
+  //   icon: "mdi-gauge",
+  //   isActive: true,
+  //   router: "skill-assessment",
+  // },
 
   {
     title: "About",
