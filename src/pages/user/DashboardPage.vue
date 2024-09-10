@@ -53,87 +53,45 @@
                 <!-- Profile Information Section -->
                 <q-card-section class="q-gutter-sm">
                   <!-- roles -->
-                  <div class="row">
-                    <div class="col-auto">
-                      <q-item-section avatar>
-                        <q-icon
-                          size="19px"
-                          color="grey-8"
-                          name="mdi-security"
-                        />
-                      </q-item-section>
-                    </div>
-                    <q-item-section>
-                      <span class="ibf-h11 text-primary text-weight-medium"
-                        >{{ roles[0] }}
-                      </span>
+                  <q-item   class="q-pa-none" dense>
+                    <q-item-section side>
+                      <q-icon color="primary" name="bluetooth" size="sm"/>
                     </q-item-section>
-                  </div>
+
+                    <q-item-section>Icon as avatar</q-item-section>
+                  </q-item>
                   <!-- gender -->
-                  <div class="row">
-                    <div class="col-auto">
-                      <q-item-section avatar>
-                        <q-icon
-                          size="19px"
-                          color="grey-8"
-                          name="mdi-account-multiple"
-                        />
-                      </q-item-section>
-                    </div>
-                    <q-item-section>
-                      <span class="ibf-h11 text-grey-9 text-weight-bold"
-                        >{{ user.gender }}
-                      </span>
+                  <q-item   class="q-pa-none" dense>
+                    <q-item-section side>
+                      <q-icon color="primary" name="bluetooth" size="sm"/>
                     </q-item-section>
-                  </div>
+
+                    <q-item-section>Icon as avatar</q-item-section>
+                  </q-item>
                   <!-- BFI -->
-                  <div class="row">
-                    <div class="col-auto">
-                      <q-item-section avatar>
-                        <q-icon
-                          size="19px"
-                          color="grey-8"
-                          name="mdi-bank-circle-outline"
-                        />
-                      </q-item-section>
-                    </div>
-                    <q-item-section>
-                      <span class="ibf-h11 text-grey-9 text-weight-bold">{{
-                        user.bfis ? user.bfis[0].name : "N/A"
-                      }}</span>
-                      <!-- {{ userStore.user.bfi.name ?? "N/A" }} -->
+                  <q-item   class="q-pa-none" dense>
+                    <q-item-section side>
+                      <q-icon color="primary" name="bluetooth" size="sm"/>
                     </q-item-section>
-                  </div>
+
+                    <q-item-section>Icon as avatar</q-item-section>
+                  </q-item>
                   <!-- email -->
-                  <div class="row">
-                    <div class="col-auto">
-                      <q-item-section avatar>
-                        <q-icon size="19px" color="grey-8" name="mdi-at" />
-                      </q-item-section>
-                    </div>
-                    <q-item-section>
-                      <span class="ibf-h11 text-grey-10 text-weight-bold">{{
-                        user.email
-                      }}</span>
+                  <q-item   class="q-pa-none" dense>
+                    <q-item-section side>
+                      <q-icon color="primary" name="bluetooth" size="sm"/>
                     </q-item-section>
-                  </div>
+
+                    <q-item-section>Icon as avatar</q-item-section>
+                  </q-item>
                   <!-- phone -->
-                  <div class="row">
-                    <div class="col-auto">
-                      <q-item-section avatar>
-                        <q-icon
-                          size="19px"
-                          color="grey-8"
-                          name="mdi-card-account-phone-outline"
-                        />
-                      </q-item-section>
-                    </div>
-                    <q-item-section>
-                      <span class="ibf-h11 text-grey-7 text-weight-medium"
-                        >{{ user.phone_number }}
-                      </span>
+                  <q-item   class="q-pa-none" dense>
+                    <q-item-section side>
+                      <q-icon color="primary" name="bluetooth" size="sm"/>
                     </q-item-section>
-                  </div>
+
+                    <q-item-section>Icon as avatar</q-item-section>
+                  </q-item>
                   <q-separator spaced="14px" />
                   <div class="q-pa-none" align="right">
                     <q-btn
