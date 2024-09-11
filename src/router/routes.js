@@ -79,7 +79,7 @@ const routes = [
       },
       {
         path: "user-dashboard",
-        component: () => import("layouts/MainLayout.vue"),
+        component: () => import("layouts/DashboardLayout.vue"),
         children: [
           //---------- user dashboard ------------
           {

@@ -50,49 +50,76 @@
                   />
                 </q-item>
 
-                <!-- Profile Information Section -->
-                <q-card-section class="q-gutter-sm">
+                <q-card-section>
                   <!-- roles -->
-                  <q-item   class="q-pa-none" dense>
+                  <q-item class="q-pa-none" dense>
                     <q-item-section side>
-                      <q-icon color="primary" name="bluetooth" size="sm"/>
+                      <q-icon size="18px" color="grey-8" name="mdi-security" />
                     </q-item-section>
-
-                    <q-item-section>Icon as avatar</q-item-section>
+                    <q-item-section>
+                      <span class="ibf-h11 text-primary text-weight-medium">
+                        {{ roles[0] }}
+                      </span>
+                    </q-item-section>
                   </q-item>
                   <!-- gender -->
-                  <q-item   class="q-pa-none" dense>
+                  <q-item class="q-pa-none" dense>
                     <q-item-section side>
-                      <q-icon color="primary" name="bluetooth" size="sm"/>
+                      <q-icon
+                        size="19px"
+                        color="grey-8"
+                        name="mdi-account-multiple"
+                      />
                     </q-item-section>
-
-                    <q-item-section>Icon as avatar</q-item-section>
+                    <q-item-section>
+                      <span class="ibf-h11 text-grey-8 text-weight-medium"
+                        >{{ user.gender }}
+                      </span>
+                    </q-item-section>
                   </q-item>
                   <!-- BFI -->
-                  <q-item   class="q-pa-none" dense>
+                  <q-item class="q-pa-none" dense>
                     <q-item-section side>
-                      <q-icon color="primary" name="bluetooth" size="sm"/>
+                      <q-icon
+                        size="19px"
+                        color="grey-8"
+                        name="mdi-bank-circle-outline"
+                      />
                     </q-item-section>
-
-                    <q-item-section>Icon as avatar</q-item-section>
+                    <q-item-section>
+                      <span class="ibf-h11 text-grey-8 text-weight-medium">{{
+                        user.bfis ? user.bfis[0].name : "N/A"
+                      }}</span>
+                    </q-item-section>
                   </q-item>
                   <!-- email -->
-                  <q-item   class="q-pa-none" dense>
+                  <q-item class="q-pa-none" dense>
                     <q-item-section side>
-                      <q-icon color="primary" name="bluetooth" size="sm"/>
+                      <q-icon size="19px" color="grey-8" name="mdi-at" />
                     </q-item-section>
-
-                    <q-item-section>Icon as avatar</q-item-section>
+                    <q-item-section>
+                      <span class="ibf-h11 text-grey-8 text-weight-medium">{{
+                        user.email
+                      }}</span>
+                    </q-item-section>
                   </q-item>
                   <!-- phone -->
-                  <q-item   class="q-pa-none" dense>
+                  <q-item class="q-pa-none" dense>
                     <q-item-section side>
-                      <q-icon color="primary" name="bluetooth" size="sm"/>
+                      <q-icon
+                        size="19px"
+                        color="grey-8"
+                        name="mdi-card-account-phone-outline"
+                      />
                     </q-item-section>
-
-                    <q-item-section>Icon as avatar</q-item-section>
+                    <q-item-section>
+                      <span class="ibf-h11 text-grey-8 text-weight-medium"
+                        >{{ user.phone_number }}
+                      </span>
+                    </q-item-section>
                   </q-item>
-                  <q-separator spaced="14px" />
+
+                  <q-separator spaced />
                   <div class="q-pa-none" align="right">
                     <q-btn
                       outline
@@ -128,15 +155,16 @@
               <join-course></join-course>
 
               <!-- Events -->
-              <!-- <div>
+              <div>
                 <events-card></events-card>
-              </div> -->
+              </div>
 
               <!-- Recommended -->
-              <div class="ibf-h8 text-weight-medium text-grey-7">
-                Recommended for you
-              </div>
-              <div>
+
+              <div class="q-gutter-md">
+                <div class="ibf-h9 text-weight-medium text-grey-8">
+                  Recommended for you
+                </div>
                 <RecommendedCourse></RecommendedCourse>
               </div>
             </div>

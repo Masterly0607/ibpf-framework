@@ -13,8 +13,13 @@
       </q-card-section>
 
       <q-separator />
+      <q-card-section class="q-py-lg">
+        <div class="ibf-h10 text-grey-6 text-center">--- No events yet ---</div>
+      </q-card-section>
 
-      <q-card-section>
+      <!-- <img :src="data.thumbnail" height="200px" /> -->
+
+      <!-- <q-card-section>
         <div class="column q-gutter-y-lg">
           <q-card
             square
@@ -22,7 +27,7 @@
             v-for="(itemEvent, index) in eventData"
             :key="index"
           >
-            <!-- <img :src="data.thumbnail" height="200px" /> -->
+
             <q-card-section>
               <div class="row q-col-gutter-md">
                 <div class="col-12 col-md-3">
@@ -63,32 +68,6 @@
             </q-card-actions>
           </q-card>
         </div>
-      </q-card-section>
-
-      <!-- <q-card-section>
-        <q-card flat square bordered>
-          <q-card>
-            <div class="row">
-              <div square class="q-ma-md">
-                <img
-                  src="https://cdn.quasar.dev/img/mountains.jpg"
-                  width="150px"
-                  height="120px"
-                />
-              </div>
-              <div>
-                <q-card-section>
-                  <div class="text-h6">Our Changing Planet</div>
-                  <div class="text-subtitle2">by John Doe</div>
-                </q-card-section>
-              </div>
-            </div>
-          </q-card>
-          <q-separator />
-          <div class="q-pa-sm card-bg" bordered align="right">
-            <q-btn flat no-caps label="View Details" />
-          </div>
-        </q-card>
       </q-card-section> -->
     </q-card>
   </section>
