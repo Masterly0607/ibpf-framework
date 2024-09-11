@@ -5,7 +5,7 @@
         <q-card bordered>
           <q-card-section>
             <div square bordered class="col-12 col-sm-8 col-md-8">
-              <div class="ibf-h7 text-weight-bold q-pa-md" align="center">
+              <div class="ibf-h7 text-weight-bold q-pa-md text-grey-8">
                 Edit Work
               </div>
 
@@ -13,11 +13,13 @@
                 <q-form ref="dateFormRef" @submit="validate()" @reset="resetValidation()" class="q-gutter-y-md">
                   <div class="row q-col-gutter-md">
                     <div class="col-6">
-                      <div class="ibf-h10 text-weight-bold">
+                      <div class="ibf-h10 text-grey-7">
                         BFI Name
                         <q-select class="ibf-h10" outlined name="BFIs" label="Your bfis" transition-show="jump-up"
                           transition-hide="jump-up" v-model="user.bfis[0].name" @update:model-value="user.bfis[0].name"
-                          :options="options" />
+                          :options="options" 
+                          label-color="grey-6"
+                          />
                         <!-- <q-select class="ibf-h10" outlined name="BFIs" label="Your bfis" v-model="user.bfis[0].name"
                           :options="options" /> -->
                         <!-- <q-select outlined name="BFIs" label="Your bfis"
@@ -26,10 +28,11 @@
                       </div>
                     </div>
                     <div class="col-6">
-                      <div class="ibf-h10 text-weight-bold">
+                      <div class="ibf-h10 text-grey-7">
                         Role
                         <q-select class="text-weight-bold text-primary ibf-h10" disabled outlined name="role"
-                          label="Your role" v-model="roles[0]">
+                          label="Your role" v-model="roles[0]"    label-color="grey-6">
+                          
                         </q-select>
                       </div>
                     </div>
@@ -37,21 +40,21 @@
 
                   <div class="row q-col-gutter-x-md">
                     <div class="col-6">
-                      <div class="ibf-h10 text-weight-bold">
+                      <div class="ibf-h10 text-grey-7">
                         Position
                         <q-select class="ibf-h10" outlined name="Position" label="Your position"
                           transition-show="jump-up" transition-hide="jump-up" v-model="position"
-                          @update:model-value="position" :options="options2" />
+                          @update:model-value="position" :options="options2"    label-color="grey-6"/>
                         <!-- <q-input class="ibf-h10" name="job" v-model="position" label="Your position" outlined
                           clearable /> -->
                       </div>
                     </div>
 
                     <div class="col-6">
-                      <div class="ibf-h10 text-weight-bold">
+                      <div class="ibf-h10 text-grey-7">
                         Email Address (Work)
                         <q-input class="ibf-h10" disable name="email" label="Your company name" v-model="user.email"
-                          outlined clearable />
+                          outlined clearable    label-color="grey-6"/>
                       </div>
                     </div>
                   </div>
