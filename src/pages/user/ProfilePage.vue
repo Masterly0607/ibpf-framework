@@ -1,5 +1,8 @@
 <template>
-  <q-page padding class="ibf-container-1200">
+  
+  <q-page padding class="ibf-container-1200 q-pa-md" >
+    <!-- Back btn -->
+    <q-btn color="primary" icon="mdi-arrow-left" label="BACK" :to="{name:'dashboard-page'}" />
     <!-- Tab
      narrow-indicator-->
     <q-tabs
