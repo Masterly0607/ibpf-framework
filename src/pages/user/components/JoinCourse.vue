@@ -1,5 +1,5 @@
 <template>
-  <section id="my-learning">
+  <section>
     <q-card square class="ibf-card-2">
       <q-card-section class="q-py-xs">
         <div class="flex justify-between">
@@ -11,14 +11,14 @@
           </q-heading-4>
 
           <!-- button join course -->
-          <div class="q-py-md">
+          <div class="q-py-sm">
             <q-btn
               outline
               text-color="primary"
               icon="mdi-account-group"
-              label="Join Course"
+              :label="drawer ? 'Close' : 'Join Code'"
               no-caps
-              @click="drawer = !drawer"
+              @click="toggleDrawer"
             />
           </div>
         </div>
@@ -28,15 +28,17 @@
 
       <!-- Search access course -->
       <q-card-section>
-        <q-form v-if="drawer" @submit="onSubmit" class="q-gutter-y-sm">
-          <q-btn
-            no-caps
-            dense
-            flat
-            color="grey"
-            label="Clear search"
-            @click="clearSearch()"
-          />
+        <q-form v-if="drawer" @submit="onSubmit" class="q-gutter-y-xs">
+          <div align="right">
+            <q-btn
+              no-caps
+              dense
+              flat
+              color="grey"
+              label="Clear search"
+              @click="clearSearch"
+            />
+          </div>
           <div class="row items-center q-gutter-sm">
             <q-input
               class="col"
@@ -64,6 +66,7 @@ const drawer = ref(false);
 const findCode = ref("");
 const accessCodes = ref(["ABC123", "DEF456", "GHI789"]);
 const filteredCodes = ref([]);
+
 const onSubmit = () => {
   console.log("Submitted");
 };
@@ -81,5 +84,9 @@ const search = () => {
 const clearSearch = () => {
   findCode.value = "";
   filteredCodes.value = [];
+};
+const toggleDrawer = () => {
+  drawer.value = !drawer.value;
+  clearSearch(); // Clear search when drawer is closed
 };
 </script>

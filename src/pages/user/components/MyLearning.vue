@@ -27,38 +27,38 @@
 
       <q-card-section class="q-pa-lg">
         <div class="row q-col-gutter-lg">
-          <div class="col-4">
+          <div class="col-12 col-md-4">
             <q-card class="ibf-card-1">
               <q-card-section class="q-py-lg" align="center">
-                <div class="ibf-h9 text-weight-medium text-grey-8 q-py-sm">
+                <div class="ibf-h10 text-weight-medium text-grey-8 q-py-sm">
                   Course in <br />
                   progress
                 </div>
-                <div class="ibf-h2 text-primary q-pa-sm">3</div>
+                <div class="ibf-h3 text-primary q-pa-sm">3</div>
               </q-card-section>
             </q-card>
           </div>
 
-          <div class="col-4">
+          <div class="col-12 col-md-4">
             <q-card class="ibf-card-1">
               <q-card-section class="q-py-lg" align="center">
-                <div class="ibf-h9 text-weight-medium text-grey-8 q-py-sm">
+                <div class="ibf-h10 text-weight-medium text-grey-8 q-py-sm">
                   Completed <br />
                   courses
                 </div>
-                <div class="ibf-h2 text-primary q-pa-sm">5</div>
+                <div class="ibf-h3 text-primary q-pa-sm">5</div>
               </q-card-section>
             </q-card>
           </div>
 
-          <div class="col-4">
+          <div class="col-12 col-md-4">
             <q-card class="ibf-card-1">
               <q-card-section class="q-py-lg" align="center">
-                <div class="ibf-h9 text-weight-medium text-grey-8 q-py-sm">
+                <div class="ibf-h10 text-weight-medium text-grey-8 q-py-sm">
                   CPD <br />
                   Courses
                 </div>
-                <div class="ibf-h2 text-primary q-pa-sm">0</div>
+                <div class="ibf-h3 text-primary q-pa-sm">0</div>
               </q-card-section>
             </q-card>
           </div>
