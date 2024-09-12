@@ -16,6 +16,7 @@
       class="q-mb-md ibf-card-3"
       v-for="(orderItem, orderItemIndex) in orderedPaginate.data"
       :key="orderItemIndex"
+      
     >
       <q-card-section class="row items-center q-col-gutter-xl">
         <!-- Order ID -->

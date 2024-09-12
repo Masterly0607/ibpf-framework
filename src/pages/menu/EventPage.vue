@@ -7,10 +7,12 @@
           <q-img src="https://cdn.quasar.dev/img/mountains.jpg" :ratio="1" spinner-color="primary" spinner-size="82px"
             weidth="100%" height="400px" />
         </div> -->
-
+     
         <div class="q-py-md text-weight-bold ibf-h6 q-gutter-y-md">
           Events & Updates
-
+          
+          <!-- Event card: Masterly -->
+          <EventCard/>
           <!-- Event List -->
           <EventList />
 
@@ -92,4 +94,5 @@
 <script setup>
 import EventList from "./component-event/EventList.vue";
 import EventType from "./component-event/EventType.vue";
+import EventCard from "./component-event/EventCard.vue";
 </script>
