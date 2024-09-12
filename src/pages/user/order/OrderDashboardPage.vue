@@ -26,7 +26,7 @@
         </div>
 
         <!-- Product -->
-        <div class="col-4 ">
+        <div class="col-3 ">
           <div class="ellipsis-3-lines">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla vero
             expedita exercitationem, inventore veritatis deserunt commodi
@@ -36,14 +36,14 @@
         </div>
 
         <!-- Total Amount -->
-        <div class="col-2  text-center">
+        <div class="col-3  text-right  ">
           <span class="text-red-8 ">
             <price-original :price="orderItem.total_price" />
           </span>
         </div>
 
         <!-- Order Status -->
-        <div class="col-4 text-center">
+        <div class="col text-right">
           <q-chip color="orange">
             <div class="ellipsis">
               {{ orderItem.payment_status }}
