@@ -1,5 +1,6 @@
 <template>
   <div>
+   
     <!-- tab Event -->
     <q-tabs v-model="tab" class="text-primary" align="left">
       <q-tab label="All" name="TabOne" no-caps />
