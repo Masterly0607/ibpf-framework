@@ -1,5 +1,5 @@
 <template>
-     <div class="row q-col-gutter-xl">
+     <div class="row q-col-gutter-xl q-mt-xs">
       <div
         class="col-12 col-md-6"
         v-for="(itemEvent, index) in eventData"
