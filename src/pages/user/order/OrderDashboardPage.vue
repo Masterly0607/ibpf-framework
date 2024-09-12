@@ -1,6 +1,67 @@
 <template>
   <div class="ibf-container-1400">
-    <div class="column q-gutter-md">
+    <!-- Title box-->
+    <!-- <q-card flat bordered class="q-mb-md">
+      <q-card-section class="row items-center q-col-gutter-xl">
+        <div class="col-2 text-weight-bold ibf-h12">#</div>
+        <div class="col text-weight-bold ibf-h12">Product</div>
+        <div class="col-auto text-weight-bold ibf-h12">Total Amount</div>
+        <div class="col-3 text-weight-bold ibf-h12">Order Status</div>
+      </q-card-section>
+    </q-card> -->
+
+    <!-- Order Details Box -->
+    <q-card
+      bordered
+      class="q-mb-md ibf-card-3"
+      v-for="(orderItem, orderItemIndex) in orderedPaginate.data"
+      :key="orderItemIndex"
+    >
+      <q-card-section class="row items-center q-col-gutter-xl">
+        <!-- Order ID -->
+        <div class="col-2">
+          <span class="text-weight-bold text-subtile1">
+            #{{ orderItem.id }}</span
+          >
+        </div>
+
+        <!-- Product -->
+        <div class="col-4 ">
+          <div class="ellipsis-3-lines">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla vero
+            expedita exercitationem, inventore veritatis deserunt commodi
+            eveniet mollitia ex eos atque impedit rem modi ipsum aperiam? Rerum
+            ut vitae doloribus!
+          </div>
+        </div>
+
+        <!-- Total Amount -->
+        <div class="col-2  text-center">
+          <span class="text-red-8 ">
+            <price-original :price="orderItem.total_price" />
+          </span>
+        </div>
+
+        <!-- Order Status -->
+        <div class="col-4 text-center">
+          <q-chip color="orange">
+            <div class="ellipsis">
+              {{ orderItem.payment_status }}
+            </div>
+          </q-chip>
+        </div>
+      </q-card-section>
+
+      <q-separator spaced size="3px" />
+      <!-- Time of order -->
+      <q-card-section class="row q-pt-none q-pb-sm justify-end text-grey">
+        <div class="text-caption">
+          {{ formatDate(orderItem.created_at) }}
+        </div>
+      </q-card-section>
+    </q-card>
+
+    <!-- <div class="column q-gutter-md">
       <q-card
         class="ibf-card-3"
         v-for="(orderItem, orderItemIndex) in orderedPaginate.data"
@@ -78,7 +139,7 @@
         </q-card-actions>
       </q-card>
 
-      <!--<preview-json :list="orderedPaginate"></preview-json>-->
+     
 
       <q-btn
         color="primary"
@@ -86,7 +147,7 @@
         label="OK"
         @click="fetchOrderedItems"
       />
-    </div>
+    </div> -->
   </div>
 </template>
 

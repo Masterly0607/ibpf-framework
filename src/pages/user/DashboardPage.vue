@@ -1,5 +1,6 @@
 <template>
   <q-page padding class="ibf-container-1400">
+    
     <!-- tab dashboard -->
     <q-tabs
       v-model="tab"
