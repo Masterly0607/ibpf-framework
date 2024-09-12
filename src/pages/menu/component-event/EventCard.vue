@@ -12,17 +12,20 @@
               {{ itemEvent.date }}
             </div>
             <div class="q-gutter-md q-mt-xs">
-              <q-btn
+              <q-chip
                 class="bg-primary text-white text-capitalize"
                 label="Fuchsia"
+                clickable
               />
-              <q-btn
+              <q-chip
                 class="bg-primary text-white text-capitalize"
                 label="Fuchsia"
+                clickable
               />
-              <q-btn
+              <q-chip
                 class="bg-primary text-white text-capitalize"
                 label="Fuchsia"
+                clickable
               />
             </div>
             <div class="q-mt-md text-weight-medium ibf-h8 ellipsis-3-lines">
