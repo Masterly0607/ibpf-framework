@@ -18,8 +18,6 @@
       </q-toolbar>
     </q-header>
 
-    <!-- <header-home></header-home> -->
-
     <q-page-container>
       <router-view />
     </q-page-container>
@@ -27,10 +25,9 @@
 </template>
 
 <script setup>
-// import HeaderHome from "components/HeaderHome.vue";
-import { storeToRefs } from 'pinia';
-import { useFrameworkStore } from 'src/stores/framework-store';
-import { useRouter } from 'vue-router';
+import { storeToRefs } from "pinia";
+import { useFrameworkStore } from "src/stores/framework-store";
+import { useRouter } from "vue-router";
 
 const frameworkStore = useFrameworkStore();
 const router = useRouter();
@@ -40,7 +37,7 @@ const returnBtn = () => {
   if (window.history.length > 1) {
     router.back();
   } else {
-    router.push({ name: 'home' });
+    router.push({ name: "home" });
   }
 };
 

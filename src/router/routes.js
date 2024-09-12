@@ -77,22 +77,16 @@ const routes = [
           },
         ],
       },
+      //---------- user dashboard ------------
       {
         path: "user-dashboard",
         component: () => import("layouts/DashboardLayout.vue"),
         children: [
-          //---------- user dashboard ------------
           {
             path: "",
             name: "dashboard-page",
             component: () => import("pages/user/DashboardPage.vue"),
           },
-          {
-            path: "profile",
-            name: "profile-page",
-            component: () => import("pages/user/ProfilePage.vue"),
-          },
-
           {
             path: "my-learning",
             name: "my-learning-page",
@@ -100,28 +94,49 @@ const routes = [
           },
         ],
       },
-
-      // ----------- edit profile ------------
       {
-        path: "edit-profile",
+        path: "profile",
         component: () => import("layouts/ReturnLayout.vue"),
         children: [
           {
             path: "",
-            name: "edit-user-profile",
+            name: "profile-page",
+            component: () => import("pages/user/ProfilePage.vue"),
+          },
+          {
+            path: "edit-profile",
+            name: "edit-profile-page",
             component: () => import("pages/user/EditUserProfilePage.vue"),
           },
           {
-            path: "edit-user-work",
+            path: "edit-work",
             name: "edit-user-work",
             component: () => import("pages/user/EditUserWorkPage.vue"),
           },
         ],
       },
+
+      // ----------- edit profile ------------
+      // {
+      //   path: "edit-profile",
+      //   component: () => import("layouts/ReturnLayout.vue"),
+      //   children: [
+      //     {
+      //       path: "",
+      //       name: "edit-user-profile",
+      //       component: () => import("src/pages/user/EditUserProfilePage.vue"),
+      //     },
+      //     {
+      //       path: "edit-user-work",
+      //       name: "edit-user-work",
+      //       component: () => import("src/pages/user/EditUserWorkPage.vue"),
+      //     },
+      //   ],
+      // },
+
       // ----------- e-commerce ------------
       {
         path: "/purchase",
-
         children: [
           {
             path: "add-to-cart",
