@@ -42,11 +42,8 @@
                 <div class="row q-col-gutter-md q-pa-sm">
                   <!-- Profile image -->
                   <div class="col-12 col-md-auto flex justify-center">
-                    <q-avatar size="180px">
-                      <q-img
-                        src="https://cdn.quasar.dev/img/boy-avatar.png"
-                        :ratio="1"
-                      />
+                    <q-avatar color="red-10" text-color="white" size="150px">
+                      <span class="text-h3"> {{ userInitials }}</span>
                     </q-avatar>
                   </div>
 
@@ -64,8 +61,9 @@
                           </q-item-label>
                           <q-item-label
                             class="ibf-h10 text-primary text-weight-medium q-py-xs"
-                            >{{ roles[0] }}</q-item-label
                           >
+                            {{ roles[0] }}
+                          </q-item-label>
                         </q-item-section>
                       </q-item>
 
@@ -195,6 +193,16 @@ const fields = computed(() => [
     labelColor: "teal",
   },
 ]);
+
+const userInitials = computed(() => {
+  if (!user.name) return "";
+
+  return user.name
+    .split(" ")
+    .map((n) => n.charAt(0))
+    .join("")
+    .toUpperCase();
+});
 
 const editUserWork = () => {
   router.push({ name: "edit-profile-page" });

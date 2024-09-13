@@ -1,6 +1,5 @@
 <template>
   <q-page padding class="ibf-container-1400">
-    
     <!-- tab dashboard -->
     <q-tabs
       v-model="tab"
@@ -24,9 +23,11 @@
             <div class="col-12 col-md-3">
               <q-card bordered square class="ibf-card-2">
                 <q-item class="bg-primary">
-                  <q-item-section avatar>
-                    <q-avatar>
-                      <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
+                  <q-item-section side>
+                    <q-avatar color="red-10" text-color="white" size="40px">
+                      <span class="ibf-h10 text-weight-medium text-grey-3">
+                        {{ userInitials }}
+                      </span>
                     </q-avatar>
                   </q-item-section>
                   <q-item-section>
@@ -55,7 +56,11 @@
                   <!-- roles -->
                   <q-item class="q-pa-none" dense>
                     <q-item-section side>
-                      <q-icon size="18px" color="grey-8" name="mdi-security" />
+                      <q-icon
+                        size="18px"
+                        color="grey-8"
+                        name="mdi-shield-account-outline"
+                      />
                     </q-item-section>
                     <q-item-section>
                       <span class="ibf-h11 text-primary text-weight-medium">
@@ -69,7 +74,7 @@
                       <q-icon
                         size="19px"
                         color="grey-8"
-                        name="mdi-account-multiple"
+                        name="mdi-account-supervisor-circle-outline"
                       />
                     </q-item-section>
                     <q-item-section>
@@ -110,7 +115,7 @@
                       <q-icon
                         size="19px"
                         color="grey-8"
-                        name="mdi-card-account-phone-outline"
+                        name="mdi-phone-in-talk-outline"
                       />
                     </q-item-section>
                     <q-item-section>
@@ -189,7 +194,7 @@
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
+import { ref, watch, computed } from "vue";
 import OrderDashboardPage from "./order/OrderDashboardPage.vue";
 import CapabilityModel from "./components/CapabilityModel.vue";
 import MyLearning from "./components/MyLearning.vue";
@@ -219,6 +224,16 @@ const logout = () => {
 
   router.replace({ name: "home-page" });
 };
+
+const userInitials = computed(() => {
+  if (!user.name) return "";
+
+  return user.name
+    .split(" ")
+    .map((n) => n.charAt(0))
+    .join("")
+    .toUpperCase();
+});
 </script>
 
 <!-- <style lang="scss" scoped>
