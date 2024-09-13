@@ -1,115 +1,118 @@
 <template>
-  <q-page id="edit-user-profile">
-    <q-page-container class="ibf-container-1100">
-      <q-card flat bordered>
-        <div class="ibf-h8 q-pa-md text-weight-bold text-grey-9">Edit Profile</div>
+  <q-page padding class="ibf-container-1200" id="edit-user-profile">
+    <div>
+      <q-card square class="ibf-card-1">
         <q-card-section>
-          
-            <!-- edit profile information-->
-            <div square bordered class="col-12  col-md-8">
-              <q-card>
-                <q-card-section>
-                  <div class="text-h4 q-pa-sm">
-                    <q-form
-                      @submit="onSubmit"
-                      @reset="onReset"
-                      class="q-gutter-md"
+          <!-- edit profile information-->
+          <div class="row justify-between">
+            <span class="ibf-h9 text-weight-bold text-grey-8 q-pa-sm">
+              Update Profile Information
+            </span>
+          </div>
 
-                    >
-                      <div class="ibf-h10 text-grey-7">
-                        Full Name
-                        <q-input
-                          filled
-                          class="ibf-h10"
-                          v-model="user.name"
-                          label="Enter your name"
-                          label-color="grey-6"
-                        />
-                      </div>
+          <q-separator spaced color="grey-3" />
 
-                      <div class="q-gutter-xs background q-pa-sm q-mt-lg">
-                        <q-radio
-                          class="ibf-h10 text-grey-8"
-                          v-model="user.gender"
-                          val="male"
-                          label="male"
-                          label-color="grey-6"
-                        />
-                        <q-radio
-                          class="ibf-h10 text-grey-8"
-                          v-model="user.gender"
-                          val="female"
-                          label="female"
-                          label-color="grey-6"
-                        />
-                      </div>
+          <div class="q-pa-lg">
+            <q-form @submit="onSubmit" @reset="onReset" class="q-gutter-y-md">
+              <div class="q-gutter-sm">
+                <div class="ibf-h11 text-grey-8 text-weight-medium">
+                  Full Name
+                </div>
+                <q-input
+                  outlined
+                  class="ibf-h11 text-weight-regular"
+                  v-model="user.name"
+                  label="Enter your name"
+                  label-color="grey-6"
+                />
+              </div>
 
-                      <div class="ibf-h10 text-grey-7">
-                        Date of Birth
-                        <q-input
-                          filled
-                          class="ibf-h10"
-                          v-model="user.dob"
-                          label="Enter your name"
-                          label-color="grey-6"
-                        />
-                      </div>
-                      <div class="ibf-h10 text-grey-7">
-                        Address
-                        <q-input
-                          filled
-                          class="ibf-h10"
-                          v-model="address"
-                          label="Enter your name"
-                          hint="Your address"
-                          label-color="grey-6"
-                        />
-                      </div>
-                      <div class="ibf-h10 text-grey-7">
-                        Phone Number
-                        <q-input
-                          filled
-                          class="ibf-h10"
-                          v-model="user.phone_number"
-                          label="Enter your name"
-                          label-color="grey-6"
-                        />
-                      </div>
+              <div class="q-gutter-x-md">
+                <q-radio
+                  class="ibf-h10 text-grey-8"
+                  v-model="user.gender"
+                  val="male"
+                  label="male"
+                />
+                <q-radio
+                  class="ibf-h10 text-grey-8"
+                  v-model="user.gender"
+                  val="female"
+                  label="female"
+                />
+              </div>
 
-                      <div class="ibf-h10 text-grey-7">
-                        Email (Personal)
-                        <q-input
-                          filled
-                          v-model="user.email"
-                          label="Your email"
-                          class="ibf-h10"
-                          label-color="grey-6"
-                        />
-                        <!-- <EditProfilePage v-model:email="email" /> -->
-                      </div>
+              <div class="q-gutter-sm">
+                <div class="ibf-h11 text-grey-8 text-weight-medium">
+                  Date of Birth
+                </div>
+                <q-input
+                  outlined
+                  class="ibf-h11 text-weight-regular"
+                  v-model="user.dob"
+                  label="Enter your name"
+                  label-color="grey-6"
+                />
+              </div>
 
-                      <!-- button submit or reset -->
-                      <div align="right">
-                        <q-btn label="Cancel" type="reset" color="grey" flat />
-                        <q-btn
-                          flat
-                          label="Save"
-                          @click="onSubmit()"
-                          type="submit"
-                          color="primary"
-                        />
-                      </div>
-                    </q-form>
-                  </div>
-                </q-card-section>
-              </q-card>
-            </div>
+              <div class="q-gutter-sm">
+                <div class="ibf-h11 text-grey-8 text-weight-medium">
+                  Address
+                </div>
+                <q-input
+                  outlined
+                  class="ibf-h11 text-weight-regular"
+                  v-model="address"
+                  label="Enter your name"
+                  label-color="grey-6"
+                />
+              </div>
 
+              <div class="q-gutter-sm">
+                <div class="ibf-h11 text-grey-8 text-weight-medium">
+                  Phone Number
+                </div>
+                <q-input
+                  outlined
+                  class="ibf-h11 text-weight-regular"
+                  v-model="user.phone_number"
+                  label="Enter your name"
+                  label-color="grey-6"
+                />
+              </div>
+
+              <div class="q-gutter-sm">
+                <div class="ibf-h11 text-grey-8 text-weight-medium">
+                  Email (Personal)
+                </div>
+                <q-input
+                  outlined
+                  class="ibf-h11 text-weight-regular"
+                  v-model="user.email"
+                  label="Enter your name"
+                  label-color="grey-7"
+                  disable
+                />
+              </div>
+
+              <!-- button submit or reset -->
+              <div align="right">
+                <q-btn label="Cancel" type="reset" color="grey" flat />
+                <q-btn
+                  flat
+                  label="Save"
+                  @click="onSubmit()"
+                  type="submit"
+                  color="primary"
+                />
+              </div>
+            </q-form>
+          </div>
         </q-card-section>
       </q-card>
+    </div>
 
-      <preview-json :list="user"></preview-json>
-    </q-page-container>
+    <preview-json :list="user"></preview-json>
   </q-page>
 </template>
 
@@ -120,7 +123,7 @@ import { useUserStore } from "src/stores/user-store";
 
 const fileName = ref("");
 const imagePreview = ref(null);
-const uploadUrl = "https://YOUR_S3_BUCKET_URL"; // Set your S3 upload URL
+const uploadUrl = "https://YOUR_S3_BUCKET_URL";
 const userStore = useUserStore();
 const user = userStore.getUser;
 const roles = userStore.getRoles;
@@ -177,11 +180,4 @@ const onReset = () => {
   user.value.dob = "";
   user.value.phone_number = "";
 };
-
-// const onSubmit = () => {
-//   console.log("Submited");
-// };
-// const onReset = () => {
-//   console.log("Canceled");
-// };
 </script>
