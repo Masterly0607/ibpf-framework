@@ -104,6 +104,80 @@ body {
   box-shadow: 0px 10px 40px -12px rgb(229, 229, 229);
 }
 
+// card5: Scale 
+.ibf-card-5 {
+  border-radius: 15px;
+  transition: transform 0.3s ease;
+  border: 1px solid rgba(120, 120, 120, 0.3);
+  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+}
+.ibf-card-5:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+}
+// card6: black shadow
+.ibf-card-6 {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: 0.3s ease;
+  border: 1px solid rgba(150, 150, 150, 0.2);
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+.ibf-card-6:hover {
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.2);
+}
+
+// card7: red border
+.ibf-card-7 {
+  border-radius: 20px;
+  transition: box-shadow 0.3s ease;
+  border: 2px solid rgba(200, 50, 50, 0.5); /* Red accent */
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+.ibf-card-7:hover {
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+  border-color: rgba(200, 50, 50, 0.8);
+}
+
+//card8:  Rotate Slightly
+.ibf-card-8 {
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+  border: 1px solid rgba(180, 180, 180, 0.2);
+  box-shadow: none;
+}
+.ibf-card-8:hover {
+  transform: rotate(3deg);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+// card9: red shadow
+.ibf-card-9 {
+  border-radius: 12px;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease-in-out;
+  border: 1px solid rgba(100, 100, 100, 0.2);
+  box-shadow: none;
+}
+.ibf-card-9:hover {
+  box-shadow: 0px 4px 20px 0px #8c1925 ; /* Blue glow */
+}
+
+// card10: Zoom in and out
+.ibf-card-10 {
+  border-radius: 8px;
+  transition: transform 0.2s ease-in-out;
+  border: 1px solid rgba(200, 200, 200, 0.3);
+}
+.ibf-card-10:hover {
+  transform: scale(1.02);
+}
+.ibf-card-10:active {
+  transform: scale(0.98);
+}
+
+
 // text shadow
 
 .ibf-text-shadow-1 {

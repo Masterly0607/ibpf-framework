@@ -5,7 +5,8 @@
       v-for="(itemEvent, index) in eventData"
       :key="index"
     >
-      <q-card class="column ibf-card-3" square style="height: 500px">
+      <q-card class="column ibf-card-10" square style="height: 500px">
+        
         <q-img fit="cover" :src="itemEvent.URL" width="100%" height="230px" />
         <!-- <img :src="itemEvent.URL" ratio="1" /> -->
         <q-card-section>
