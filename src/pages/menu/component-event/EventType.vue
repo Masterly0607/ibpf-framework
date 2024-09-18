@@ -1,6 +1,17 @@
 <template>
-  <div class="q-py-md">
-    <div class="row q-col-gutter-lg">
+  <section>
+    <div class="justify-between">
+      <q-heading-4>
+        <template #icon>
+          <q-icon color="primary" name="mdi-calendar-multiple" />
+        </template>
+        <template #title> Event Type </template>
+      </q-heading-4>
+    </div>
+
+    <q-separator />
+
+    <div class="row q-col-gutter-lg q-py-lg">
       <div
         v-for="(eventType, index) in eventTypeData"
         :key="index"
@@ -46,7 +57,7 @@
         </q-card>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup>

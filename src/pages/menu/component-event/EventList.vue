@@ -1,20 +1,31 @@
 <template>
-  <div>
-   
+  <div class="q-py-lg">
     <!-- tab Event -->
-    <q-tabs v-model="tab" class="text-primary" align="left">
-      <q-tab label="All" name="TabOne" no-caps />
-      <q-tab label="New Events" name="TabTwo" no-caps />
+    <q-tabs v-model="tab" color="" align="left">
+      <!-- <q-tab label="All Event" name="TabOne" no-caps /> -->
+      <!-- <q-tab label="New Events" name="TabTwo" no-caps /> -->
       <!-- <q-tab label="Upcomming" name="TabThree" no-caps /> -->
+
+      <div class="justify-between">
+        <q-heading-4>
+          <template #icon>
+            <q-icon color="primary" name="mdi-calendar-text" />
+          </template>
+          <template #title> All Events </template>
+        </q-heading-4>
+      </div>
     </q-tabs>
+
     <q-separator />
 
     <q-tab-panels animated v-model="tab" class="card-background-1">
       <!-- tab one -->
-      <q-tab-panel name="TabOne" class="q-pa-none q-py-lg">
-        <div class="q-gutter-y-lg">
+      <q-tab-panel name="TabOne" class="q-pa-none">
+        <div class="q-gutter-y-lg q-py-lg">
           <q-card
-            class="ibf-card-3"
+            square
+            bordered
+            class="ibf-card-4"
             v-for="(itemEvent, index) in eventData"
             :key="index"
           >
@@ -29,7 +40,9 @@
                   />
                 </div>
                 <div class="col-12 col-md-9">
-                  <div class="ibf-h8 text-weight-medium ibf-ellipsis">
+                  <div
+                    class="ibf-h9 text-weight-medium text-grey-8 ibf-ellipsis"
+                  >
                     {{ itemEvent.title }}
                   </div>
 
@@ -121,7 +134,7 @@
 
       <!-- tab three -->
       <!-- <q-tab-panel name="TabThree">
-          <div class="row">Welcome to tab two</div>
+          <div class="row">Welcome to tab three</div>
       </q-tab-panel> -->
     </q-tab-panels>
   </div>

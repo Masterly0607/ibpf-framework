@@ -17,16 +17,16 @@
       :key="orderItemIndex"
     >
       <q-card-section>
-        <q-item class="q-pa-none q-px-sm">
+        <q-item class="q-pa-none q-px-md">
           <!-- order id -->
           <q-item-section side top>
             <div class="column q-gutter-y-md">
               <q-icon
-                size="30px"
+                size="31px"
                 color="primary"
                 name="mdi-invoice-list-outline"
               />
-              <div class="ibf-h11 text-black text-weight-medium">
+              <div class="ibf-h10 text-black text-weight-medium">
                 #{{ orderItem.id }}
               </div>
             </div>
@@ -34,7 +34,7 @@
 
           <!-- product_title , price , & status -->
           <q-item-section>
-            <q-item-label class="text-right q-py-sm">
+            <q-item-label class="q-py-sm">
               <div class="ibf-h12 text-grey-6">
                 {{ orderItem.total_item }} Item(s)
               </div>
@@ -46,7 +46,7 @@
                 :key="itemIndex"
                 class="q-my-md col-6"
               >
-                <div class="ibf-h12 text-grey-10 ellipsis-2-lines text-italic">
+                <div class="ibf-h11 text-grey-10 ellipsis-2-lines text-italic">
                   {{ item.course.title }}
                 </div>
               </div>
