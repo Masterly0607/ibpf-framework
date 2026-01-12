@@ -1,41 +1,44 @@
-# IBPF Framework (ibpf-framework)
+# IBPF Frontend Framework
 
-IBPF
+A frontend web framework project developed during an internship at the Institute of Banking and Finance (IBF). This project focuses on building reusable UI components and layouts for internal web applications.
 
-## Install the dependencies
+## 🚀 Features
+- Reusable UI components
+- Responsive layouts
+- Structured frontend architecture
+- Internship-based learning project
+
+## 🛠 Tech Stack
+- Vue.js
+- Quasar Framework
+- JavaScript
+- HTML & CSS
+
+## 📁 Project Structure
+```
+ibpf-framework/
+├── src/
+├── public/
+├── index.html
+├── package.json
+├── README.md
+```
+
+## ▶️ Getting Started
+
+### Install dependencies
 ```bash
-yarn
-# or
 npm install
 ```
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
+### Run the project
 ```bash
-quasar dev
+npm run dev
 ```
 
+## 📌 Status
+Completed (academic / internship project).
 
-### Lint the files
-```bash
-yarn lint
-# or
-npm run lint
-```
-
-
-### Format the files
-```bash
-yarn format
-# or
-npm run format
-```
-
-
-
-### Build the app for production
-```bash
-quasar build
-```
-
-### Customize the configuration
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
+## 👤 Author
+**Sok Masterly**  
+Frontend / Full-Stack Developer
